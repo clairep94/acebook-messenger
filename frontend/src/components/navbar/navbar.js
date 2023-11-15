@@ -4,6 +4,10 @@ import {validateToken} from '../countdown/countdown';
 
 const Navbar = () => {
   const [token, setToken] = useState(window.localStorage.getItem("token"));
+
+  const handleTokenValidation = () => {
+    validateToken(token, setToken);
+  };
   
   const logout = () => {
     window.localStorage.removeItem("token")
