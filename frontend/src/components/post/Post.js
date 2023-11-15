@@ -13,6 +13,8 @@ const Post = ({post}) => {
     }}
 
   const likes_formatted = formatLikes(post.likes)
+  console.log(post.message)
+  console.log(post.likes)
 
   return(
     <article className='post-container' data-cy="post" key={ post._id }>
@@ -22,6 +24,8 @@ const Post = ({post}) => {
       <p className='date-posted'>{ post.date_posted }</p>
       <p className='message'>{ post.message }</p>
       <p className='likes'>{ likes_formatted }</p>
+      {/* <p className='test-likes-users'>{ post.liked_by.email }</p> */}
+      
     </article>
   )
 }
