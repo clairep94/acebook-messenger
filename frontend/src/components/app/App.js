@@ -10,6 +10,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import {Countdown} from '../countdown/countdown';
 
 const App = () => {
 
@@ -21,6 +22,7 @@ const App = () => {
           <Route path='/signup' element={<SignUpForm navigate={ useNavigate() }/>}/>
           <Route path='/navigate' element={<Navbar navigate={ useNavigate() }/>}/>
           <Route path='/new_post' element={<NewPostForm navigate={ useNavigate() }/>}/>
+          <Route path='/countdown' element={<Countdown navigate={ useNavigate() }/>}/>
         </Routes>
     );
 }

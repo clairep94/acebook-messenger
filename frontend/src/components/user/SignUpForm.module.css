@@ -1,4 +1,3 @@
-
 /* Style the body */
 .Middle {
   font-family: Arial;
@@ -31,3 +30,20 @@
 .Button:hover {
   background-color: #5B7EC2;
 }
+
+/* Links */
+.link:link {
+  color: #5B7EC2;
+  text-decoration: none;
+}
+.link:visited {
+  color: #5B7EC2;
+  text-decoration: none;
+}
+.link:hover {
+  color: #4267B2;
+  font-weight: bold;
+}
+link:active {
+  color: blue;
+} 
