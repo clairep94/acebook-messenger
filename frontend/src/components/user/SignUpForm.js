@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styles from './SignUpForm.module.css';
 
-
 // Signup Page
 const SignUpForm = ({ navigate }) => {
 
@@ -24,7 +23,7 @@ const SignUpForm = ({ navigate }) => {
         
         
         if(response.status === 201) {
-          navigate('/login') // If successful, navigate to login page
+          navigate('/timeline') // If successful, navigate to login page
           
         } else {
           const errorData = await response.json();
