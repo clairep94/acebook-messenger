@@ -1,68 +1,30 @@
-const LoggedIn = ({navigate}) => {
-    
-    // =========== STATE VARIABLES ==========================
-    const [message, setMessage] = useState("");
-    const [token, setToken] = useState(window.localStorage.getItem("token"));
+import { jwtDecode } from 'jwt-decode'; // Import the specific function you need
 
+// Function to check if a token exists and if it's expired
+const isTokenValid = () => {
+  const token = localStorage.getItem('token'); // Retrieve the token from local storage or wherever it's stored
 
+  if (!token) {
+    // If there's no token present, return false
+    return false;
+  }
 
-    // ============ FORM SUBMISSION FOR NEW POST ==================
-    const handleSubmit = async (event) => {
+  try {
+    const decodedToken = jwtDecode(token); // Decoding the token using jwt-decode
+    const currentTime = Date.now() / 1000; // Get current time in seconds
 
-        if(token){ // if user is logged in
-
-            event.preventDefault(); 
-            console.log(token);
-            // Send POST request to '/posts' endpoint
-            fetch( '/posts', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}` // necessary for requests that need login auth
-                },
-                body: JSON.stringify({ 
-                    message: message
-                 }) // <===== BODY OF REQUEST: message
-                })
-                .then(response => {
-                    if(response.status === 201) {
-                    console.log('successful') 
-                    navigate('/posts') // If successful, navigate to posts page
-                    return response.json()
-                    } else {
-                    console.log('not successful')
-                    navigate('/signup') // If unsuccessful, stay on the signup page
-                    }
-                })
-                .then(async data => {
-                    // Updates to a new token when the GET request is complete
-                    window.localStorage.setItem("token", data.token)
-                    setToken(window.localStorage.getItem("token"))
-                    console.log(token)
-                })
-            }
-        }
-
-    // ------------ SUPPORTIVE FUNCTIONS: ----------------
-    // FUNCTIONS FOR CHANGING STATE VARIABLES 
-    const handleMessageChange = (event) => {
-        setMessage(event.target.value)
+    // Check if the token's expiration time is greater than the current time
+    if (decodedToken.exp && decodedToken.exp > currentTime) {
+      // Token exists and is not expired
+      return true;
+    } else {
+      // Token exists but is expired
+      return false;
     }
+  } catch (error) {
+    // If there's an error decoding the token (invalid token format, etc.), consider it as invalid
+    return false;
+  }
+};
 
-
-    // ========= JSX FOR THE UI OF THE COMPONENT =====================
-    // one input field and a submit button
-
-    return (
-        <form onSubmit={handleSubmit} className={styles.Middle}>
-
-          <textarea id="message" value={message} onChange={handleMessageChange} className={styles.textarea} placeholder="Share your Thoughts on acebook..."/>
-          <br/>
-          <input id="submit" type="submit" value="Submit" className={styles.Button}/>
-      </form>
-         
-    )
-
-}
-
-export default Logged;
+export default isTokenValid;

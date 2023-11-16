@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../components/navbar/navbar';
 import SignUpForm from '../components/user/SignUpForm';
-const Welcome = () => {
+const Welcome = ({navigate}) => {
 
 
   // Fetch user-specific data based on userId and render content accordingly
@@ -11,7 +11,7 @@ const Welcome = () => {
     <div>
     <Navbar/>
       <h1>Welcome to Acebook</h1>
-      <SignUpForm/>
+      <SignUpForm navigate={navigate}/>
       {/* Render user-specific content */}
       {/* You can fetch user data and display it here */}
     </div>

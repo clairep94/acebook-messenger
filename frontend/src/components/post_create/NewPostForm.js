@@ -32,7 +32,7 @@ const NewPostForm = ({navigate}) => {
                 .then(response => {
                     if(response.status === 201) {
                     console.log('successful') 
-                    navigate('/posts') // If successful, navigate to posts page
+                    window.location.reload()// If successful, refresh current page as this should be the timeline and not the component
                     return response.json()
                     } else {
                     console.log('not successful')

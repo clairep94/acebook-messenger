@@ -7,9 +7,10 @@ import Feed from '../feed/Feed';
 import Navbar  from '../navbar/navbar';
 import { useNavigate, Routes, Route, } from "react-router-dom";
 import {Countdown} from '../countdown/countdown';
-import Index from '../../pages/index';
+import Index from '../../pages/timeline';
 import UserProfile from '../../pages/profilepage'
 import Welcome from '../../pages/welcome'
+import TestingPlace from '../WORKSHOP/testingplace';
 
 const App = () => {
 
@@ -24,7 +25,8 @@ const App = () => {
           <Route path='/navigate' element={<Navbar navigate={ useNavigate() }/>}/>
           <Route path='/new_post' element={<NewPostForm navigate={ useNavigate() }/>}/>
           <Route path='/countdown' element={<Countdown navigate={ useNavigate() }/>}/>
-          <Route path='/index' element={<Index navigate={ useNavigate() }/>}/>
+          <Route path='/timeline' element={<Index navigate={ useNavigate() }/>}/>
+          <Route path='/workshop' element={<TestingPlace />}/>
           
         </Routes>
     );
