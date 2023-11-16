@@ -17,7 +17,7 @@ const Navbar = () => {
     if(token) {
       return(
         <div class="topnav">
-        <a href='/'>Home</a>
+        <a href='/index'>Home</a>
         <a href='/posts'>Feed</a>
         <a href='/new_post'>Create a Post</a>
         <a href='/countdown'> Token Timer</a>

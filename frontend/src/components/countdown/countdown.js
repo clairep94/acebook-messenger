@@ -82,7 +82,10 @@ const Countdown = () => {
   if (token) {
     return (
       <div>
-        You Have a Token that expires in {seconds} seconds<br />
+        You Have a Token that expires in {seconds} seconds<br/><br/>
+        The token splice that contains your user ID is: <br/>{token.split('.')[1]}<br/><br/>
+        the full thing is: <br/>{token}<br/><br/>
+        You are logged in as: <br/>
         <button onClick={handleTokenValidation}>Refresh Token</button>
       </div>
     );
