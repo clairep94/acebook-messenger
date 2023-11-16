@@ -4,7 +4,9 @@ import SignUpForm from '../user/SignUpForm'
 import NewPostForm from '../post_create/NewPostForm';
 import React, { useState } from 'react';
 import Feed from '../feed/Feed';
-import Navbar  from '../navbar/navbar';
+import Navbar from '../navbar/navbar';
+import UploadImage from '../upload_image/UploadImage';
+
 import {
   useNavigate,
   Routes,
@@ -15,14 +17,15 @@ const App = () => {
 
   // Routes for each page of the website
   return (
-        <Routes>
-          <Route path='/posts'  element={<Feed navigate={ useNavigate() }/>}/>
-          <Route path='/login'  element={<LoginForm  navigate={ useNavigate() }/>}/>
-          <Route path='/signup' element={<SignUpForm navigate={ useNavigate() }/>}/>
-          <Route path='/navigate' element={<Navbar navigate={ useNavigate() }/>}/>
-          <Route path='/new_post' element={<NewPostForm navigate={ useNavigate() }/>}/>
-        </Routes>
-    );
+    <Routes>
+      <Route path='/posts' element={<Feed navigate={useNavigate()} />} />
+      <Route path='/login' element={<LoginForm navigate={useNavigate()} />} />
+      <Route path='/signup' element={<SignUpForm navigate={useNavigate()} />} />
+      <Route path='/navigate' element={<Navbar navigate={useNavigate()} />} />
+      <Route path='/new_post' element={<NewPostForm navigate={useNavigate()} />} />
+      <Route path='/upload_image' element={<UploadImage navigate={useNavigate()} />} />
+    </Routes>
+  );
 }
 
 export default App;
