@@ -33,10 +33,10 @@ describe("User model", () => {
       done();
     });
   });
-
+  
   it("can save a user", (done) => {
     const user = new User({
-      email: "someone@example.com",
+      email: "testsomeone@example.com",
       password: "password",
     });
 
@@ -50,8 +50,24 @@ describe("User model", () => {
           email: "someone@example.com",
           password: "password",
         });
+
+
+
         done();
       });
     });
+    it("updates a bio", (done) =>{
+      const testUser = new User({
+        email: "test email",
+        password: 123
+      })
+      // i added on test
+      testUser.updateOne(
+        { _id: testUser.userId },
+        { $set: { bio: "do a test" } }
+      );
+      expect(testUser.bio).toEqual('do a test')
+      done();
+    })
   });
 });

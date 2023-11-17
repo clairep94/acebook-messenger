@@ -1,0 +1,56 @@
+
+ /* this is all a big mess chatGPT did most of it and it dont 
+ look great feel free to change */
+
+#bio {
+    border: 6px solid hsl(208, 93%, 57%);
+    
+    background-color: #ecf0f1;
+    color: #333;
+    outline: none;
+    width: calc(100% - 20px);
+    max-width: 1000px;
+    height: 120px;
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    transition: border-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    resize: none; /* Disable resizing */
+}
+
+#bio:hover {
+    border-color: #202aec; 
+}
+/* Style for the label */
+label {
+  display: inline-block;
+  background-color: #3498db; /* Button background color */
+  color: #fff; /* Button text color */
+  padding: 10px 20px; /* Adjust padding for spacing */
+  border-radius: 5px; /* Add rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Add a smooth transition effect */
+}
+
+/* Hover effect for the label */
+label:hover {
+  background-color: #2980b9; /* Darker background color on hover */
+}
+
+/* Hide the default input styles */
+label input {
+  display: none;
+}
+/* Hidden styles for the dropdown */
+.hidden-dropdown {
+    display: none;
+  }
+  
+  /* Visible styles for the dropdown */
+.visible-dropdown {
+ display: block;
+}
+  
