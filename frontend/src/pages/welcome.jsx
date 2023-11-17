@@ -1,6 +1,5 @@
 import React from 'react';
 import Navbar from '../components/navbar/navbar';
-import SignUpForm from '../components/user/SignUpForm';
 import LogInForm from '../components/auth/LoginForm';
 const Welcome = ({navigate}) => {
 
