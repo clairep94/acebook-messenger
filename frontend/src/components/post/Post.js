@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Post.css';
 
 const Post = ({post}) => {
+  // =========== STATE VARIABLES ==========================
+  const [token, setToken] = useState(window.localStorage.getItem("token"));
+
+    // ============ LIKE BUTTON ==================
+    const handleLikeSubmit = async (event) => {
+
+      if(token){
+        console.log(`FE: like button works on post: ${post._id}`)
+        // FINISH THE REST LATER AFTER TESTING BACKEND
+      }
+
+    }
+
 
   // formats likes arr into '2 likes'...
   const formatLikes = (arr) => {
@@ -47,6 +60,7 @@ const Post = ({post}) => {
       {/* change this to be a link to see a list of all users who liked this */}
       <p className='test-likes-users'>{ likes_formatted_with_user_preview }</p>
       
+      <button onClick={ handleLikeSubmit }>Like</button>
     </article>
   )
 }
