@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../components/navbar/navbar';
 import SignUpForm from '../components/user/SignUpForm';
+import LogInForm from '../components/auth/LoginForm';
 const Welcome = ({navigate}) => {
 
 
@@ -11,7 +12,8 @@ const Welcome = ({navigate}) => {
     <div>
     <Navbar/>
       <h1>Welcome to Acebook</h1>
-      <SignUpForm navigate={navigate}/>
+      <p>Please Sign in</p> 
+      <LogInForm navigate={navigate}/>
       {/* Render user-specific content */}
       {/* You can fetch user data and display it here */}
     </div>

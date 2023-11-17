@@ -8,35 +8,6 @@ const parseJwt = (token) => {
   }
 };
 
-const validateToken = async (currentToken, setToken) => {
-  try {
-    // Checking if token exists (aka user is logged in)
-    if (currentToken) {
-      // Sends GET request to validate the token by fetching posts
-      const response = await fetch("/posts", {
-        headers: {
-          'Authorization': `Bearer ${currentToken}`
-        }
-      });
-
-      if (response.ok) {
-        // Token is still valid, update the token in local storage
-        const data = await response.json();
-        window.localStorage.setItem("token", data.token);
-        setToken(window.localStorage.getItem("token"));
-      } else {
-        // Token is invalid or expired, handle accordingly
-        throw new Error('Invalid or expired token');
-      }
-    }
-  } catch (error) {
-    // Handle token validation failure (e.g., logout the user)
-    console.error('Token validation error:', error);
-    window.localStorage.removeItem('token');
-    setToken(null); // Update token state to null or ''
-  }
-};
-
 const Countdown = () => {
   const [token, setToken] = useState(window.localStorage.getItem('token'));
   const [seconds, setSeconds] = useState(0);
@@ -74,17 +45,44 @@ const Countdown = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  // Wrapper function to call validateToken with necessary arguments
-  const handleTokenValidation = () => {
-    validateToken(token, setToken);
+  const handleTokenValidation = async () => {
+    try {
+      // Checking if token exists (aka user is logged in)
+      if (token) {
+        // Sends GET request to validate the token by fetching posts
+        const response = await fetch("/posts", {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.ok) {
+          // Token is still valid, update the token in local storage
+          const data = await response.json();
+          window.localStorage.setItem("token", data.token);
+          setToken(window.localStorage.getItem("token"));
+        } else {
+          // Token is invalid or expired, handle accordingly
+          throw new Error('Invalid or expired token');
+        }
+      }
+    } catch (error) {
+      // Handle token validation failure (e.g., logout the user)
+      console.error('Token validation error:', error);
+      window.localStorage.removeItem('token');
+      setToken(null); // Update token state to null or ''
+    }
   };
 
   if (token) {
+    const decodedToken = parseJwt(token);
+    const userId = decodedToken ? decodedToken.user_id : null;
+
     return (
       <div>
         You Have a Token that expires in {seconds} seconds<br/><br/>
-        The token splice that contains your user ID is: <br/>{token.split('.')[1]}<br/><br/>
-        the full thing is: <br/>{token}<br/><br/>
+        Your Token is: <br/>{token}<br/><br/>
+        Your user ID is: <br/>{userId}<br/><br/>
         You are logged in as: <br/>
         <button onClick={handleTokenValidation}>Refresh Token</button>
       </div>
@@ -101,4 +99,5 @@ const Countdown = () => {
   }
 };
 
-export { Countdown, validateToken };
+export default Countdown;
+

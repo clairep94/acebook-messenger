@@ -25,7 +25,7 @@ const Navbar = () => {
         <div class="topnav">
         <a href='/timeline'>HomePage</a>
         {/* To Be Removed in time - This Section exists only for testing navigation  */}
-        <a href='/posts'>Feed</a>
+        <a href='/timeline'>Feed</a>
         <a href='/new_post'>Create a Post</a>
         <a href='/countdown'> Token Timer</a>
         {/* To Be Removed -  ^^^^ */}
