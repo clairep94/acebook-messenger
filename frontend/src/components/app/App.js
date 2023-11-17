@@ -9,7 +9,7 @@ import Feed from '../feed/Feed';
 import { useNavigate, Routes, Route, } from "react-router-dom";
 import Countdown from '../countdown/countdown';
 import Index from '../../pages/timeline';
-import UserProfile from '../../pages/profilepage'
+import UserProfile from '../../pages/otherProfilepage'
 import Welcome from '../../pages/welcome'
 
 const App = () => {
