@@ -1,7 +1,9 @@
 import './App.css';
 import LoginForm from '../auth/LoginForm'
+import ProfilePage from '../ProfilePage/ProfilePage';
 import SignUpForm from '../user/SignUpForm'
 import NewPostForm from '../post_create/NewPostForm';
+import UpdatePage from '../ProfilePage/updatePage';
 import React, { useState } from 'react';
 import Feed from '../feed/Feed';
 import { useNavigate, Routes, Route, } from "react-router-dom";
@@ -23,6 +25,9 @@ const App = () => {
           <Route path='/new_post' element={<NewPostForm navigate={ useNavigate() }/>}/>
           <Route path='/countdown' element={<Countdown navigate={ useNavigate() }/>}/>
           <Route path='/timeline' element={<Index navigate={ useNavigate() }/>}/>
+          <Route path='/profile' element={<ProfilePage navigate={ useNavigate() }/>}/>
+          <Route path='/updateprofile' element={<UpdatePage navigate={ useNavigate() }/>}/>
+
           
         </Routes>
     );

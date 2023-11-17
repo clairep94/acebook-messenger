@@ -8,6 +8,11 @@ const PostSchema = new mongoose.Schema({
   },
   date_posted: {
     type: Date
+  },
+  likes: {
+    type: [mongoose.Schema.Types.ObjectId],
+    default: [],
+    ref: 'User'
   }
 });
 
