@@ -36,7 +36,6 @@ const Feed = ({ navigate }) => {
     }
   }, [])
   
-
   // =========== FUNCTION TO HANDLE USER LOGOUT: =========================
   // TODO: Refactor into LogOut component to reuse on all login-required pages.
   const logout = () => {
@@ -44,9 +43,6 @@ const Feed = ({ navigate }) => {
     navigate('/login')
   }
 
-  
-  
-  
   // ========================= JSX FOR THE UI OF THE COMPONENT =================================
     // currently shows 'Posts' header, a logout button and a feed of posts
     // see ../post/Post for formatting
