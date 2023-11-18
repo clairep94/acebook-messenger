@@ -39,6 +39,30 @@ const PostsController = {
       res.status(201).json({ message: 'OK', token: token });
     });
   },
+  Like: (req, res) => {
+    // get the user_id & post_id:
+    console.log("controllers/posts.js 44:")
+    const sessionUser = req.user_id;
+    const postID = req.params.id;
+    console.log(`Getting UserID: ${sessionUser}`)
+    console.log(`Getting PostID: ${postID}`)
+
+    Post.findOneAndUpdate(
+      {_id: postID },
+      {$push: {likes: sessionUser}},
+      { new: true },
+      (err, updatedPost) => {
+        if (err) {
+          console.log('Unsuccessful Like in Post Controllers')
+          throw err;
+        } else {
+          console.log('Successful Like in Post Controllers')
+          const token = TokenGenerator.jsonwebtoken(req.user_id)
+          res.status(201).json({ message: 'Successful Like in Post Controllers', token: token, updatedPost });    
+        }
+      }
+    )
+  }
 };
 
 module.exports = PostsController;

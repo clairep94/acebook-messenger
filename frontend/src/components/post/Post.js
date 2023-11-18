@@ -4,18 +4,43 @@ import './Post.css';
 const Post = ({post}) => {
   // =========== STATE VARIABLES ==========================
   const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const [userLiked, setUserLiked] = useState(false);
 
-    // ============ LIKE BUTTON ==================
+  // ============ CHECK IF USER HAS ALREADY LIKED =============
+  // if (post.likes.includes(currentUser.id)) {
+
+  // }
+
+
+  // ============ LIKE BUTTON ==================
     const handleLikeSubmit = async (event) => {
 
       if(token){
-        console.log(`FE: like button works on post: ${post._id}`)
-        // FINISH THE REST LATER AFTER TESTING BACKEND
+        console.log(`FE: like button works on post #: ${post._id}`)
+        event.preventDefault();
+
+        fetch(`/posts/${post._id}`, {
+          method: 'put',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            // post_id: post._id
+          })
+        })
+        // .then(async response => {
+        //   let data = await response.json();
+        //   console.log("token", data)
+        //   window.localStorage.setItem("token", data.token);
+        // })
+
+
       }
 
     }
 
-
+  // ============= DISPLAYING LIKES ==================
   // formats likes arr into '2 likes'...
   const formatLikes = (arr) => {
     const numLikes = arr.length;
