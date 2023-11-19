@@ -10,21 +10,14 @@ const Post = ({post}) => {
   // checks if sessionUserID is in user._id for user in post.likes --> array of Users, not user_id's due to populate in controllers/posts line 7-8
   const [userLiked, setUserLiked] = useState(post.likes.some(user => user._id === sessionUserID));
 
-  // Watch for changes in post.likes and update userLiked accordingly
-  // This changes the button in-time but doesn't re-render the whole component
-  useEffect(() => {
-    setUserLiked(post.likes.some(user => user._id === sessionUserID));
-  }, [post.likes, sessionUserID]);
-
 
 // ============ LIKE BUTTON =============================
   const handleLikeSubmit = async (event) => {
 
     if(token){
-      console.log(`Testing token change on handleLikeSubmit: Starting token: ${token}`)
-      console.log(`FE: like button works on post #: ${post._id}`)
       event.preventDefault();
 
+      // Step 1: Put request for the session user to Like/Unlike the post
       fetch(`/posts/${post._id}`, {
         method: 'put',
         headers: {
@@ -32,30 +25,33 @@ const Post = ({post}) => {
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({})
-      })
+      }) // complete Put request & update token
       .then(async response => {
-        let data = await response.json();
-        console.log("token", data)
-        window.localStorage.setItem("token", data.token);
+        let putData = await response.json();
+        console.log("token", putData)
+        window.localStorage.setItem("token", putData.token);
         setToken(window.localStorage.getItem("token"));
-        console.log(`Testing token change on handleLikeSubmit: Ending token: ${token}`)
-
-
-        // Update the likes and userLiked state
-        console.log(`printchecking data: ${data.updatedPost.likes}`)
         
-
-
-        setUserLiked(data.updatedPost.likes.includes(sessionUserID));
-
-        // post.likes = data.updatedPost.likes;
-        // setUserLiked(post.likes.some(user => user._id === sessionUserID));
-
-
-
-
-
-      })
+        // Step 2: Perform the GET request to fetch the updated post
+        return fetch(`/posts/${post._id}`, {
+          method: 'get',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+      }) // Update post.likes to the data from the new GET request
+        .then(getResponse => {
+          if (!getResponse.ok) {
+            throw new Error(`Failed to fetch updated post with ID ${post._id}`);
+          }
+          return getResponse.json();
+        })
+        .then(getData => {
+          // Update the likes and userLiked state using the updated post data
+          post.likes = getData.post.likes;
+          setUserLiked(post.likes.some(user => user._id === sessionUserID));
+        })
     }
   }
 
