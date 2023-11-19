@@ -1,0 +1,43 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+
+
+
+.wrap {
+    width: 100%;
+    }
+    
+    .floatleft {
+        float:left; 
+        width: 40%;
+        height: 400px;
+        padding: 20px; /* Add padding to create space around the elements */
+        box-sizing: border-box; 
+        
+    }
+    
+    .floatright {
+    float: right;
+    vertical-align: center;
+    height: 400px;
+    width: 60%;
+    }
+    
+    .title{
+        font-family: 'Staatliches', sans-serif;
+        color:#4267B2;
+        font-size: 50px;
+    }
+
+    .spacer {
+        height: var(--spacer-height, 20px);
+      }
+
+      .subtitles {
+        font-family: 'Staatliches', sans-serif;
+        color: #4267B2;
+        font-size: 20px;
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+      }
