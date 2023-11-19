@@ -4,7 +4,7 @@ import getSessionUserID from '../utility/getSessionUserID';
 
 const Post = ({post}) => {
   
-  // =========== STATE VARIABLES ==========================
+// =========== STATE VARIABLES ==========================
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   let sessionUserID = getSessionUserID(token);
   // const [userLiked, setUserLiked] = useState(false);
@@ -27,7 +27,7 @@ const Post = ({post}) => {
   //   }
   // }, [userLiked])
 
-  // ============ LIKE BUTTON =============================
+// ============ LIKE BUTTON =============================
     const handleLikeSubmit = async (event) => {
 
       if(token){
@@ -57,7 +57,7 @@ const Post = ({post}) => {
 
     }
 
-  // ============= DISPLAYING LIKES ==================
+// ============= DISPLAYING LIKES ==================
 
   // --------- "X like(s)" ---------------
   const formatNumLikes = (arr) => {
@@ -92,7 +92,27 @@ const Post = ({post}) => {
   const likes_formatted_with_user_preview = formatLikesUsersPreview(post.likes)
 
 
-  
+// ======== FORMATTING TIME ==============
+  const dateObj = new Date(post.date_posted)
+ 
+  // ------------ '19 Nov 2023, 5:45PM' -------------
+  const options = {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  };
+
+  const fullDateTimeString = dateObj.toLocaleString('en-GB', options);
+
+  // ------------ 'X m ago / X h ago / 1 d ago / fullDateTime --------------
+
+  // const convertRelativeDateTimeString = (dateObj) => {
+
+
+  // }
 
 
 // ========= JSX FOR THE UI OF THE COMPONENT =====================
@@ -102,7 +122,7 @@ const Post = ({post}) => {
       <a href={`/user/${post.user_id._id}`}>
       <h3 className='user-display-name'>{ post.user_id.email }</h3> </a>
       {/* change below to display date nicer later */}
-      <p className='date-posted'>{ post.date_posted }</p>
+      <p className='date-posted'>{ fullDateTimeString }</p>
       <p className='message'>{ post.message }</p>
 
       {/* choose one format later */}
