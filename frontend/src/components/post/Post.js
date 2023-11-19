@@ -6,25 +6,28 @@ const Post = ({post}) => {
   
   // =========== STATE VARIABLES ==========================
   const [token, setToken] = useState(window.localStorage.getItem("token"));
-  let sessionUser = getSessionUserID(token);
-  const [userLiked, setUserLiked] = useState(false);
+  let sessionUserID = getSessionUserID(token);
+  // const [userLiked, setUserLiked] = useState(false);
 
-  // WHEN COMPONENT MOUNTS:
-  useEffect(() => {
-    if(token) {
-      sessionUser = getSessionUserID(token);
+  // checks if sessionUserID is in user._id for user in post.likes --> array of Users, not user_id's due to populate in controllers/posts line 7-8
+  const [userLiked, setUserLiked] = useState(post.likes.some(user => user._id === sessionUserID));
 
-      console.log(post.user_id) // already has the entire user document
-      console.log(post.likes) // already an array of user objects
+  // WHEN COMPONENT MOUNTS: -- NOT SURE IF WE NEED THIS SO COMMENTING OUT
+  // useEffect(() => {
+  //   if(token) {
+  //     sessionUserID = getsessionUserIDID(token);
 
-      // checks if sessionUser is equal to user._id for user in likes
-      // post.likes and post.user_id already store entire user docs, instead of just user_id due to populate in controllers/posts line 7-8
-      setUserLiked(post.likes.some(user => user._id === sessionUser)); 
-      console.log(`User liked post ${post._id}? ${userLiked}`)
-    }
-  }, [userLiked])
+  //     console.log(post.user_id) // already has the entire user document
+  //     console.log(post.likes) // already an array of user objects
 
-  // ============ LIKE BUTTON ==================
+  //     // checks if sessionUserID is equal to user._id for user in likes
+  //     // post.likes and post.user_id already store entire user docs, instead of just user_id due to populate in controllers/posts line 7-8
+  //     setUserLiked(post.likes.some(user => user._id === sessionUserID)); 
+  //     console.log(`User liked post ${post._id}? ${userLiked}`)
+  //   }
+  // }, [userLiked])
+
+  // ============ LIKE BUTTON =============================
     const handleLikeSubmit = async (event) => {
 
       if(token){
@@ -55,8 +58,9 @@ const Post = ({post}) => {
     }
 
   // ============= DISPLAYING LIKES ==================
-  // formats likes arr into '2 likes'...
-  const formatLikes = (arr) => {
+
+  // --------- "X like(s)" ---------------
+  const formatNumLikes = (arr) => {
     const numLikes = arr.length;
 
     if (numLikes === 1){
@@ -65,27 +69,34 @@ const Post = ({post}) => {
       return `${numLikes} likes`
     }}
 
-  const likes_formatted = formatLikes(post.likes)
-  console.log(post.message)
-  console.log(post.likes)
+  const likes_formatted = formatNumLikes(post.likes)
 
-
-  // formats likes arr into 'claire@email.com and 2 other liked this...'
+  // --------- "You/User and X others liked this" ---------------
   const formatLikesUsersPreview = (arr) => {
     const numLikes = arr.length;
-
+    // 0 likes
     if (numLikes === 0){
       return "Noone liked this"
-    } else if (numLikes === 1){
-      return `${arr[0].email} liked this` // change so that if the user has liked this, it says "You and ... others like this"
+    // 1 like
+    } else if (numLikes === 1){ //Check if sessionUserID liked this
+      return (arr.some(user => user._id === sessionUserID) ? 'You liked this' : `${arr[0].email} liked this`);
+    // 2 likes
+    } else if (numLikes === 2){
+      return (arr.some(user => user._id === sessionUserID) ? 'You and 1 other liked this' : `${arr[0].email} and 1 other liked this`);
+    // 3 or more likes
     } else {
-      return `${arr[0].email} and ${numLikes - 1} others liked this`
+      return (arr.some(user => user._id === sessionUserID) ? `You and ${numLikes - 1} others liked this` : `${arr[0].email} and ${numLikes - 1} others liked this`);
     }
-  }
-  
+  };
+
   const likes_formatted_with_user_preview = formatLikesUsersPreview(post.likes)
 
-  return(
+
+  
+
+
+// ========= JSX FOR THE UI OF THE COMPONENT =====================
+    return(
     <article className='post-container' data-cy="post" key={ post._id }>
       {/* change below to display name later */}
       <a href={`/user/${post.user_id._id}`}>
