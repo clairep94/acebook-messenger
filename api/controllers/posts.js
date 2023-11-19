@@ -40,52 +40,52 @@ const PostsController = {
     });
   },
 
-  Like: (req, res) => {
-    // get the user_id & post_id:
-    console.log("controllers/posts.js 44:")
-    const sessionUser = req.user_id;
-    const postID = req.params.id;
-    console.log(`Getting UserID: ${sessionUser}`)
-    console.log(`Getting PostID: ${postID}`)
+  Like: async (req, res) => {
+    
+    try {
+      // get the user_id & post_id:
+      console.log("controllers/posts.js 44:")
+      const sessionUser = req.user_id;
+      const postID = req.params.id;
+      console.log(`Getting UserID: ${sessionUser}`)
+      console.log(`Getting PostID: ${postID}`)
 
-    // Check if the user is already in the list of users who've liked this:
-    const alreadyLiked = Post.findOne({
-      $and: [
-        {_id: postID},
-        {likes: {$in: [sessionUser]}}
-      ]
-    }); // returns the matching doc or null
+      // Check if the user is already in the list of users who've liked this:
+      const alreadyLiked = await Post.findOne({
+        $and: [
+          {_id: postID},
+          {likes: {$in: [sessionUser]}}
+        ]
+      }); // returns the matching doc or null
 
-    // If not already liked, adds sessionUser to list of likes:
+      console.log(`checking if already liked: ${alreadyLiked}`)
 
-    if (!alreadyLiked) {
-      Post.findOneAndUpdate(
-        {_id: postID },
-        {$push: {likes: sessionUser}},
-        { new: true },
-        (err, updatedPost) => {
-          if (err) {
-            console.log('Unsuccessful Like in Post Controllers')
-            throw err;
-          } else {
-            console.log('Successful Like in Post Controllers')
-            const token = TokenGenerator.jsonwebtoken(req.user_id)
-            res.status(201).json({ message: 'Successful Like in Post Controllers', token: token, updatedPost });    
-          }})
-    } else {
-      Post.findOneAndUpdate(
-        {_id: postID },
-        {$pull: {likes: sessionUser}},
-        { new: true },
-        (err, updatedPost) => {
-          if (err) {
-            console.log('Unsuccessful Unlike in Post Controllers')
-            throw err;
-          } else {
-            console.log('Successful Unlike in Post Controllers')
-            const token = TokenGenerator.jsonwebtoken(req.user_id)
-            res.status(201).json({ message: 'Successful Unlike in Post Controllers', token: token, updatedPost });    
-          }})
+      // If not already liked, add sessionUser to likes array
+      if (!alreadyLiked) {
+        const updatedPost = await Post.findOneAndUpdate(
+          { _id: postID },
+          { $push: { likes: sessionUser } },
+          { new: true }
+        );
+        console.log('Successful Like in Post Controllers');
+        const token = TokenGenerator.jsonwebtoken(req.user_id);
+        res.status(201).json({ message: 'Successful Like in Post Controllers', token, updatedPost });
+
+      // If already liked, remove sessionUser from likes array
+      } else { 
+        const updatedPost = await Post.findOneAndUpdate(
+          { _id: postID },
+          { $pull: { likes: sessionUser } },
+          { new: true }
+        );
+        console.log('Successful Unlike in Post Controllers');
+        const token = TokenGenerator.jsonwebtoken(req.user_id);
+        res.status(201).json({ message: 'Successful Unlike in Post Controllers', token, updatedPost });
+      }
+
+    } catch (err) {
+      console.log('Error in Post Controllers:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
     }
 
   }
