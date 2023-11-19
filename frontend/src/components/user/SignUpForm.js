@@ -56,10 +56,6 @@ const SignUpForm = ({ navigate }) => {
           <br/>
         <input id='submit' type="submit" className={styles.Button} value="Submit"/>
          <h2>{errorMsg}</h2>
-         <font color="#505050 ">Already have an account?</font>
-<br/>
-<a href="/login" font color="#003163" className={styles.link}> Sign in</a>
-
       </form>
     </div>
 );

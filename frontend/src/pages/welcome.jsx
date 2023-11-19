@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../components/navbar/navbar';
 import LogInForm from '../components/auth/LoginForm';
+import SignUpForm from '../components/user/SignUpForm';
 import '../pages/stylesheets/style.css';
 
 const Welcome = ({ navigate }) => {
@@ -12,17 +13,16 @@ const Welcome = ({ navigate }) => {
       <Navbar />
       <div className="wrap">
         <div className="floatleft">
-          <div style={{ '--spacer-height': '20px' }} className="spacer"></div>
           <p className='title'>WELCOME TO ACEBOOK</p>
 
           <p>Connecting Ace individuals from around the world since 2023...</p>
         </div>
         <div className="floatright">
-          <div style={{ '--spacer-height': '100px' }} className="spacer"></div>
-          <p className='subtitles'>Log in to start connecting</p>
-          <LogInForm navigate={navigate}/>
-          <p className='subtitles'>Don't have an account?</p>
-          <button >Register</button>
+          <div style={{ '--spacer-height': '80px' }} className="spacer"></div>
+          <p className='subtitles'>Register an account to start connecting</p>
+          <SignUpForm navigate={navigate}/>
+          <p className='subtitles'>Already Registered?</p>
+          <a href='/login'><button className='Button'>Login</button></a>
         </div>
         <div style={{ clear: 'both' }}></div>
       </div>
