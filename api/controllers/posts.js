@@ -41,10 +41,9 @@ const PostsController = {
   },
 
   Like: async (req, res) => {
-    
+
     try {
       // get the user_id & post_id:
-      console.log("controllers/posts.js 44:")
       const sessionUser = req.user_id;
       const postID = req.params.id;
       console.log(`Getting UserID: ${sessionUser}`)
