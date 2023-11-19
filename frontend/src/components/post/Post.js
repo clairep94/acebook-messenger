@@ -7,54 +7,57 @@ const Post = ({post}) => {
 // =========== STATE VARIABLES ==========================
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   let sessionUserID = getSessionUserID(token);
-  // const [userLiked, setUserLiked] = useState(false);
-
   // checks if sessionUserID is in user._id for user in post.likes --> array of Users, not user_id's due to populate in controllers/posts line 7-8
   const [userLiked, setUserLiked] = useState(post.likes.some(user => user._id === sessionUserID));
 
-  // WHEN COMPONENT MOUNTS: -- NOT SURE IF WE NEED THIS SO COMMENTING OUT
-  // useEffect(() => {
-  //   if(token) {
-  //     sessionUserID = getSessionUserID(token);
+  // Watch for changes in post.likes and update userLiked accordingly
+  // This changes the button in-time but doesn't re-render the whole component
+  useEffect(() => {
+    setUserLiked(post.likes.some(user => user._id === sessionUserID));
+  }, [post.likes, sessionUserID]);
 
-  //     console.log(post.user_id) // already has the entire user document
-  //     console.log(post.likes) // already an array of user objects
-
-  //     // checks if sessionUserID is equal to user._id for user in likes
-  //     // post.likes and post.user_id already store entire user docs, instead of just user_id due to populate in controllers/posts line 7-8
-  //     setUserLiked(post.likes.some(user => user._id === sessionUserID)); 
-  //     console.log(`User liked post ${post._id}? ${userLiked}`)
-  //   }
-  // }, [userLiked])
 
 // ============ LIKE BUTTON =============================
-    const handleLikeSubmit = async (event) => {
+  const handleLikeSubmit = async (event) => {
 
-      if(token){
-        console.log(`FE: like button works on post #: ${post._id}`)
-        event.preventDefault();
+    if(token){
+      console.log(`Testing token change on handleLikeSubmit: Starting token: ${token}`)
+      console.log(`FE: like button works on post #: ${post._id}`)
+      event.preventDefault();
 
-        fetch(`/posts/${post._id}`, {
-          method: 'put',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify({})
-        })
-        // .then(async response => {
-        //   let data = await response.json();
-          // console.log("token", data)
-          // window.localStorage.setItem("token", data.token);
-
-          // Update the likes and userLiked state
-          // post.likes = data.post.likes;
-          // setUserLiked(data.post.likes.includes(post.user_id._id));
-        // })
+      fetch(`/posts/${post._id}`, {
+        method: 'put',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({})
+      })
+      .then(async response => {
+        let data = await response.json();
+        console.log("token", data)
+        window.localStorage.setItem("token", data.token);
+        setToken(window.localStorage.getItem("token"));
+        console.log(`Testing token change on handleLikeSubmit: Ending token: ${token}`)
 
 
-      }
+        // Update the likes and userLiked state
+        console.log(`printchecking data: ${data.updatedPost.likes}`)
+        
+
+
+        setUserLiked(data.updatedPost.likes.includes(sessionUserID));
+
+        // post.likes = data.updatedPost.likes;
+        // setUserLiked(post.likes.some(user => user._id === sessionUserID));
+
+
+
+
+
+      })
     }
+  }
 
 // ============= DISPLAYING LIKES ==================
 
