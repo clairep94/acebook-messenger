@@ -1,4 +1,4 @@
-// ------------ '19 Nov 2023, 5:45PM' -------------
+// ------------ '19 Nov 2023 at 5:45PM' -------------
 
 const formatFullDateString = (dateObject) => {
 
@@ -11,7 +11,7 @@ const formatFullDateString = (dateObject) => {
         hour12: true,
     };
 
-    return dateObject.toLocaleString('en-GB', options)
+    return dateObject.toLocaleString('en-GB', options).replace(',', ' at')
 }
 
 export default formatFullDateString;

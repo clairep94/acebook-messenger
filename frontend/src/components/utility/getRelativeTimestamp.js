@@ -33,4 +33,4 @@ const convertRelativeDateTimeString = (postedDateTime) => {
     }
 }
 
-export default convertRelativeDateTimeString
+export default convertRelativeDateTimeString;

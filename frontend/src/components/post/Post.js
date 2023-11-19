@@ -72,7 +72,7 @@ const Post = ({post}) => {
 // ======== FORMATTING TIME ==============
   const postedDateTime = new Date(post.date_posted);
 
-  // ------------ '19 Nov 2023, 5:45PM' -------------
+  // ------------ '19 Nov 2023 at 5:45PM' -------------
   const fullDateTimeString = formatFullDateString(postedDateTime)
 
   // ------------ 'X seconds ago / X minutes ago / X hours ago / X days ago / fullDateTime --------------
