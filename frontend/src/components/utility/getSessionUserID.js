@@ -11,11 +11,8 @@ const parseJwt = (token) => {
 
 const getSessionUserID = (token) => {
     console.log(`Decoding Token: ${token}`)
-    const decodedToken = parseJwt(token);
-    console.log(`Decoded Token: ${decodedToken}`);
-    
+    const decodedToken = parseJwt(token);    
     const userID = decodedToken ? decodedToken.user_id : null;
-
     console.log(`UserID: ${userID}`);
     return userID;
 
