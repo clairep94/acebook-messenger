@@ -19,7 +19,8 @@ const PostsController = {
     console.log("controllers/posts.js 15: getting user id:")
     console.log(req.user_id);
 
-    let time_now = Date.now();
+    // let time_now = Date.now();
+    let time_now = new Date();
     console.log(time_now)
 
     const post = new Post({

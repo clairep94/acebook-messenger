@@ -15,7 +15,7 @@ const Post = ({post}) => {
   // WHEN COMPONENT MOUNTS: -- NOT SURE IF WE NEED THIS SO COMMENTING OUT
   // useEffect(() => {
   //   if(token) {
-  //     sessionUserID = getsessionUserIDID(token);
+  //     sessionUserID = getSessionUserID(token);
 
   //     console.log(post.user_id) // already has the entire user document
   //     console.log(post.likes) // already an array of user objects
@@ -93,7 +93,10 @@ const Post = ({post}) => {
 
 
 // ======== FORMATTING TIME ==============
-  const dateObj = new Date(post.date_posted)
+// TODO refactor this into a module to reuse for comments/other content
+
+  const postedDateTime = new Date(post.date_posted);
+  const currentDateTime = new Date();
  
   // ------------ '19 Nov 2023, 5:45PM' -------------
   const options = {
@@ -105,14 +108,40 @@ const Post = ({post}) => {
     hour12: true,
   };
 
-  const fullDateTimeString = dateObj.toLocaleString('en-GB', options);
+  const fullDateTimeString = postedDateTime.toLocaleString('en-GB', options);
 
   // ------------ 'X m ago / X h ago / 1 d ago / fullDateTime --------------
 
-  // const convertRelativeDateTimeString = (dateObj) => {
+  const convertRelativeDateTimeString = (dateObject) => {
+    // get time difference in seconds
+    const timeDifferenceInSeconds = (currentDateTime.getTime() - postedDateTime.getTime()) / 1000;
+    const seconds = timeDifferenceInSeconds; // shorter variable name for relative timestamp use below
 
+    // show the relative timestamp
+    if (seconds < 60) { 
+      // if under 1 min, show seconds ago
+      return `${Math.floor(seconds)} seconds ago`
 
-  // }
+    } else if (seconds < 3600) {
+      // if under 60 min, show minutes ago
+      return ((Math.floor(seconds/60) === 1) ? '1 minute ago' : `${Math.floor(seconds / 60)} minutes ago`);
+
+    } else if (seconds < 86400) {
+      // if under 24 hours, show hours ago
+      return ((Math.floor(seconds/3600) === 1) ? '1 hour ago' : `${Math.floor(seconds / 3600)} hours ago`);
+
+    } else if (seconds < 259200) {
+      // if less than 3 days ago, show days ago
+      return ((Math.floor(seconds/86400) === 1) ? '1 day ago' : `${Math.floor(seconds / 86400)} days ago`);
+
+    } else {
+      // else show fullDateTimeString
+      return fullDateTimeString;
+    }
+
+  }
+
+  const relativeDateTimeString = convertRelativeDateTimeString(postedDateTime);
 
 
 // ========= JSX FOR THE UI OF THE COMPONENT =====================
@@ -121,8 +150,10 @@ const Post = ({post}) => {
       {/* change below to display name later */}
       <a href={`/user/${post.user_id._id}`}>
       <h3 className='user-display-name'>{ post.user_id.email }</h3> </a>
-      {/* change below to display date nicer later */}
+      {/* choose one format later */}
       <p className='date-posted'>{ fullDateTimeString }</p>
+      <p className='date-posted'>{ relativeDateTimeString }</p>
+
       <p className='message'>{ post.message }</p>
 
       {/* choose one format later */}
