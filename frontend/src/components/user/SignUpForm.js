@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './SignUpForm.module.css';
 
 // Signup Page
-const SignUpForm = ({ navigate }) => {
+const SignUpForm = ({ navigate, onSignupSuccess }) => {
 
   // STATE VARIABLES ==========================
   const [email, setEmail] = useState("");
@@ -23,7 +23,8 @@ const SignUpForm = ({ navigate }) => {
         
         
         if(response.status === 201) {
-          navigate('/timeline') // If successful, navigate to login page
+          onSignupSuccess();
+          // navigate('/timeline') // If successful, navigate to login page
           
         } else {
           const errorData = await response.json();
@@ -56,10 +57,6 @@ const SignUpForm = ({ navigate }) => {
           <br/>
         <input id='submit' type="submit" className={styles.Button} value="Submit"/>
          <h2>{errorMsg}</h2>
-         <font color="#505050 ">Already have an account?</font>
-<br/>
-<a href="/login" font color="#003163" className={styles.link}> Sign in</a>
-
       </form>
     </div>
 );
