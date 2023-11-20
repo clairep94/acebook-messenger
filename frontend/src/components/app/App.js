@@ -11,6 +11,7 @@ import Countdown from '../countdown/countdown';
 import Index from '../../pages/timeline';
 import UserProfile from '../../pages/otherProfilepage'
 import Welcome from '../../pages/welcome'
+import NewCommentForm from '../CommentWrite/CommentWrite';
 
 const App = () => {
 
@@ -27,6 +28,7 @@ const App = () => {
           <Route path='/timeline' element={<Index navigate={ useNavigate() }/>}/>
           <Route path='/profile' element={<ProfilePage navigate={ useNavigate() }/>}/>
           <Route path='/updateprofile' element={<UpdatePage navigate={ useNavigate() }/>}/>
+          <Route path='/newcomment' element={<NewCommentForm navigate={ useNavigate() }/>}/>
 
           
         </Routes>
