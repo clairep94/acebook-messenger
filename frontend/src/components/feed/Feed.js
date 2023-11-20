@@ -34,7 +34,7 @@ const Feed = ({ navigate }) => {
           setPosts(sortedPosts);
         })
     }
-  }, [])
+  }, []);
   
   // =========== FUNCTION TO HANDLE USER LOGOUT: =========================
   // TODO: Refactor into LogOut component to reuse on all login-required pages.
@@ -51,9 +51,6 @@ const Feed = ({ navigate }) => {
     return(
       <>
         <h2>Posts</h2>
-          <button onClick={logout}>
-            Logout
-          </button>
         <div id='feed' role="feed">
             {posts.map(
               (post) => ( <Post post={ post } key={ post._id } /> ) // <======= 
