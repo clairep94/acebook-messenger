@@ -1,6 +1,5 @@
 import React from 'react';
 import Navbar from '../components/navbar/navbar';
-import LogInForm from '../components/auth/LoginForm';
 import SignUpForm from '../components/user/SignUpForm';
 import '../pages/stylesheets/style.css';
 
