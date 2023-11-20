@@ -1,15 +1,19 @@
 import React from 'react';
 import './Post.css';
 
-const Post = ({post}) => {
+const Post = ({ post }) => {
 
-  return(
-    <article className='post-container' data-cy="post" key={ post._id }>
+  return (
+    <article className='post-container' data-cy="post" key={post._id}>
       {/* change below to display name later */}
-      <h3 className='user-display-name'>{ post.user_id.email }</h3> 
+      <h3 className='user-display-name'>{post.user_id.email}</h3>
       {/* change below to display date nicer later */}
-      <p className='date-posted'>{ post.date_posted }</p>
-      <p className='message'>{ post.message }</p>
+      <p className='date-posted'>{post.date_posted}</p>
+      <p className='message'>{post.message}</p>
+      {/* Display image if available */}
+      {post.imageUrl && (
+        <img src={post.imageUrl} alt="Post" className="post-image" />
+      )}
     </article>
   )
 }

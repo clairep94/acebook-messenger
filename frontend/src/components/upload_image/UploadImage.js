@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import './UploadImage.css';
 
-const UploadImage = () => {
+const UploadImage = ({ onImageUpload }) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [imageUrl, setImageUrl] = useState(null); // State to store the uploaded image URL
 
@@ -19,7 +20,7 @@ const UploadImage = () => {
         formData.append('image', selectedFile);
 
         try {
-            const response = await fetch('/upload_image', {   //call the route in backend
+            const response = await fetch('/upload_image', {
                 method: 'POST',
                 body: formData,
             });
@@ -28,19 +29,30 @@ const UploadImage = () => {
 
             const data = await response.json();
             setImageUrl(data.imageUrl); // Update state with the image URL
+            if (onImageUpload) {
+                onImageUpload(data.imageUrl); // Call the passed-in callback function with the image URL
+            }
         } catch (error) {
             alert(`Error: ${error.message}`);
         }
     };
 
     return (
-        <div>
-            <h3>Upload Image Test Form</h3>
+        <div className="imageComponentContainer">
+            <h3>Upload Image Form</h3>
             <form onSubmit={handleSubmit} encType="multipart/form-data">
-                <input type="file" onChange={handleFileChange} />
-                <button type="submit">Upload Image</button>
+                <div className='formContainer'>
+                    <input type="file" onChange={handleFileChange} className="inputField" id="fileInput" style={{ display: 'none' }} />
+                    <label htmlFor="fileInput" className="Button">Choose File</label>
+                    <button type="submit" className="Button">Upload Image</button>
+                </div>
             </form>
-            {imageUrl && <img src={imageUrl} alt="Uploaded" style={{ marginTop: '20px' }} />} {/* Display the image */}
+            {selectedFile?.name && <div className="Spacer">{selectedFile.name}</div>}
+            {imageUrl && (
+                <div className="imageContainer">
+                    <img src={imageUrl} alt="Uploaded" className="uploadedImage" />
+                </div>
+            )}
         </div>
     );
 };

@@ -20,3 +20,8 @@
     color: black;
     font-size: 1em; /* Default font size for a p element */
   }
+
+  .post-image {
+  max-width: 100%;
+  height: auto;
+}
