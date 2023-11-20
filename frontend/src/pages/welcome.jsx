@@ -34,7 +34,7 @@ const Welcome = ({ navigate }) => {
           <p className='subtitles'>Register an account to start connecting</p>
           <SignUpForm navigate={navigate}/>
           <p className='subtitles'>Already Registered?</p>
-          {/* <a href='/login'><button className='Button' onClick={ handleLoginPopupClick }>Login</button></a> */}
+          {/* <a href='/login'><button className='Button'>Login</button></a> */}
           <button className='Button' onClick={ handleLoginPopupClick }>Login</button>
         </div>
 
@@ -45,7 +45,7 @@ const Welcome = ({ navigate }) => {
               &times;
             </span>
             <h2>Login</h2>
-            <LogInForm />
+            <LogInForm navigate={navigate}/>
 
           </div>
         </div>
