@@ -5,11 +5,18 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true },
   bio: { type: String },
   displayName: {type: String},
+  profilePictureURL: {
+  type: String
+}
 });
 // added new values: 
-//bio 
-//display name (curently not in use)
+// bio 
+// display name 
+// image url (curently not in use)
 
 const User = mongoose.model("User", UserSchema);
 
 module.exports = User;
+
+
+

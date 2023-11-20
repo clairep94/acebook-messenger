@@ -17,6 +17,7 @@ const Navbar = () => {
           <a href='/timeline' className='image'> <img src={logo}alt="Logo" /></a>
           <a href='/new_post' className='txt'>Create a Post</a>
           <a href='/countdown' className='txt'>Token Timer</a>
+          <a href='/profile' > Profile Page</a>
           <a href='/' className='txt right' onClick={logout}>Log-Out</a>
         </div>
       );
