@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../components/navbar/navbar';
 import SignUpForm from '../components/user/SignUpForm';
-import LogInForm from '../components/auth/LoginForm';
+import LoginPopup from '../components/auth/LoginPopup';
 import '../pages/stylesheets/style.css';
 
 
@@ -34,22 +34,12 @@ const Welcome = ({ navigate }) => {
           <p className='subtitles'>Register an account to start connecting</p>
           <SignUpForm navigate={navigate}/>
           <p className='subtitles'>Already Registered?</p>
-          {/* <a href='/login'><button className='Button'>Login</button></a> */}
           <button className='Button' onClick={ handleLoginPopupClick }>Login</button>
         </div>
 
-        {isLoginPopupVisible && (
-        <div className="login-popup">
-          <div className="login-popup-content">
-            <span className="close" onClick={closeLoginPopup}>
-              &times;
-            </span>
-            <h2>Login</h2>
-            <LogInForm navigate={navigate}/>
+        {/* LOGIN POPUP */}
+        {isLoginPopupVisible && <LoginPopup navigate={navigate} onClose={closeLoginPopup} />}
 
-          </div>
-        </div>
-      )}
 
 
         <div style={{ clear: 'both' }}></div>

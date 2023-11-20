@@ -22,9 +22,12 @@ const LogInForm = ({ navigate }) => {
     })
 
     // Checking the response status
-    if(response.status !== 201) { // login not successful
-      console.log("oop")
+    if(response.status === 401){ // wrong password
+      console.log("wrong password")
       setError("Wrong password, try again")
+    } else if (response.status !== 201) { // if error code is not 401 or 201, show server error
+      console.log("oop")
+      setError("Server error, please try again later")
     } else { // login successful
       console.log("yay")
       let data = await response.json()
