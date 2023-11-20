@@ -102,6 +102,34 @@ const PostsController = {
       res.status(500).json({ message: 'Internal Server Error' });
     }
 
+  },
+  LeaveComment: async (req, res) => {
+
+    try {
+      // get the user_id & post_id:
+      const commentid = req.body.newCommentID;
+      const postID = req.params.id;
+      console.log(`Showing comment ID: ${commentid}`)
+      console.log(`Getting PostID: ${postID}`)
+
+      // If not already liked, add sessionUser to likes array
+        const updatedPost = await Post.findOneAndUpdate(
+          { _id: postID },
+          { $push: { comments: commentid} },
+          { new: true }
+        );
+        console.log('Successful linked comment from post controller');
+        const token = TokenGenerator.jsonwebtoken(req.user_id);
+        res.status(201).json({ message: 'Successful linked comment from post controller', token, updatedPost });
+
+      // If already liked, remove sessionUser from likes array
+      
+
+    } catch (err) {
+      console.log('Error in Post Controllers:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+
   }
 };
 

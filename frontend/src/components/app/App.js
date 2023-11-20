@@ -14,7 +14,7 @@ import Welcome from '../../pages/welcome'
 import NewCommentForm from '../CommentWrite/CommentWrite';
 
 const App = () => {
-
+const HardCodePost = {_id:'655b68ed136a2e417f658595'}
   // Routes for each page of the website
   return (
         <Routes>
@@ -28,7 +28,7 @@ const App = () => {
           <Route path='/timeline' element={<Index navigate={ useNavigate() }/>}/>
           <Route path='/profile' element={<ProfilePage navigate={ useNavigate() }/>}/>
           <Route path='/updateprofile' element={<UpdatePage navigate={ useNavigate() }/>}/>
-          <Route path='/newcomment' element={<NewCommentForm navigate={ useNavigate() }/>}/>
+          <Route path='/newcomment' element={<NewCommentForm currentPost={HardCodePost} navigate={ useNavigate() }/>}/>
 
           
         </Routes>

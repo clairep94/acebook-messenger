@@ -3,11 +3,12 @@ import React, { useState } from 'react';
 
 // New Post Form:
 
-const NewCommentForm = ({navigate}) => {
+const NewCommentForm = ({currentPost, navigate}) => {
     
     // =========== STATE VARIABLES ==========================
     const [message, setMessage] = useState("");
     const [token, setToken] = useState(window.localStorage.getItem("token"));
+    
 
 
 
@@ -29,22 +30,43 @@ const NewCommentForm = ({navigate}) => {
                     message: message
                  }) // <===== BODY OF REQUEST: message
                 })
-                .then(response => {
-                    if(response.status === 201) {
-                    console.log('successful') 
-                    window.location.reload()// If successful, refresh current page as this should be the timeline and not the component
-                    return response.json()
-                    } else {
-                    console.log('not successful')
-                    navigate('/signup') // If unsuccessful, stay on the signup page
-                    }
+                .then(async response => {
+                    let postData = await response.json();
+                    console.log("token", postData)
+                    console.log(`Post Data: ${postData.commentId}`)
+                    window.localStorage.setItem("token", postData.token);
+                    setToken(window.localStorage.getItem("token"));
+                    
+                    fetch(`/posts/${currentPost._id}/comment`, {
+                        method: 'put',
+                        headers: {
+                          'Content-Type': 'application/json',
+                          'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({newCommentID:postData.commentId})
+                      }) // complete Put request & update token
                 })
-                .then(async data => {
-                    // Updates to a new token when the GET request is complete
-                    window.localStorage.setItem("token", data.token)
-                    setToken(window.localStorage.getItem("token"))
-                    console.log(token)
-                })
+                
+
+
+                // .then(response => {
+                //     if(response.status === 201) {
+                //     console.log('successful') 
+                //     window.location.reload()// If successful, refresh current page as this should be the timeline and not the component
+                //     const CreatedResponse = response.json()
+                //     return CreatedResponse
+                //     } else {
+                //     console.log('not successful')
+                //     navigate('/signup') // If unsuccessful, stay on the signup page
+                //     }
+                // })
+                // .then(async postdata => {
+                //     // Updates to a new token when the GET request is complete
+                //     window.localStorage.setItem("token", postdata.token)
+                //     setToken(window.localStorage.getItem("token"))
+                //     console.log(token)
+
+                // })
             }
         }
 
@@ -63,6 +85,7 @@ const NewCommentForm = ({navigate}) => {
 
           <textarea id="message" value={message} onChange={handleMessageChange}  placeholder="Share your Thoughts on acebook..."/>
           <br/>
+          The Post we are writing to is: {currentPost._id}<br/>
           <input id="submit" type="submit" value="Submit" />
       </form>
          

@@ -51,7 +51,8 @@ const CommentsController = {
       }
 
       const token = TokenGenerator.jsonwebtoken(req.user_id)
-      res.status(201).json({ message: 'OK', token: token });
+    //   This allows you to define a custom response including created ID
+      res.status(201).json({ message: 'OK', token: token, commentId: comment._id  });
     });
   },
 
@@ -60,7 +61,7 @@ const CommentsController = {
     try {
       // get the user_id & post_id:
       const sessionUser = req.user_id;
-      const commentID = req.params.id;
+      const commentID = req._id;
       console.log(`Getting UserID: ${sessionUser}`)
       console.log(`Getting commentID: ${commentID}`)
 
