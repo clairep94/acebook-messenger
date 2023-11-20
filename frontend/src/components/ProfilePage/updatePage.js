@@ -5,31 +5,44 @@ const UpdatePage = ({navigate}) =>{
   const [bio, setBio] = useState("")
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [bioSubmit, setBioSubmit] = useState('')
-
+  const [displayName, setDisplayName ] = useState('')
   // handles the change so you can see what you're typing
-  const handleBioChange = (event) => {
-    setBio(event.target.value)
+  const handleChange = (event) => {
+    if(event.target.id === "bioedit"){
+      setBio(event.target.value)
+    }
+    else if (event.target.id === "nameEdit")
+    setDisplayName(event.target.value)
+    
   }
+  
+  
   
 // most of this is a modified version of the make post function
 const handleSubmit = async (event) => {
+  
+
   // checks if token (if user signed in)
   if(token){
     
     event.preventDefault();
-    // submits bio
-    setBioSubmit(bio);
+    
     //uses put rather than post to update
+    // and goes to new route user data because it needs to check the token
     fetch('/userData', {
       method: 'put',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
     },
-    // there may be a way to modify this so we can send diffrent requests 
-    // to update a profile pic or display name
+    // this has been modified to change the request when the update bio or update
+    // display name is clicked, its not super efficient (probobly should figure out how to only send necessary data) 
+    //  but it works
+    
     body : JSON.stringify({
-    bio: bio
+    bio: bio,
+    disName: displayName,
+    type: event.target.id
     })
     })
     .then(response =>{
@@ -64,11 +77,22 @@ const handleSubmit = async (event) => {
           </div>
         )}
       {/* button for submiting the put request  */}
-      <form onSubmit={handleSubmit}>
+      <form id="bioSub" onSubmit={handleSubmit}>
           {/* handles the change so you can see what you're typing  */}
-      <textarea id="bioedit" value={bio} onChange={handleBioChange} className={styles.bio} placeholder="write some shit no one will read"/>
+      <textarea id="bioedit" value={bio} onChange={handleChange} className={styles.bio} placeholder="write some shit no one will read"/>
       <label>
-          update your bio
+          update bio
+          <input type="submit" name="submit"/>
+        </label>
+       
+
+        
+      </form>
+      <form id="name" onSubmit={handleSubmit}>
+          {/* handles the change so you can see what you're typing  */}
+      <textarea id="nameEdit" value={displayName} onChange={handleChange} className={styles.bio} placeholder="update your name "/>
+      <label>
+      update your display name
           <input type="submit" name="submit"/>
         </label>
        

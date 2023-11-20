@@ -16,7 +16,10 @@ const Navbar = () => {
         <a href='/timeline'>Home</a>
         <a href='/new_post'>Create a Post</a>
         <a href='/countdown'> Token Timer</a>
+         {/* added a link to user profile page  */}
+        <a href='/profile' > Profile Page</a>
         <a href='/' class="right" onClick={logout}>Log-Out</a>
+        
         
         </div>
       )
