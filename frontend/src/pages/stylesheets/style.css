@@ -84,6 +84,8 @@ a {
 .login-popup-content {
   background: #ffffff; /* light blue color */
   padding: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
   border-radius: 12px; /* rounded corners */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.25); /* drop shadow */
   position: relative;
