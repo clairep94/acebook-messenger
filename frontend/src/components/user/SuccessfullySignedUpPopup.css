@@ -1,4 +1,4 @@
-.login-popup {
+.signedup-popup {
     position: fixed;
     top: 0;
     left: 0;
@@ -10,7 +10,7 @@
     align-items: center;
 }
 
-.login-popup-content {
+.signedup-popup-content {
 background: #ffffff; /* light blue color */
 padding: 20px;
 padding-left: 40px;
