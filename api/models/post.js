@@ -13,6 +13,11 @@ const PostSchema = new mongoose.Schema({
     type: [mongoose.Schema.Types.ObjectId],
     default: [],
     ref: 'User'
+  },
+  comments: {
+    type: [mongoose.Schema.Types.ObjectId],
+    default: [],
+    ref: 'User'
   }
 });
 
