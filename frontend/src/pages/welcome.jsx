@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../components/navbar/navbar';
 import SignUpForm from '../components/user/SignUpForm';
+import LogInForm from '../components/auth/LoginForm';
 import '../pages/stylesheets/style.css';
 
 
@@ -43,8 +44,9 @@ const Welcome = ({ navigate }) => {
             <span className="close" onClick={closeLoginPopup}>
               &times;
             </span>
-            <h2>Popup Content Goes Here</h2>
-            <p>This is a simple popup example.</p>
+            <h2>Login</h2>
+            <LogInForm />
+
           </div>
         </div>
       )}
