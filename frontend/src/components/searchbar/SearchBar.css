@@ -16,6 +16,7 @@
   border: none;
   border-radius: 4px;
   background-color: white;
+  box-shadow: 0px 0px 8px #4267B2;
   /* Add any other styling you need for the search input */
 }
 

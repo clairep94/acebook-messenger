@@ -19,14 +19,16 @@ const Navbar = () => {
 
     if(token && tokenValid) {
       return (
+        <div>
         <div className="topnav">
           <a href='/timeline' className='image'> <img src={logo}alt="Logo" /></a>
           <a href='/new_post' className='txt'>Create a Post</a>
           <a href='/countdown' className='txt'>Token Timer</a>
           <a href='/profile' className='txt'> Profile Page</a>
           <SearchBar setResults={setResults}/>
-          <SearchResultsList results={results}/>
           <a href='/' className='txt right' onClick={logout}>Log-Out</a>
+        </div>
+        <SearchResultsList results={results}/>
         </div>
       );
     } else {
