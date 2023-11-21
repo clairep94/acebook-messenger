@@ -5,7 +5,6 @@ const PostsController = {
   Index: (req, res) => {
     Post.find()
       .populate('user_id', '-password') // Populate the 'user_id' field with the entire User document
-      .populate('likes', '-password')
       .exec((err, posts) => {
         if (err) {
           throw err;
@@ -13,21 +12,14 @@ const PostsController = {
         const token = TokenGenerator.jsonwebtoken(req.user_id)
         res.status(200).json({ posts: posts, token: token });
       });
-
-  },
-  FindByID: (req, res) => {
-    const postID = req.params.id;
-    Post.findById(postID)
-      .populate('user_id', '-password') // Populate the 'user_id' field with the entire User document
-      .populate('likes', '-password')
-      .exec((err, post) => {
-        if (err) {
-          throw err;
-        }
-        const token = TokenGenerator.jsonwebtoken(req.user_id)
-        res.status(200).json({ post: post, token: token });
-      });
-
+    // OLD:
+    // Post.find((err, posts) => {
+    //   if (err) {
+    //     throw err;
+    //   }
+    //   const token = TokenGenerator.jsonwebtoken(req.user_id)
+    //   res.status(200).json({ posts: posts, token: token });
+    // });
   },
   Create: (req, res) => {
     console.log("controllers/posts.js 15: getting user id:")

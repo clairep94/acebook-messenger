@@ -8,7 +8,6 @@ const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]); //all posts
   const [token, setToken] = useState(window.localStorage.getItem("token")); //similar to session id
 
-
   // =========== GET ALL POSTS WHEN THE COMPONENT MOUNTS =========================
   useEffect(() => {
     // Checking if token exists (aka user is logged in)
@@ -37,16 +36,12 @@ const Feed = ({ navigate }) => {
     }
   }, [])
 
-
   // =========== FUNCTION TO HANDLE USER LOGOUT: =========================
   // TODO: Refactor into LogOut component to reuse on all login-required pages.
   const logout = () => {
     window.localStorage.removeItem("token")
     navigate('/login')
   }
-
-
-
 
   // ========================= JSX FOR THE UI OF THE COMPONENT =================================
   // currently shows 'Posts' header, a logout button and a feed of posts
@@ -56,23 +51,16 @@ const Feed = ({ navigate }) => {
     return (
       <>
         <h2>Posts</h2>
-        <button onClick={logout}>
-          Logout
-        </button>
         <div id='feed' role="feed">
           {posts.map(
             (post) => (<Post post={post} key={post._id} />) // <======= 
           )}
         </div>
       </>
-    )
+    );
   } else { // else re-direct to '/login'
-    navigate('/login')
+    navigate('/login');
   }
-}
 
-
-
-
-
+};
 export default Feed;
