@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import './SearchBar.css'; // You can create this CSS file for styling if needed
+import './SearchBar.css'; 
 import {FaSearch} from "react-icons/fa"
 
 const SearchBar = ({setResults}) => {
     const [input, setInput] = useState("");
+    const [token, setToken] = useState(window.localStorage.getItem("token")); 
+
 
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -11,30 +13,40 @@ const SearchBar = ({setResults}) => {
       console.log('Search submitted!');
     };
 
-
+    // =========== GET ALL USERS AS CLIENT TYPES INTO SEARCH BAR =========================
     const fetchData = (value) => {
-      fetch("https://jsonplaceholder.typicode.com/users") //TODO change this to our API
+      // Sends GET request to '/users' with the auth token
+      fetch("/users", {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }})
       .then((response)=>response.json())
-      .then((json)=> {
-        const results = json.filter((user) => { //TODO change this to filter in backend?
+      .then(async data => {
+        // Updates to a new token when the GET request is complete
+        window.localStorage.setItem("token", data.token)
+        setToken(window.localStorage.getItem("token"))
+        console.log(data)
+
+        const results = data.users.filter((user) => {
           return (
             value && //if user has not left the search field blank
             user && //user exists in the api
-            user.name && //user in the api has a name
-            user.name.toLowerCase().includes(value.toLowerCase()) //user's name in lowercase includes the user's search in lowercase
-            );
+            user.fullName && //user has a full name in the api
+            user.fullName.toLowerCase().includes(value.toLowerCase()) //search value is partially included in the user.fullName
+          );
         });
         console.log(results);
         setResults(results);
-
       });
-    }
-  
+    };
+      
+    // Calls fetchData as the client is typing
     const handleChange = (value) => {
       setInput(value);
-      fetchData(value); // call fetchData as you are typing
+      fetchData(value);
     }
 
+    // ========================= JSX FOR THE UI OF THE COMPONENT =================================
     return (
       <form className="search-bar" onSubmit={handleSubmit}>
         <input 
@@ -48,5 +60,5 @@ const SearchBar = ({setResults}) => {
       </form>
     );
   };
-  
-  export default SearchBar;
+
+export default SearchBar;

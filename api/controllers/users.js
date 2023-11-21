@@ -4,6 +4,19 @@ const TokenGenerator = require("../lib/token_generator");
 
 const UsersController = {
 
+  Index: (req, res) => {
+    User.find()
+    .exec((err, users) => {
+      if(err) {
+        throw err;
+      }
+      const token = TokenGenerator.jsonwebtoken(req.user_id)
+      res.status(200).json({users: users, token: token})
+    });
+  
+  },
+
+
 // finds a single user by id
   Find: (req, res) => {
     User.findById(req.user_id)

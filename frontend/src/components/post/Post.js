@@ -83,7 +83,7 @@ const Post = ({post}) => {
     return(
     <article className='post-container' data-cy="post" key={ post._id }>
       {/* change below to display name later */}
-      <a href={`/user/${post.user_id._id}`}>
+      <a href={`/users/${post.user_id._id}`}>
       <h3 className='user-display-name'>{ post.user_id.fullName }</h3> </a>
       {/* choose one format later */}
       <p className='date-posted'>{ fullDateTimeString }</p>

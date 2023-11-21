@@ -5,6 +5,7 @@
     /* overflow: hidden; */
     /* height: 70px; */
     align-items: center;
+    z-index: 200;
   }
   
   /* Style the links inside the navigation bar */
