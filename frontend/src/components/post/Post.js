@@ -5,6 +5,7 @@ import formatNumLikes from '../utility/getNumLikes';
 import formatLikesUsersPreview from '../utility/getNumLikesUserPreview';
 import formatFullDateString from '../utility/getFullDateString';
 import convertRelativeDateTimeString from '../utility/getRelativeTimestamp';
+import NewCommentForm from '../CommentWrite/CommentWrite';
 
 
 const Post = ({post}) => {
@@ -83,19 +84,33 @@ const Post = ({post}) => {
     return(
     <article className='post-container' data-cy="post" key={ post._id }>
       {/* change below to display name later */}
-      <a href={`/user/${post.user_id._id}`}>
-      <h3 className='user-display-name'>{ post.user_id.email }</h3> </a>
+      <a href={`/user/${post.user_id._id}`}> 
+     <h3 className='user-display-name'>{ post.user_id.email }</h3> </a>
+
       {/* choose one format later */}
       <p className='date-posted'>{ fullDateTimeString }</p>
       <p className='date-posted'>{ relativeDateTimeString }</p>
-
+      
       <p className='message'>{ post.message }</p>
+
+    {post.comments.length > 0 ? (
+      // If there are comments
+      post.comments.map((comment, index) => (
+        <div key={index}> <b>Comments:</b> 
+        {comment.message} posted on {comment.date_posted}
+        </div>
+      ))
+    ) : (
+      // If there are no comments
+      <div>No comments yet</div>
+    )}
+
 
       {/* choose one format later */}
       <p className='likes'>{ likes_formatted }</p>
       {/* change this to be a link to see a list of all users who liked this */}
       <p className='test-likes-users'>{ likes_formatted_with_user_preview }</p>
-      
+      {/* <NewCommentForm currentPost={post}/> */}
       <button onClick={handleLikeSubmit} className={userLiked ? 'unlike-button' : 'like-button'}>{userLiked ? 'Unlike' : 'Like'}</button>
     </article>
   )
