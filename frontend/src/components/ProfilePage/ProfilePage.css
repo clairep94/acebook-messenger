@@ -51,11 +51,21 @@ a:hover {
   margin-top: 10px;
   color: #777;
 }
-.profilepic {
-  max-width: 25%; /* Make sure the image doesn't exceed its container width */
-  border-radius: 12%; /* Make the image circular */
+/* .profilepic {
+  max-width: 25%; 
+  border-radius: 12%;
   margin-bottom: 5px;
+} */
+
+.profilepic {
+  max-width: 120px; /* Set the maximum width to 100px */
+  height: 120px; /* Set the height to 100px */
+  object-fit: cover; /* Ensure the image covers the entire container */
+  border-radius: 50%; /* Make the image circular */
+  margin: 0 auto 5px; /* Center the image and add bottom margin */
 }
+
+
 
 /* Add your additional styling as needed */
 

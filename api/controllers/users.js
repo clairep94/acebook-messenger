@@ -27,6 +27,7 @@ const UsersController = {
 
     user.save((err) => {
       //checks for any error
+      //TODO add to this, it is not taking the error messages specified in the schema.
       if (err) {
         // checks for the specific error code for a duplicate unique key
         // changes the message acordingly we can use this to catch other errors if needed

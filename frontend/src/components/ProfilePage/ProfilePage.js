@@ -41,7 +41,6 @@ const ProfilePage = () =>{
 
   
 
-
   
   return (
     <>
@@ -54,6 +53,7 @@ const ProfilePage = () =>{
         {/* TODO -- this image is just a place holder, we'll need to do some conditional rendering 
         so that it only displays if no ones uploaded a picture  */}
         {/* <img className="profilepic" src={(userData.profilePictureURL) ? defaultProfilePic : userData.profilePictureURL}></img> */}
+        {/* <img className="profilepic" src={defaultProfilePic}></img> */}
         <img className="profilepic" src={defaultProfilePic}></img>
 
         {/* Profile information */}
@@ -62,7 +62,7 @@ const ProfilePage = () =>{
             <div>
                {/* modified to dispaly the email as display name if there is no display name */}
               {/* <h1>{name}'s ProfilePage</h1> */}
-              <h1>{userData.fullName}'s Profile Page</h1>
+              <h1>{userData.fullName}</h1>
               <h3>{userData.firstName}'s Email: {userData.email}</h3>
               <h3>{userData.firstName}'s Bio: <span id="bio" className={styles.bio}>{userData.bio}</span></h3>
             </div>
