@@ -1,37 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import './navbar.css';
 import logo from '../../assets/acebook_log_white.png'
-import isTokenValid from '../loggedin/LoggedInCheck';
+import useTokenValidityCheck from '../loggedin/useTokenValidityCheck';
 
 const Navbar = () => {
   const [token, setToken] = useState(window.localStorage.getItem("token"));
-  const [tokenValid, setTokenValid] = useState(isTokenValid());
-
-  // I asked chat-gpt for a function that checks if the token is valid every 5 seconds:
-  // It uses isTokenValid from components/loggedin/LoggedInCheck.js
-  useEffect(() => {
-    // Function to check token validity and update state
-    const checkTokenValidity = () => {
-      const isValid = isTokenValid();
-      setTokenValid(isValid);
-    };
-
-    // Initial check when the component mounts
-    checkTokenValidity();
-
-    // Check token validity every x seconds (adjust the interval as needed)
-    const intervalId = setInterval(checkTokenValidity, 5000); // Check every 5 seconds
-
-    // Clean up the interval on component unmount
-    return () => clearInterval(intervalId);
-  }, []); // Empty dependency array to run the effect only once on mount
-
+  // const [tokenValid, setTokenValid] = useState(isTokenValid());
+  let tokenValid = useTokenValidityCheck(); // checks every 5 seconds if token is valid and changes true/false
 
   const logout = () => {
     window.localStorage.removeItem("token")
   }
-
-
 
 
     if(token && tokenValid) {
