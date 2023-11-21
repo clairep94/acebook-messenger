@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './navbar.css';
 import logo from '../../assets/acebook_log_white.png'
 import useTokenValidityCheck from '../loggedin/useTokenValidityCheck';
+import SearchBar from '../searchbar/SearchBar';
+import { SearchResultsList } from '../searchbar/SearchResults';
 
 const Navbar = () => {
   const [token, setToken] = useState(window.localStorage.getItem("token"));
@@ -12,6 +14,8 @@ const Navbar = () => {
     window.localStorage.removeItem("token")
   }
 
+  // SEARCH BAR:
+  const [results, setResults] = useState([]);
 
     if(token && tokenValid) {
       return (
@@ -20,6 +24,8 @@ const Navbar = () => {
           <a href='/new_post' className='txt'>Create a Post</a>
           <a href='/countdown' className='txt'>Token Timer</a>
           <a href='/profile' className='txt'> Profile Page</a>
+          <SearchBar setResults={setResults}/>
+          <SearchResultsList results={results}/>
           <a href='/' className='txt right' onClick={logout}>Log-Out</a>
         </div>
       );
