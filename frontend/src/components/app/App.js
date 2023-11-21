@@ -6,13 +6,12 @@ import NewPostForm from '../post_create/NewPostForm';
 import UpdatePage from '../ProfilePage/updatePage';
 import React, { useState } from 'react';
 import Feed from '../feed/Feed';
+import { useNavigate, Routes, Route, } from "react-router-dom";
+import Countdown from '../countdown/countdown';
+import Index from '../../pages/timeline';
+import UserProfile from '../../pages/otherProfilepage'
+import Welcome from '../../pages/welcome'
 import UploadImage from '../upload_image/UploadImage';
-import Navbar from '../navbar/navbar';
-import {
-  useNavigate,
-  Routes,
-  Route,
-} from "react-router-dom";
 
 const App = () => {
 

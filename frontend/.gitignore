@@ -25,4 +25,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # ignore api/uploads directory
-/api/uploads/
+/api/uploads/*

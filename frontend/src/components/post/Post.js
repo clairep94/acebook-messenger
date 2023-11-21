@@ -1,4 +1,4 @@
-import React, { useEffect, useState }, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Post.css';
 import getSessionUserID from '../utility/getSessionUserID';
 import formatNumLikes from '../utility/getNumLikes';
@@ -95,6 +95,10 @@ const Post = ({ post }) => {
       <p className='likes'>{likes_formatted}</p>
       {/* change this to be a link to see a list of all users who liked this */}
       <p className='test-likes-users'>{likes_formatted_with_user_preview}</p>
+      {/* Display image if available */}
+      {post.imageUrl && (
+        <img src={post.imageUrl} alt="Post" className="post-image" />
+      )}
 
       <button onClick={handleLikeSubmit} className={userLiked ? 'unlike-button' : 'like-button'}>{userLiked ? 'Unlike' : 'Like'}</button>
     </article>
