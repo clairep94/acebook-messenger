@@ -30,8 +30,9 @@ const CommentsController = {
 
   },
   Create: (req, res) => {
+    const sessionUser = req.user_id;
     console.log("controllers/comments.js 33: getting user id:")
-    console.log(req.user_id);
+    console.log(sessionUser);
 
     // let time_now = Date.now();
     let time_now = new Date();
@@ -39,7 +40,7 @@ const CommentsController = {
 
     const comment = new Comment({
       message: req.body.message, // necessary change from req.body to make this work.
-      user_id: req.user_id, // adds the user_id from req to the new Post
+      user_id: req.body.author, // adds the user_id from req to the new Post
       date_posted: time_now // adds the Date object at the time of creation to the new Post
     }); 
     console.log("controllers/comments.js 45: getting post object:")

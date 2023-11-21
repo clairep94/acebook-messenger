@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
+import getSessionUserID from '../utility/getSessionUserID';
 
 
-// New Post Form:
 
 const NewCommentForm = ({currentPost, navigate}) => {
     
     // =========== STATE VARIABLES ==========================
     const [message, setMessage] = useState("");
     const [token, setToken] = useState(window.localStorage.getItem("token"));
-    
+      let sessionUserID = getSessionUserID(token);
 
 
 
@@ -27,7 +27,8 @@ const NewCommentForm = ({currentPost, navigate}) => {
                     'Authorization': `Bearer ${token}` // necessary for requests that need login auth
                 },
                 body: JSON.stringify({ 
-                    message: message
+                    message: message,
+                    author: sessionUserID
                  }) // <===== BODY OF REQUEST: message
                 })
                 .then(async response => {

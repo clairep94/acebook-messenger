@@ -110,7 +110,7 @@ const Post = ({post}) => {
       <p className='likes'>{ likes_formatted }</p>
       {/* change this to be a link to see a list of all users who liked this */}
       <p className='test-likes-users'>{ likes_formatted_with_user_preview }</p>
-      {/* <NewCommentForm currentPost={post}/> */}
+      <NewCommentForm currentPost={post}/>
       <button onClick={handleLikeSubmit} className={userLiked ? 'unlike-button' : 'like-button'}>{userLiked ? 'Unlike' : 'Like'}</button>
     </article>
   )

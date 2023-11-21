@@ -5,6 +5,7 @@ const CommentSchema = new mongoose.Schema({
     message: String,
   user_id: {
     type: mongoose.Schema.Types.ObjectId,
+    default: 'No Author',
     ref: 'User'
   },
   date_posted: { type: Date },
