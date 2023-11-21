@@ -60,7 +60,42 @@ const Post = ({post}) => {
         })
     }
   }
+// ==============Feth Request For Name
+const GetDisplayName = async (event, variable1) => {
+  if (token) {
+    event.preventDefault();
 
+    // Step 1: GET request to fetch user data with query parameter
+    fetch(`/users/${variable1}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(getResponse => {
+        if (!getResponse.ok) {
+          throw new Error(`Failed to fetch user data`);
+        }
+        return getResponse.json();
+      })
+      .then(userData => {
+        // Assuming userData contains the user's information
+        const displayName = userData.email; // Adjust this based on your user data structure
+        console.log('User Display Name:', displayName);
+        // You can use the retrieved display name in your application logic
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+        // Handle errors appropriately
+      });
+  }
+};
+
+const LOGNAME = () => {
+  const variable1 = '65564419b2033160441f4756'; // Replace with the desired variable value
+  GetDisplayName(variable1);
+};
 // ============= DISPLAYING LIKES ==================
 
   // --------- "X like(s)" ---------------
@@ -90,14 +125,14 @@ const Post = ({post}) => {
       {/* choose one format later */}
       <p className='date-posted'>{ fullDateTimeString }</p>
       <p className='date-posted'>{ relativeDateTimeString }</p>
-      
+      <button onClick={LOGNAME}>Get Display Name</button>
       <p className='message'>{ post.message }</p>
 
     {post.comments.length > 0 ? (
       // If there are comments
       post.comments.map((comment, index) => (
         <div key={index}> <b>Comments:</b> 
-        {comment.message} posted on {comment.date_posted}
+        {comment.message} posted on {comment.date_posted} BY {comment.user_id}
         </div>
       ))
     ) : (
