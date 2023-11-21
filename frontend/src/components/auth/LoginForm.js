@@ -7,6 +7,7 @@ const LogInForm = ({ navigate }) => {
   // =========== STATE VARIABLES ==========================
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
   // ============ FORM SUBMISSION FOR LOGIN ====================
   const handleSubmit = async (event) => {
@@ -21,14 +22,17 @@ const LogInForm = ({ navigate }) => {
     })
 
     // Checking the response status
-    if(response.status !== 201) { // login not successful
+    if(response.status === 401){ // wrong password
+      console.log("wrong password")
+      setError("Wrong password, try again")
+    } else if (response.status !== 201) { // if error code is not 401 or 201, show server error
       console.log("oop")
-      navigate('/login')
+      setError("Server error, please try again later")
     } else { // login successful
       console.log("yay")
       let data = await response.json()
       window.localStorage.setItem("token", data.token)
-      navigate('/posts');
+      navigate('/timeline');
     }
   }
 
@@ -48,6 +52,7 @@ const LogInForm = ({ navigate }) => {
     return (
       <div className={styles.Middle}>
       <form onSubmit={handleSubmit}>
+        {error && <p className={styles.errorMessage}>{error}</p>}
         <input placeholder='Email' id="email" type='text' value={ email } onChange={handleEmailChange}  className={styles.inputField}/><br/>
         <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} className={styles.inputField} /><br/>
         <input  id='submit' type="submit" value="Submit" className={styles.Button}/>

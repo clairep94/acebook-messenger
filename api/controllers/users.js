@@ -1,8 +1,28 @@
 const { json } = require("express");
 const User = require("../models/user");
-
+const TokenGenerator = require("../lib/token_generator");
 
 const UsersController = {
+ 
+// finds a single user by id
+  Find: (req, res) => {
+    User.findById(req.user_id)
+    // this populates the page with everything but the password
+    // i copied claires code, i didnt think i needed to but if i get rid of it everything breaks!
+    .populate('user_id', '-password')
+    .exec((err, users) => {
+      if (err) {
+        throw err;
+      }
+      // genrates new token for authentication
+      const token = TokenGenerator.jsonwebtoken(req.user_id)
+      res.status(200).json({ user: users, token: token });
+    });
+  
+  },
+ 
+  
+  
   Create: (req, res) => {
     const user = new User(req.body);
 
@@ -14,8 +34,6 @@ const UsersController = {
         if(err.code === 11000){
          
           return res.status(400).json({message: 'This email is already registered with an account'})
-          
-
 
         }
         return res.status(400).json({ message: 'Bad request' });
@@ -28,6 +46,54 @@ const UsersController = {
       }
     });
   },
+  // curently only updates the bio but it should be possible to modify it
+  // to update other things eg display name
+  UpdateProfile: (req, res) => {
+    console.log(`id? ${req.user_id}`)
+    if(req.body.type === "bioSub"){
+      User.updateOne(
+        { _id: req.user_id },
+        { $set: { bio: req.body.bio } })
+        .exec((err) => {
+          if (err) {
+            throw err;
+          }
+          // genrates new token for authentication
+          const token = TokenGenerator.jsonwebtoken(req.user_id)
+          // 200 status used for put requests
+          res.status(200).json({ message: "bio", token: token });
+        }); 
+
+    }
+    else if(req.body.type === "name"){
+    User.updateOne(
+      { _id: req.user_id },
+      { $set: { displayName: req.body.disName } })
+      
+    
+
+     // listens out for errors
+    .exec((err) => {
+      if (err) {
+        throw err;
+      }
+      // genrates new token for authentication
+      const token = TokenGenerator.jsonwebtoken(req.user_id)
+      // 200 status used for put requests
+      res.status(200).json({ message: "bio", token: token });
+    });
+  }
+   
+  },
 };
 
+
+
+
 module.exports = UsersController;
+/*
+testUser.updateOne(
+  { _id: testUser.userId },
+  { $set: { bio: "do a test" } }
+);
+*/

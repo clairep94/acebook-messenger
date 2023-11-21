@@ -7,9 +7,9 @@ const NewPostForm = ({ navigate }) => {
     const [message, setMessage] = useState("");
     const [token, setToken] = useState(window.localStorage.getItem("token"));
 
-    const handleMessageChange = (event) => {
-        setMessage(event.target.value);
-    };
+    // const handleMessageChange = (event) => {
+    //     setMessage(event.target.value);
+    // };
 
     const handleFileChange = (event) => {
         setSelectedFile(event.target.files[0]);
@@ -29,18 +29,26 @@ const NewPostForm = ({ navigate }) => {
                     'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(postPayload)
-            });
-
-            if (response.status === 201) {
-                navigate('/posts');
-            } else {
-                navigate('/signup');
-            }
+            })
+                .then(response => {
+                    if (response.status === 201) {
+                        console.log('successful')
+                        navigate('/posts') // If successful, navigate to posts page
+                    } else {
+                        console.log('not successful')
+                        navigate('/signup') // If not successful, navigate to signup page
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         } catch (error) {
-            console.error('Error creating post:', error);
+            console.error(error);
         }
     };
 
+    // ------------ SUPPORTIVE FUNCTIONS: ----------------
+    // FUNCTIONS FOR CHANGING STATE VARIABLES 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -67,6 +75,14 @@ const NewPostForm = ({ navigate }) => {
             createPost(null); // Create post without image
         }
     };
+
+    const handleMessageChange = (event) => {
+        setMessage(event.target.value)
+    }
+
+
+    // ========= JSX FOR THE UI OF THE COMPONENT =====================
+    // one input field and a submit button
 
     return (
         <>

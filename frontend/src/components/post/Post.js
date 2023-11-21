@@ -1,5 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Post.css';
+import getSessionUserID from '../utility/getSessionUserID';
+import formatNumLikes from '../utility/getNumLikes';
+import formatLikesUsersPreview from '../utility/getNumLikesUserPreview';
+import formatFullDateString from '../utility/getFullDateString';
+import convertRelativeDateTimeString from '../utility/getRelativeTimestamp';
+
 
 const Post = ({ post }) => {
 
@@ -10,10 +16,6 @@ const Post = ({ post }) => {
       {/* change below to display date nicer later */}
       <p className='date-posted'>{post.date_posted}</p>
       <p className='message'>{post.message}</p>
-      {/* Display image if available */}
-      {post.imageUrl && (
-        <img src={post.imageUrl} alt="Post" className="post-image" />
-      )}
     </article>
   )
 }
