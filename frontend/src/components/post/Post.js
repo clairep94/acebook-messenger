@@ -91,19 +91,6 @@ const Post = ({post}) => {
       <p className='date-posted'>{ relativeDateTimeString }</p>
       <p className='message'>{ post.message }</p>
 
-    {/* {post.comments.length > 0 ? (
-      // If there are comments
-      post.comments.map((comment, index) => (
-        <div key={index}> <b>Comments:</b> 
-        {comment.message} posted on {comment.date_posted} BY {comment.user_id}
-        </div>
-      ))
-    ) : (
-      // If there are no comments
-      <div>No comments yet</div>
-    )} */}
-
-
       {/* choose one format later */}
       <p className='likes'>{ likes_formatted }</p>
       {/* change this to be a link to see a list of all users who liked this */}
