@@ -15,7 +15,6 @@ import UploadImage from '../upload_image/UploadImage';
 import LoginPage from '../../pages/loginPage';
 
 const App = () => {
-
   // Routes for each page of the website
   return (
 

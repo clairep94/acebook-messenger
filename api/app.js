@@ -8,6 +8,7 @@ const logger = require("morgan");
 const JWT = require("jsonwebtoken");
 
 const postsRouter = require("./routes/posts");
+const commentsRouter = require("./routes/comments")
 const authenticationRouter = require("./routes/authentication");
 const usersRouter = require("./routes/users");
 const uploadImageRoute = require('./routes/upload_image');
@@ -47,7 +48,7 @@ app.use("/posts", tokenChecker, postsRouter);
 app.use("/tokens", authenticationRouter);
 app.use("/users", usersRouter);
 app.use('/upload_image', uploadImageRoute);
-
+app.use("/comments", tokenChecker, commentsRouter );
 // I configured the route to check for tokens
 app.use("/userData", tokenChecker, userDataRouter);
 

@@ -4,29 +4,32 @@ const TokenGenerator = require("../lib/token_generator");
 const PostsController = {
   Index: (req, res) => {
     Post.find()
-      .populate('user_id', '-password') // Populate the 'user_id' field with the entire User document
-      .populate('likes', '-password')
-      .exec((err, posts) => {
-        if (err) {
-          throw err;
-        }
-        const token = TokenGenerator.jsonwebtoken(req.user_id)
-        res.status(200).json({ posts: posts, token: token });
-      });
-
+    .populate('user_id', '-password') // Populate the 'user_id' field with the entire User document
+    .populate('likes', '-password')
+    .populate('comments')
+    .exec((err, posts) => {
+      if (err) {
+        throw err;
+      }
+      const token = TokenGenerator.jsonwebtoken(req.user_id)
+      res.status(200).json({ posts: posts, token: token });
+    });
+    
   },
   FindByID: (req, res) => {
     const postID = req.params.id;
     Post.findById(postID)
-      .populate('user_id', '-password') // Populate the 'user_id' field with the entire User document
-      .populate('likes', '-password')
-      .exec((err, post) => {
-        if (err) {
-          throw err;
-        }
-        const token = TokenGenerator.jsonwebtoken(req.user_id)
-        res.status(200).json({ post: post, token: token });
-      });
+    .populate('user_id', '-password') // Populate the 'user_id' field with the entire User document
+    .populate('likes', '-password')
+    .populate('comments')
+    .exec((err, post) => {
+      if (err) {
+        throw err;
+      }
+      const token = TokenGenerator.jsonwebtoken(req.user_id)
+      res.status(200).json({ post: post, token: token });
+    });
+
   },
   Create: (req, res) => {
     console.log("controllers/posts.js 15: getting user id:")
@@ -96,6 +99,34 @@ const PostsController = {
         const token = TokenGenerator.jsonwebtoken(req.user_id);
         res.status(201).json({ message: 'Successful Unlike in Post Controllers', token, updatedPost });
       }
+
+    } catch (err) {
+      console.log('Error in Post Controllers:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+
+  },
+  LeaveComment: async (req, res) => {
+
+    try {
+      // get the user_id & post_id:
+      const commentid = req.body.newCommentID;
+      const postID = req.params.id;
+      console.log(`Showing comment ID: ${commentid}`)
+      console.log(`Getting PostID: ${postID}`)
+
+      // add commentID to the comments array
+        const updatedPost = await Post.findOneAndUpdate(
+          { _id: postID },
+          { $push: { comments: commentid} },
+          { new: true }
+        );
+        console.log('Successful linked comment from post controller');
+        const token = TokenGenerator.jsonwebtoken(req.user_id);
+        res.status(201).json({ message: 'Successful linked comment from post controller', token, updatedPost });
+
+  
+      
 
     } catch (err) {
       console.log('Error in Post Controllers:', err);

@@ -5,6 +5,7 @@ import formatNumLikes from '../utility/getNumLikes';
 import formatLikesUsersPreview from '../utility/getNumLikesUserPreview';
 import formatFullDateString from '../utility/getFullDateString';
 import convertRelativeDateTimeString from '../utility/getRelativeTimestamp';
+import CommentsBox from '../comments/CommentsBox';
 
 
 const Post = ({ post }) => {
@@ -59,8 +60,7 @@ const Post = ({ post }) => {
         })
     }
   }
-
-  // ============= DISPLAYING LIKES ==================
+// ============= DISPLAYING LIKES ==================
 
   // --------- "X like(s)" ---------------
   const likes_formatted = formatNumLikes(post.likes)
@@ -99,7 +99,7 @@ const Post = ({ post }) => {
       {post.imageUrl && (
         <img src={post.imageUrl} alt="Post" className="post-image" />
       )}
-
+      <CommentsBox post={post}/>
       <button onClick={handleLikeSubmit} className={userLiked ? 'unlike-button' : 'like-button'}>{userLiked ? 'Unlike' : 'Like'}</button>
     </article>
   )
