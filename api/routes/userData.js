@@ -6,8 +6,9 @@ const UsersController = require("../controllers/users");
  at the moment it connects to the users controller
  which may be bad practice, it might be an idea to
  make a seperate controller in a differnt file?
+ chaged name to update profile
 */
-router.put("/", UsersController.UpdateBio);
+router.put("/", UsersController.UpdateProfile);
 router.get("/", UsersController.Find);
 
 

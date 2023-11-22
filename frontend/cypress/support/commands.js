@@ -10,6 +10,8 @@
 //
 //
 // -- This is a parent command --
+import 'cypress-file-upload';
+
 Cypress.Commands.add('signup', (email, password) => {
   cy.visit("/signup");
   cy.get("#email").type(email);

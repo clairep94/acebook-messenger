@@ -1,56 +1,72 @@
+/* ProfilePage.css */
 
- /* this is all a big mess chatGPT did most of it and it dont 
- look great feel free to change */
-
-#bio {
-    border: 6px solid hsl(208, 93%, 57%);
-    
-    background-color: #ecf0f1;
-    color: #333;
-    outline: none;
-    width: calc(100% - 20px);
-    max-width: 1000px;
-    height: 120px;
-    padding: 15px;
-    box-sizing: border-box;
-    border-radius: 8px;
-    font-size: 14px;
-    line-height: 1.5;
-    transition: border-color 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    resize: none; /* Disable resizing */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f8f8;
 }
 
-#bio:hover {
-    border-color: #202aec; 
-}
-/* Style for the label */
-label {
-  display: inline-block;
-  background-color: #3498db; /* Button background color */
-  color: #fff; /* Button text color */
-  padding: 10px 20px; /* Adjust padding for spacing */
-  border-radius: 5px; /* Add rounded corners */
-  cursor: pointer;
-  transition: background-color 0.3s ease; /* Add a smooth transition effect */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-/* Hover effect for the label */
-label:hover {
-  background-color: #2980b9; /* Darker background color on hover */
+a {
+  text-decoration: none;
+  color: #3498db;
 }
 
-/* Hide the default input styles */
-label input {
-  display: none;
+a:hover {
+  text-decoration: underline;
 }
-/* Hidden styles for the dropdown */
-.hidden-dropdown {
-    display: none;
-  }
-  
-  /* Visible styles for the dropdown */
-.visible-dropdown {
- display: block;
+
+.right {
+  float: right;
 }
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-header h1 {
+  color: #333;
+}
+
+.profile-info {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-info h2 {
+  color: #555;
+}
+
+.bio {
+  display: block;
+  margin-top: 10px;
+  color: #777;
+}
+/* .profilepic {
+  max-width: 25%; 
+  border-radius: 12%;
+  margin-bottom: 5px;
+} */
+
+.profilepic {
+  max-width: 120px; /* Set the maximum width to 100px */
+  height: 120px; /* Set the height to 100px */
+  object-fit: cover; /* Ensure the image covers the entire container */
+  border-radius: 50%; /* Make the image circular */
+  margin: 0 auto 5px; /* Center the image and add bottom margin */
+}
+
+
+
+/* Add your additional styling as needed */
+
   

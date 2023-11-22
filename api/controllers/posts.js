@@ -21,7 +21,6 @@ const PostsController = {
     Post.findById(postID)
     .populate('user_id', '-password') // Populate the 'user_id' field with the entire User document
     .populate('likes', '-password')
-    .populate('comments')
     .exec((err, post) => {
       if (err) {
         throw err;
@@ -42,8 +41,9 @@ const PostsController = {
     const post = new Post({
       message: req.body.message, // necessary change from req.body to make this work.
       user_id: req.user_id, // adds the user_id from req to the new Post
+      imageUrl: req.body.imageUrl, // Add imageUrl to the post
       date_posted: time_now // adds the Date object at the time of creation to the new Post
-    }); 
+    });
     console.log("controllers/posts.js 20: getting post object:")
     console.log(post);
 
@@ -69,8 +69,8 @@ const PostsController = {
       // Check if the user is already in the list of users who've liked this:
       const alreadyLiked = await Post.findOne({
         $and: [
-          {_id: postID},
-          {likes: {$in: [sessionUser]}}
+          { _id: postID },
+          { likes: { $in: [sessionUser] } }
         ]
       }); // returns the matching doc or null
 
@@ -87,8 +87,8 @@ const PostsController = {
         const token = TokenGenerator.jsonwebtoken(req.user_id);
         res.status(201).json({ message: 'Successful Like in Post Controllers', token, updatedPost });
 
-      // If already liked, remove sessionUser from likes array
-      } else { 
+        // If already liked, remove sessionUser from likes array
+      } else {
         const updatedPost = await Post.findOneAndUpdate(
           { _id: postID },
           { $pull: { likes: sessionUser } },
