@@ -115,7 +115,7 @@ const PostsController = {
       console.log(`Showing comment ID: ${commentid}`)
       console.log(`Getting PostID: ${postID}`)
 
-      // If not already liked, add sessionUser to likes array
+      // add commentID to the comments array
         const updatedPost = await Post.findOneAndUpdate(
           { _id: postID },
           { $push: { comments: commentid} },
@@ -125,7 +125,7 @@ const PostsController = {
         const token = TokenGenerator.jsonwebtoken(req.user_id);
         res.status(201).json({ message: 'Successful linked comment from post controller', token, updatedPost });
 
-      // If already liked, remove sessionUser from likes array
+  
       
 
     } catch (err) {
