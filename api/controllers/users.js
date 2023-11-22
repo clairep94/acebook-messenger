@@ -74,7 +74,7 @@ const UsersController = {
   // curently only updates the bio but it should be possible to modify it
   // to update other things eg display name
   UpdateProfile: (req, res) => {
-    
+
     
     if(req.body.type === "bioSub"){
       User.updateOne(
@@ -92,14 +92,10 @@ const UsersController = {
 
     }
     else if(req.body.type === "firstName"){
-    const thisUser = User.findById(req.user_id)
-    thisUser.updateOne(
+   
+    User.updateOne(
       { _id: req.user_id },
-      { $set: {
-         firstName: req.body.firstName ,
-      fullName: `${req.body.firstName} ${thisUser.lastName}`}, })
-    
-
+      { $set: { firstName: req.body.firstName } })
      // listens out for errors 
     .exec((err) => {
       if (err) {
@@ -110,20 +106,29 @@ const UsersController = {
       // 200 status used for put requests
       res.status(200).json({ message: "name", token: token });
     });
-  }
-   
-  },
+  } else if(req.body.type === "lastName"){
+    
+    User.updateOne(
+      { _id: req.user_id },
+      { $set: { lastName: req.body.lastName } })
+      
+     // listens out for errors 
+    .exec((err) => {
+      if (err) {
+        throw err;
+      }
+      // genrates new token for authentication
+      const token = TokenGenerator.jsonwebtoken(req.user_id)
+      // 200 status used for put requests
+      res.status(200).json({ message: "name", token: token });
+    });
+  
   
   
 };
 
-
+  }
+}
 
 
 module.exports = UsersController;
-/*
-testUser.updateOne(
-  { _id: testUser.userId },
-  { $set: { bio: "do a test" } }
-);
-*/

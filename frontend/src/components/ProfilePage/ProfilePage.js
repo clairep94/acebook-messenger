@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../navbar/navbar';
 import styles from './ProfilePage.css'
 import defaultProfilePic from './profilePic/defaultProfilePic.png'
-
+import UpdatePage from './updatePage';
 const ProfilePage = () =>{
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userData, setUserData] = useState(null)
+  const [update, setUpdate] = useState(null)
  
   // sends the fetch (get) request 
   useEffect(() => {
@@ -28,7 +29,7 @@ const ProfilePage = () =>{
           // and the user data is stored in the state 
           // you can access specific types of data using userData.atribute eg userData.email
           setUserData(data.user);
-          console.log(userData)
+        
         })
         .catch((error) => {
           // console.error works like console.log but displays it as and error message
@@ -62,9 +63,14 @@ const ProfilePage = () =>{
             <div>
                {/* modified to dispaly the email as display name if there is no display name */}
               {/* <h1>{name}'s ProfilePage</h1> */}
-              <h1>{userData.fullName}</h1>
+              <h1>{userData.firstName} {userData.lastName}</h1>
               <h3>{userData.firstName}'s Email: {userData.email}</h3>
               <h3>{userData.firstName}'s Bio: <span id="bio" className={styles.bio}>{userData.bio}</span></h3>
+
+
+
+
+             
             </div>
           </>
         )}
