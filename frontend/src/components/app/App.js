@@ -9,7 +9,7 @@ import Feed from '../feed/Feed';
 import { useNavigate, Routes, Route, } from "react-router-dom";
 import Countdown from '../countdown/countdown';
 import Index from '../../pages/timeline';
-import UserProfile from '../../pages/otherProfilepage'
+import OtherUserProfile from '../ProfilePage/OtherUserProfile';
 import Welcome from '../../pages/welcome'
 
 const App = () => {
@@ -18,7 +18,7 @@ const App = () => {
   return (
         <Routes>
           <Route path='/' element={<Welcome navigate={ useNavigate() }/>}/>
-          <Route path='/users/:userId' element={<UserProfile navigate={ useNavigate() }/>} />
+          <Route path='/users/:userId' element={<OtherUserProfile navigate={ useNavigate() }/>} />
           <Route path='/posts'  element={<Feed navigate={ useNavigate() }/>}/>
           <Route path='/login'  element={<LoginForm  navigate={ useNavigate() }/>}/>
           <Route path='/signup' element={<SignUpForm navigate={ useNavigate() }/>}/>
@@ -27,6 +27,9 @@ const App = () => {
           <Route path='/timeline' element={<Index navigate={ useNavigate() }/>}/>
           <Route path='/profile' element={<ProfilePage navigate={ useNavigate() }/>}/>
           <Route path='/updateprofile' element={<UpdatePage navigate={ useNavigate() }/>}/>
+          
+          
+
 
           
         </Routes>
