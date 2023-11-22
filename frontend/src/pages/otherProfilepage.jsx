@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/navbar/navbar';
 
-const UserProfile = () => {
+const OtherUserProfile = () => {
   const { userId } = useParams();
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [user, setUser] = useState(null); // State to hold user data
@@ -55,5 +55,5 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default OtherUserProfile;
 

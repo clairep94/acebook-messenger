@@ -9,7 +9,7 @@ import Feed from '../feed/Feed';
 import { useNavigate, Routes, Route, } from "react-router-dom";
 import Countdown from '../countdown/countdown';
 import Index from '../../pages/timeline';
-import OtherUserProfile from '../ProfilePage/OtherUserProfile';
+import OtherUserProfile from '../../pages/otherProfilepage';
 import Welcome from '../../pages/welcome'
 import UploadImage from '../upload_image/UploadImage';
 import LoginPage from '../../pages/loginPage';
