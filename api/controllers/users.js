@@ -32,6 +32,22 @@ const UsersController = {
       res.status(200).json({ user: users, token: token });
     });
   },
+  FindUser: (req, res) => {
+    // this function does the same thing as the find function but it takes the id from the params
+    // not the token
+    User.findById(req.params.id)
+    // this populates the page with everything but the password
+    // 
+    .populate('user_id', '-password')
+    .exec((err, users) => {
+      if (err) {
+        throw err;
+      }
+      // genrates new token for authentication
+      const token = TokenGenerator.jsonwebtoken(req.user_id)
+      res.status(200).json({ user: users, token: token });
+    });
+  },
 
   
   
@@ -58,7 +74,8 @@ const UsersController = {
   // curently only updates the bio but it should be possible to modify it
   // to update other things eg display name
   UpdateProfile: (req, res) => {
-    console.log(`id? ${req.user_id}`)
+    
+    
     if(req.body.type === "bioSub"){
       User.updateOne(
         { _id: req.user_id },
@@ -74,14 +91,16 @@ const UsersController = {
         }); 
 
     }
-    else if(req.body.type === "name"){
-    User.updateOne(
+    else if(req.body.type === "firstName"){
+    const thisUser = User.findById(req.user_id)
+    thisUser.updateOne(
       { _id: req.user_id },
-      { $set: { displayName: req.body.disName } })
-      
+      { $set: {
+         firstName: req.body.firstName ,
+      fullName: `${req.body.firstName} ${thisUser.lastName}`}, })
     
 
-     // listens out for errors
+     // listens out for errors 
     .exec((err) => {
       if (err) {
         throw err;
@@ -89,11 +108,13 @@ const UsersController = {
       // genrates new token for authentication
       const token = TokenGenerator.jsonwebtoken(req.user_id)
       // 200 status used for put requests
-      res.status(200).json({ message: "bio", token: token });
+      res.status(200).json({ message: "name", token: token });
     });
   }
    
   },
+  
+  
 };
 
 

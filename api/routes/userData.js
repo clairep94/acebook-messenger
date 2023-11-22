@@ -10,6 +10,6 @@ const UsersController = require("../controllers/users");
 */
 router.put("/", UsersController.UpdateProfile);
 router.get("/", UsersController.Find);
-
+router.get("/:id", UsersController.FindUser);
 
 module.exports = router;
