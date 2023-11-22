@@ -3,7 +3,7 @@ import getSessionUserID from '../utility/getSessionUserID';
 
 
 
-const NewCommentForm = ({currentPost, navigate}) => {
+const NewCommentForm = ({ updateComments, currentPost, navigate }) => {
     
     // =========== STATE VARIABLES ==========================
     const [message, setMessage] = useState("");
@@ -86,7 +86,6 @@ const NewCommentForm = ({currentPost, navigate}) => {
 
           <textarea id="message" value={message} onChange={handleMessageChange}  placeholder="Share your Thoughts on acebook..."/>
           <br/>
-          The Post we are writing to is: {currentPost._id}<br/>
           <input id="submit" type="submit" value="Submit" />
       </form>
          

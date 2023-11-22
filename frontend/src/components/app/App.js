@@ -11,7 +11,6 @@ import Countdown from '../countdown/countdown';
 import Index from '../../pages/timeline';
 import UserProfile from '../../pages/otherProfilepage'
 import Welcome from '../../pages/welcome'
-import NewCommentForm from '../CommentWrite/CommentWrite';
 import UploadImage from '../upload_image/UploadImage';
 
 const App = () => {

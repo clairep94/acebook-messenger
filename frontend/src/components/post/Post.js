@@ -99,7 +99,7 @@ const Post = ({ post }) => {
       {post.imageUrl && (
         <img src={post.imageUrl} alt="Post" className="post-image" />
       )}
-
+      <CommentsBox post={post}/>
       <button onClick={handleLikeSubmit} className={userLiked ? 'unlike-button' : 'like-button'}>{userLiked ? 'Unlike' : 'Like'}</button>
     </article>
   )
