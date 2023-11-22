@@ -5,6 +5,7 @@ const PostsController = {
   Index: (req, res) => {
     Post.find()
       .populate('user_id', '-password') // Populate the 'user_id' field with the entire User document
+      .populate('likes', '-password')
       .exec((err, posts) => {
         if (err) {
           throw err;
