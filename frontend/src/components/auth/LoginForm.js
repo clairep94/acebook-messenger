@@ -33,6 +33,7 @@ const LogInForm = ({ navigate }) => {
       let data = await response.json()
       window.localStorage.setItem("token", data.token)
       navigate('/timeline');
+      window.location.reload(); // Necessary addition so that page after successful login if logging in after timed out
     }
   }
 
