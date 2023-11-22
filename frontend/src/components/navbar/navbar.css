@@ -2,7 +2,10 @@
 .topnav {
     background-color: #5B7EC2;
     display: flex;
-    overflow: hidden;
+    /* overflow: hidden; */
+    /* height: 70px; */
+    align-items: center;
+    z-index: 200;
   }
   
   /* Style the links inside the navigation bar */
@@ -10,7 +13,7 @@
     float: left;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px;
+    padding: 25px 20px;
     text-decoration: none;
     font-size: 17px;
     display: inline-block;
@@ -38,9 +41,12 @@
     float: left;
     color: #f2f2f2;
     text-align: center;
-    padding: 5px 8px;
+    padding: px 15px;
     text-decoration: none;
     font-size: 17px;
-    width: 40px;
-    height: 'auto';
+    width: auto;
+    height: 50px;
+  }
+  .topnav a.image img:hover {
+    background-color: #4267B2;
   }

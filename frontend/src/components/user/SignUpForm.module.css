@@ -15,6 +15,11 @@
   border-bottom: 2px solid #4267B2;
 }
 
+.errorMessage {
+  color: red;
+}
+
+
 /* Buttons */
 .Button {
   width: 150px; /* Set your desired fixed width for the submit button */
