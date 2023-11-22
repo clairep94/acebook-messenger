@@ -21,6 +21,7 @@ const PostsController = {
     Post.findById(postID)
     .populate('user_id', '-password') // Populate the 'user_id' field with the entire User document
     .populate('likes', '-password')
+    .populate('comments')
     .exec((err, post) => {
       if (err) {
         throw err;
