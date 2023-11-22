@@ -5,7 +5,7 @@ import formatNumLikes from '../utility/getNumLikes';
 import formatLikesUsersPreview from '../utility/getNumLikesUserPreview';
 import formatFullDateString from '../utility/getFullDateString';
 import convertRelativeDateTimeString from '../utility/getRelativeTimestamp';
-import NewCommentForm from '../CommentWrite/CommentWrite';
+import CommentsBox from '../comments/CommentsBox';
 
 
 const Post = ({post}) => {
@@ -60,42 +60,6 @@ const Post = ({post}) => {
         })
     }
   }
-// ==============Feth Request For Name
-const GetDisplayName = async (event, variable1) => {
-  if (token) {
-    event.preventDefault();
-
-    // Step 1: GET request to fetch user data with query parameter
-    fetch(`/users/${variable1}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then(getResponse => {
-        if (!getResponse.ok) {
-          throw new Error(`Failed to fetch user data`);
-        }
-        return getResponse.json();
-      })
-      .then(userData => {
-        // Assuming userData contains the user's information
-        const displayName = userData.email; // Adjust this based on your user data structure
-        console.log('User Display Name:', displayName);
-        // You can use the retrieved display name in your application logic
-      })
-      .catch(error => {
-        console.error('Error fetching user data:', error);
-        // Handle errors appropriately
-      });
-  }
-};
-
-const LOGNAME = () => {
-  const variable1 = '65564419b2033160441f4756'; // Replace with the desired variable value
-  GetDisplayName(variable1);
-};
 // ============= DISPLAYING LIKES ==================
 
   // --------- "X like(s)" ---------------
@@ -125,10 +89,9 @@ const LOGNAME = () => {
       {/* choose one format later */}
       <p className='date-posted'>{ fullDateTimeString }</p>
       <p className='date-posted'>{ relativeDateTimeString }</p>
-      <button onClick={LOGNAME}>Get Display Name</button>
       <p className='message'>{ post.message }</p>
 
-    {post.comments.length > 0 ? (
+    {/* {post.comments.length > 0 ? (
       // If there are comments
       post.comments.map((comment, index) => (
         <div key={index}> <b>Comments:</b> 
@@ -138,14 +101,14 @@ const LOGNAME = () => {
     ) : (
       // If there are no comments
       <div>No comments yet</div>
-    )}
+    )} */}
 
 
       {/* choose one format later */}
       <p className='likes'>{ likes_formatted }</p>
       {/* change this to be a link to see a list of all users who liked this */}
       <p className='test-likes-users'>{ likes_formatted_with_user_preview }</p>
-      <NewCommentForm currentPost={post}/>
+      <CommentsBox post={post}/>
       <button onClick={handleLikeSubmit} className={userLiked ? 'unlike-button' : 'like-button'}>{userLiked ? 'Unlike' : 'Like'}</button>
     </article>
   )
