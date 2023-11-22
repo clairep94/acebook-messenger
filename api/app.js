@@ -1,3 +1,6 @@
+require('dotenv').config();
+require('./config/cloudinaryConfig');
+
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
@@ -7,7 +10,8 @@ const JWT = require("jsonwebtoken");
 const postsRouter = require("./routes/posts");
 const authenticationRouter = require("./routes/authentication");
 const usersRouter = require("./routes/users");
-const userDataRouter = require("./routes/userData")
+const uploadImageRoute = require('./routes/upload_image');
+const userDataRouter = require("./routes/userData");
 const app = express();
 
 // setup for receiving JSON
@@ -23,14 +27,14 @@ const tokenChecker = (req, res, next) => {
   let token;
   const authHeader = req.get("Authorization")
 
-  if(authHeader) {
+  if (authHeader) {
     token = authHeader.slice(7)
   }
 
   JWT.verify(token, process.env.JWT_SECRET, (err, payload) => {
-    if(err) {
+    if (err) {
       console.log(err)
-      res.status(401).json({message: "auth error"});
+      res.status(401).json({ message: "auth error" });
     } else {
       req.user_id = payload.user_id;
       next();
@@ -42,9 +46,10 @@ const tokenChecker = (req, res, next) => {
 app.use("/posts", tokenChecker, postsRouter);
 app.use("/tokens", authenticationRouter);
 app.use("/users", usersRouter);
+app.use('/upload_image', uploadImageRoute);
+
 // I configured the route to check for tokens
 app.use("/userData", tokenChecker, userDataRouter);
-
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -58,7 +63,7 @@ app.use((err, req, res) => {
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // respond with details of the error
-  res.status(err.status || 500).json({message: 'server error'})
+  res.status(err.status || 500).json({ message: 'server error' })
 });
 
 module.exports = app;
