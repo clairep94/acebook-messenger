@@ -16,7 +16,7 @@ const SearchBar = ({setResults}) => {
     // =========== GET ALL USERS AS CLIENT TYPES INTO SEARCH BAR =========================
     const fetchData = (value) => {
       // Sends GET request to '/users' with the auth token
-      fetch("/users", {
+      fetch("/userData", {
         headers: {
           'Authorization': `Bearer ${token}`
         }})
