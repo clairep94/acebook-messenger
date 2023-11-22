@@ -26,18 +26,15 @@ const Feed = ({ navigate }) => {
           window.localStorage.setItem("token", data.token)
           setToken(window.localStorage.getItem("token"))
 
-          // Updates posts with all posts retrieved
-          // setPosts(data.posts); <=== change to below for posts sorted by date_posted in reverse order.
-
           // Sort posts based on date_posted in descending order
           const sortedPosts = data.posts.sort((a, b) => new Date(b.date_posted) - new Date(a.date_posted));
+          // Updates posts with all posts retrieved in descending order
           setPosts(sortedPosts);
         })
     }
   }, [])
 
   // =========== FUNCTION TO HANDLE USER LOGOUT: =========================
-  // TODO: Refactor into LogOut component to reuse on all login-required pages.
   const logout = () => {
     window.localStorage.removeItem("token")
     navigate('/login')

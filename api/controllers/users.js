@@ -3,7 +3,20 @@ const User = require("../models/user");
 const TokenGenerator = require("../lib/token_generator");
 
 const UsersController = {
- 
+
+  Index: (req, res) => {
+    User.find()
+    .exec((err, users) => {
+      if(err) {
+        throw err;
+      }
+      const token = TokenGenerator.jsonwebtoken(req.user_id)
+      res.status(200).json({users: users, token: token})
+    });
+  
+  },
+
+
 // finds a single user by id
   Find: (req, res) => {
     User.findById(req.user_id)
@@ -18,9 +31,8 @@ const UsersController = {
       const token = TokenGenerator.jsonwebtoken(req.user_id)
       res.status(200).json({ user: users, token: token });
     });
-  
   },
- 
+
   
   
   Create: (req, res) => {
@@ -28,17 +40,14 @@ const UsersController = {
 
     user.save((err) => {
       //checks for any error
+      //TODO add to this, it is not taking the error messages specified in the schema.
       if (err) {
         // checks for the specific error code for a duplicate unique key
         // changes the message acordingly we can use this to catch other errors if needed
         if(err.code === 11000){
-         
           return res.status(400).json({message: 'This email is already registered with an account'})
-
         }
         return res.status(400).json({ message: 'Bad request' });
-        
-
       }
       else {
         res.status(201).json({ message: 'OK' });

@@ -6,7 +6,6 @@ import defaultProfilePic from './profilePic/defaultProfilePic.png'
 const ProfilePage = () =>{
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userData, setUserData] = useState(null)
-  const [name, setName] = useState(null)
  
   // sends the fetch (get) request 
   useEffect(() => {
@@ -15,7 +14,7 @@ const ProfilePage = () =>{
       //goes to new route user data because it needs to check the token
       fetch("/userData", {
         headers: {
-          'Authorization': `Bearer ${token}` 
+          'Authorization': `Bearer ${token}`, 
         }
       })
       // modified version of the feed code 
@@ -29,21 +28,7 @@ const ProfilePage = () =>{
           // and the user data is stored in the state 
           // you can access specific types of data using userData.atribute eg userData.email
           setUserData(data.user);
-          
-            
-          setName(data.user.email)
-          console.log(name)
-          if(data.user.displayName){
-            setName(data.user.displayName)
-          }
-          
-         
-          
-          
-          
-
-
-          
+          console.log(userData)
         })
         .catch((error) => {
           // console.error works like console.log but displays it as and error message
@@ -56,7 +41,6 @@ const ProfilePage = () =>{
 
   
 
-
   
   return (
     <>
@@ -64,22 +48,23 @@ const ProfilePage = () =>{
        
         <Navbar />
 
-        {/* Hyperlink to update page */}
+        {/* TODO - style this -- Hyperlink to update page */}
         <a href='/updateprofile' className="right">UpdatePage</a>
-        {/* this image is just a place holder, we'll need to do some conditional rendering 
+        {/* TODO -- this image is just a place holder, we'll need to do some conditional rendering 
         so that it only displays if no ones uploaded a picture  */}
+        {/* <img className="profilepic" src={(userData.profilePictureURL) ? defaultProfilePic : userData.profilePictureURL}></img> */}
+        {/* <img className="profilepic" src={defaultProfilePic}></img> */}
         <img className="profilepic" src={defaultProfilePic}></img>
+
         {/* Profile information */}
         {userData && (
           <>
             <div>
                {/* modified to dispaly the email as display name if there is no display name */}
-              <h1>{name}'s ProfilePage</h1>
-              <h3>Your email: {userData.email}</h3>
-              <h3>Your Bio:</h3>
-              <span id="bio" className={styles.bio}>
-                {userData.bio}
-              </span>
+              {/* <h1>{name}'s ProfilePage</h1> */}
+              <h1>{userData.fullName}</h1>
+              <h3>{userData.firstName}'s Email: {userData.email}</h3>
+              <h3>{userData.firstName}'s Bio: <span id="bio" className={styles.bio}>{userData.bio}</span></h3>
             </div>
           </>
         )}

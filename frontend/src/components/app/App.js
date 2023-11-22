@@ -18,9 +18,10 @@ const App = () => {
   // Routes for each page of the website
   return (
 
+
     <Routes>
       <Route path='/' element={<Welcome navigate={useNavigate()} />} />
-      <Route path='/user/:userId' element={<UserProfile navigate={useNavigate()} />} />
+      <Route path='/users/:userId' element={<UserProfile navigate={useNavigate()} />} />
       <Route path='/posts' element={<Feed navigate={useNavigate()} />} />
       <Route path='/login' element={<LoginForm navigate={useNavigate()} />} />
       <Route path='/signup' element={<SignUpForm navigate={useNavigate()} />} />
