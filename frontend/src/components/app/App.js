@@ -12,6 +12,7 @@ import Index from '../../pages/timeline';
 import UserProfile from '../../pages/otherProfilepage'
 import Welcome from '../../pages/welcome'
 import UploadImage from '../upload_image/UploadImage';
+import LoginPage from '../../pages/loginPage';
 
 const App = () => {
 
@@ -23,7 +24,9 @@ const App = () => {
       <Route path='/' element={<Welcome navigate={useNavigate()} />} />
       <Route path='/users/:userId' element={<UserProfile navigate={useNavigate()} />} />
       <Route path='/posts' element={<Feed navigate={useNavigate()} />} />
-      <Route path='/login' element={<LoginForm navigate={useNavigate()} />} />
+      <Route path='/login' element={<LoginPage navigate={useNavigate()} />} />
+
+      {/* <Route path='/login' element={<LoginForm navigate={useNavigate()} />} /> */}
       <Route path='/signup' element={<SignUpForm navigate={useNavigate()} />} />
       <Route path='/new_post' element={<NewPostForm navigate={useNavigate()} />} />
       <Route path='/countdown' element={<Countdown navigate={useNavigate()} />} />
