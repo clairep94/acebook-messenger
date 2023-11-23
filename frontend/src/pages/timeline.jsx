@@ -52,7 +52,7 @@ const Index = ({ navigate }) => {
         </div>
       ) 
       : (
-        <div>This Code Will render when the Token is neither True or False - If you're seeing this on page this is a bug</div>
+    <></>
       )}
     </div>
   );

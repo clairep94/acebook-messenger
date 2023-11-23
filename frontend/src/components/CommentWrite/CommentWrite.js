@@ -2,81 +2,69 @@ import React, { useState } from 'react';
 import getSessionUserID from '../utility/getSessionUserID';
 import styles from './CommentWrite.module.css'
 
+const NewCommentForm = ({ currentPost }) => {
+  const [message, setMessage] = useState('');
+  const [token, setToken] = useState(window.localStorage.getItem('token'));
+  let sessionUserID = getSessionUserID(token);
 
+  const handleSubmit = async (event) => {
+    if (token) {
+      event.preventDefault();
+      
+      fetch('/comments', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ 
+          message: message,
+          author: sessionUserID
+        })
+      })
+      .then(async response => {
+        let postData = await response.json();
+        console.log('Post Data:', postData);
+        window.localStorage.setItem('token', postData.token);
+        setToken(window.localStorage.getItem('token'));
 
-const NewCommentForm = ({ updateComments, currentPost, navigate }) => {
-    
-    // =========== STATE VARIABLES ==========================
-    const [message, setMessage] = useState("");
-    const [token, setToken] = useState(window.localStorage.getItem("token"));
-      let sessionUserID = getSessionUserID(token);
-
-
-
-    // ============ FORM SUBMISSION FOR NEW POST ==================
-    const handleSubmit = async (event) => {
-
-        if(token){ // if user is logged in
-
-            event.preventDefault(); 
-            console.log(token);
-            // Send POST request to '/posts' endpoint
-            fetch( '/comments', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}` // necessary for requests that need login auth
-                },
-                body: JSON.stringify({ 
-                    message: message,
-                    author: sessionUserID
-                 }) // <===== BODY OF REQUEST: message
-                })
-                .then(async response => {
-                    let postData = await response.json();
-                    console.log("token", postData)
-                    console.log(`Post Data: ${postData.commentId}`)
-                    window.localStorage.setItem("token", postData.token);
-                    setToken(window.localStorage.getItem("token"));
-                    
-                    fetch(`/posts/${currentPost._id}/comment`, {
-                        method: 'put',
-                        headers: {
-                          'Content-Type': 'application/json',
-                          'Authorization': `Bearer ${token}`
-                        },
-                        body: JSON.stringify({newCommentID:postData.commentId})
-                      }) // complete Put request & update token
-                })
-                
-
-
-                // .then(response => {
-                //     if(response.status === 201) {
-                //     console.log('successful') 
-                //     window.location.reload()// If successful, refresh current page as this should be the timeline and not the component
-                //     const CreatedResponse = response.json()
-                //     return CreatedResponse
-                //     } else {
-                //     console.log('not successful')
-                //     navigate('/signup') // If unsuccessful, stay on the signup page
-                //     }
-                // })
-                // .then(async postdata => {
-                //     // Updates to a new token when the GET request is complete
-                //     window.localStorage.setItem("token", postdata.token)
-                //     setToken(window.localStorage.getItem("token"))
-                //     console.log(token)
-
-                // })
-            }
+        if (response.status === 201) {
+          console.log('Successful POST request');
+          // Return the fetch promise for chaining
+          return fetch(`/posts/${currentPost._id}/comment`, {
+            method: 'put',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ newCommentID: postData.commentId })
+          });
+        } else {
+          console.log('Unsuccessful POST request');
         }
-
-    // ------------ SUPPORTIVE FUNCTIONS: ----------------
-    // FUNCTIONS FOR CHANGING STATE VARIABLES 
-    const handleMessageChange = (event) => {
-        setMessage(event.target.value)
+      })
+      .then(response => {
+        if (response && response.status === 201) {
+          console.log('Successful PUT request');
+          window.location.reload(); // Refresh the page after successful PUT request
+        } else {
+          console.log('Unsuccessful PUT request');
+        }
+      })
+      .catch(error => {
+        console.error('Error during fetch:', error);
+      });
     }
+
+  };
+
+  const handleMessageChange = (event) => {
+    setMessage(event.target.value);
+  };
+
+
+
+
 
     const threadAuthor = "Greg"
 
@@ -109,5 +97,6 @@ const NewCommentForm = ({ updateComments, currentPost, navigate }) => {
 );
 
 }
+
 
 export default NewCommentForm;
