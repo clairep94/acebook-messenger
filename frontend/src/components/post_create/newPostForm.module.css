@@ -1,23 +1,7 @@
-.Middle {
+.Form {
   text-align: center;
   margin: 0px;
-}
-
-.Button {
-  width: 150px;
-  background-color: #4267B2;
-  color: white;
-  padding: 14px 20px;
-  position: relative; 
-  left: 175px; 
-  
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.Button:hover {
-  background-color: #5B7EC2;
+  position: relative;
 }
 
 .textarea {
@@ -32,3 +16,28 @@
   font-size: 12px;
   resize: none;
 }
+
+.buttonsrow{
+  display:flex;
+  justify-content: center;
+}
+
+
+.Button {
+  width: 150px;
+  background-color: #4267B2;
+  color: white;
+  padding: 8px 16px;
+  margin: 5px;
+
+
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.Button:hover {
+  background-color: #5B7EC2;
+}
+
+

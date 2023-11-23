@@ -36,8 +36,8 @@ const Index = ({ navigate }) => {
       {isLoggedIn === true ? (
         <div>
           <Navbar/>
-          {/* TODO add personalised welcome message using first name */}
-          <p>Welcome to AceBook</p>
+          
+          <p className='subtitles' id="welcome-to-acebook">Welcome to AceBook</p>
           <NewPostForm navigate={navigate}/>
           <Feed/>
 

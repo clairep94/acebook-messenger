@@ -9,7 +9,8 @@ const UsersController = require("../controllers/users");
  chaged name to update profile
 */
 router.put("/", UsersController.UpdateProfile);
-router.get("/", UsersController.Find);
+// router.get("/", UsersController.Find);
 router.get("/:id", UsersController.FindUser);
+router.get("/", UsersController.Index);
 
 module.exports = router;

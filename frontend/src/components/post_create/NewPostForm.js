@@ -80,20 +80,24 @@ const NewPostForm = ({ navigate }) => {
     const handleMessageChange = (event) => {
         setMessage(event.target.value)
     }
+ //TODO add session userName to placeholder
 
+    const sessionUserName = "Claire"
 
     // ========= JSX FOR THE UI OF THE COMPONENT =====================
     // one input field and a submit button
-
     return (
         <>
-            <div>
-                <form onSubmit={handleSubmit} className={styles.Middle}>
-                    <textarea id="message" value={message} onChange={handleMessageChange} className={styles.textarea} placeholder="Share your Thoughts on acebook..." />
+            <div >
+                <form onSubmit={handleSubmit} className={styles.Form} >
+                    <textarea id="message" value={message} onChange={handleMessageChange} className={styles.textarea} placeholder={`What's on your mind, ${sessionUserName}?`} />
                     <br />
-                    <input type="file" onChange={handleFileChange} className={styles.inputField} />
-                    <br />
-                    <input id="submit" type="submit" value="Submit" className={styles.Button} />
+                    <div className={styles.buttonsrow}>
+                        <input type="file" onChange={handleFileChange} className={styles.Button} />
+                        <input id="submit" type="submit" value="Submit" className={styles.Button} />
+
+                    </div>
+
                 </form>
             </div>
         </>

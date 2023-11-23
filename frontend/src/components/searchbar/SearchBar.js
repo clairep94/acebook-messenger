@@ -16,7 +16,7 @@ const SearchBar = ({setResults}) => {
     // =========== GET ALL USERS AS CLIENT TYPES INTO SEARCH BAR =========================
     const fetchData = (value) => {
       // Sends GET request to '/users' with the auth token
-      fetch("/users", {
+      fetch("/userData", {
         headers: {
           'Authorization': `Bearer ${token}`
         }})
@@ -28,11 +28,12 @@ const SearchBar = ({setResults}) => {
         console.log(data)
 
         const results = data.users.filter((user) => {
+        const fullName = `${user.firstName} ${user.lastName}`
           return (
             value && //if user has not left the search field blank
             user && //user exists in the api
-            user.fullName && //user has a full name in the api
-            user.fullName.toLowerCase().includes(value.toLowerCase()) //search value is partially included in the user.fullName
+            // user.fullName && //user has a full name in the api
+            fullName.toLowerCase().includes(value.toLowerCase()) //search value is partially included in the user.fullName
           );
         });
         console.log(results);
