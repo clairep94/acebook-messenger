@@ -5,6 +5,7 @@ import formatNumLikes from '../utility/getNumLikes';
 import formatLikesUsersPreview from '../utility/getNumLikesUserPreview';
 import formatFullDateString from '../utility/getFullDateString';
 import convertRelativeDateTimeString from '../utility/getRelativeTimestamp';
+import formatNumComments from '../utility/getNumComments';
 import CommentsBox from '../comments/CommentsBox';
 
 import { BiLike } from "react-icons/bi";
@@ -62,25 +63,26 @@ const Post = ({ post }) => {
         })
     }
   }
-// ============= DISPLAYING LIKES ==================
+// ============= DISPLAYING REACTIONS ==================
 
-  // --------- "X like(s)" ---------------
+  // "X like(s)" 
   const likes_formatted = formatNumLikes(post.likes)
-
-  // --------- "You/User and X others liked this" ---------------
+  // "You/User and X others liked this"
   const likes_formatted_with_user_preview = formatLikesUsersPreview(post.likes, sessionUserID)
 
 
   // ======== FORMATTING TIME ==============
   const postedDateTime = new Date(post.date_posted);
-
-  // ------------ '19 Nov 2023 at 5:45PM' -------------
+  // '19 Nov 2023 at 5:45PM' 
   const fullDateTimeString = formatFullDateString(postedDateTime)
-
-  // ------------ 'X seconds ago / X minutes ago / X hours ago / X days ago / fullDateTime --------------
+  // 'X seconds ago / X minutes ago / X hours ago / X days ago / fullDateTime 
   const relativeDateTimeString = convertRelativeDateTimeString(postedDateTime);
 
+  // "X comment(s)"
+  const num_comments = formatNumComments(post.comments)
 
+
+  // TODO change to user profile pic --> Change to conditional. if 'null' or empty, then display default profile pic.
   const fillerImage = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/35.png"
 
   // ========= JSX FOR THE UI OF THE COMPONENT =====================
@@ -103,33 +105,38 @@ const Post = ({ post }) => {
           {/* RELATIVE DATE STAMP AND HOVER FULL DATE STAMP */}
           <div className='tooltip'>
             <p className='date-posted'>{relativeDateTimeString}</p>
-          <span className='tooltiptext'>{fullDateTimeString}</span>
-      </div>
-
+              <span className='tooltiptext'>{fullDateTimeString}</span>
+          </div>
         </div>
 
         <div className="content">
+          {/* TEXT CONTENT */}
           <p className='message'>{post.message}</p>
 
           {/* Display image if available */}
           {post.imageUrl && (
             <img src={post.imageUrl} alt="Post" className="post-image" />
           )}
-          
         </div>
         
         <div className='reactions'>
-          {/* choose one format later */}
-          {/* <button onClick={handleLikeSubmit} className={userLiked ? 'unlike-button' : 'like-button'}>{userLiked ? 'Unlike' : 'Like'}</button> */}
+          {/* LIKE BUTTON */}
           <button onClick={handleLikeSubmit} className={userLiked ? 'unlike-button' : 'like-button'}>
             {userLiked ? <BiSolidLike /> : <BiLike />}
           </button>
-          {/* <p className='likes'>{likes_formatted}</p> */}
+
+          {/* CLICKABLE NUMBER OF LIKES */}
           {/* TODO make number of likes clickable -- popup that shows each user who liked this */}
-          <p className='likes-users'>{likes_formatted_with_user_preview}</p>
+          <button onClick={console.log('show who-liked-this')} className='who-liked-this'>
+            {/* <button onClick={handleWhoLikesThisSubmit} className='who-liked-this'> */}
+            {/* <p className='likes'>{likes_formatted}</p> */}
+            <p className='likes-users'>{likes_formatted_with_user_preview}</p>
+          </button>
 
           {/* TODO Add showComments state that is activated when you click 'comments' */}
-          <p className='comments-num'>{`${post.comments.length} comments`}</p>
+          <button onClick={console.log('show comments')} className='show-comments'>
+            <p className='comments-num'>{num_comments}</p>
+          </button>
 
           {/* TODO Add showWriteReply state that is activated when you click 'reply' */}
           <button onClick={console.log('show leave-comment box')} className='show-leave-comment-box-button'>

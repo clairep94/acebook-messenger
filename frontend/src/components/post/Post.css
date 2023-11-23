@@ -19,8 +19,8 @@
   margin: auto;
   margin-top: 13px;
   margin-left: 13px;
-  width: 85px;
-  height: 85px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%; /* Make it a circle by setting border-radius to 50% */
   overflow: hidden; /* Clip the content to the rounded shape */
   background-color: #dac8c8; /* Optional background color for the container */
