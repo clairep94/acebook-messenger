@@ -155,12 +155,10 @@ const Post = ({ post }) => {
             <p className='likes-users'>{likes_formatted_with_user_preview}</p>
           </button>
 
-          {/* TODO Add showComments state that is activated when you click 'comments' */}
           <button onClick={handleShowCommentsButton} className='show-comments'>
             <p className='comments-num'>{num_comments}</p>
           </button>
 
-          {/* TODO Add showWriteReply state that is activated when you click 'reply' */}
           <button onClick={handleShowCommentsButton} className='show-leave-comment-box-button'>
             Leave Comment
           </button>

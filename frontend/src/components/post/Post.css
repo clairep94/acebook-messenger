@@ -2,7 +2,7 @@
 .post-container {
   border: 2px solid #4267B2;
   background-color: #ffffff;
-  border-radius: 10px;
+  border-radius: 5px;
 
   width: 500px;
   margin: 20px auto; 
@@ -97,15 +97,16 @@
   background-color: #4267B2;
 }
 
-
   .like-button,
   .unlike-button {
     font-size: 20px;
     background-color: transparent; /* Set the default background color to transparent */
     border: none;
     color: white;
-    padding: 8px 16px;
-    margin: 5px;
+    padding: 0px 16px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 0px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -113,22 +114,24 @@
 
   .like-button:hover,
   .unlike-button:hover,
-  .show-leave-comment-box-button:hover {
+  .show-leave-comment-box-button:hover,
+  .show-comments:hover,
+  .show-leave-comments-box-button:hover,
+  .who-liked-this:hover {
     background-color: #5B7EC2; /* Set the background color on hover */
   }
 
-  .unlike-button {
-    background-color: #4267B2; /* Set the background color for the liked state */
-  }
-
-
-  .show-leave-comment-box-button{
+  .show-leave-comment-box-button,
+  .show-comments,
+  .show-leave-comments-box-button,
+  .who-liked-this {
     font-size: 15px;
     background-color: transparent; /* Set the default background color to transparent */
     border: none;
     color: white;
-    padding: 8px 16px;
-    margin: 5px;
+    padding: 0px 16px;
+
+    margin: 0px;
     cursor: pointer;
     display: flex;
     align-items: center;
