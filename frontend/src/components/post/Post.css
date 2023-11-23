@@ -97,6 +97,15 @@
   background-color: #4267B2;
 }
 
+  .liked-users{
+    text-align: left;
+  }
+
+  .icon{
+    font-size: 20px;
+    vertical-align: -4px;
+  }
+
   .like-button,
   .unlike-button {
     font-size: 20px;
@@ -104,8 +113,8 @@
     border: none;
     color: white;
     padding: 0px 16px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 18px;
+    padding-right: 16px;
     margin: 0px;
     cursor: pointer;
     display: flex;
@@ -129,7 +138,7 @@
     background-color: transparent; /* Set the default background color to transparent */
     border: none;
     color: white;
-    padding: 0px 16px;
+    padding: 0px 15px;
 
     margin: 0px;
     cursor: pointer;

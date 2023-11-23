@@ -8,8 +8,10 @@ import convertRelativeDateTimeString from '../utility/getRelativeTimestamp';
 import formatNumComments from '../utility/getNumComments';
 import CommentsBox from '../comments/CommentsBox';
 
-import { BiLike } from "react-icons/bi";
-import { BiSolidLike } from "react-icons/bi";
+import { BiLike, BiSolidLike, BiCommentAdd, BiSolidCommentAdd,  BiCommentDetail, BiSolidCommentDetail} from "react-icons/bi";
+// import { FaComments, FaRegComments, FaRegCommentDots } from "react-icons/fa6";
+// import { FaCommentDots } from 'react-icons/fa6';
+
 
 const Post = ({ post }) => {
 
@@ -87,7 +89,7 @@ const Post = ({ post }) => {
 
 
 
-  // ======= SHOW COMMENTS & LEAVE A COMMENT BUTTON ===============
+  // ======= SHOW COMMENTS BUTTON ===============
   const [showComments, setShowComments] = useState(false);
 
   const handleShowCommentsButton = (event) => {
@@ -95,6 +97,15 @@ const Post = ({ post }) => {
     setShowComments(!showComments);
     console.log(`Show comments: ${showComments}`);
   }
+
+  // ======= SHOW LEAVE A COMMENT COMMENT BUTTON ===============
+    const [showNewCommentBox, setNewCommentBox] = useState(false);
+
+    const handleShowNewCommentBoxButton = (event) => {
+      console.log(`Show new comment pressed: ${showNewCommentBox}`);
+      setNewCommentBox(!showNewCommentBox);
+      console.log(`Show new comment: ${showNewCommentBox}`);
+    }
 
   // ======= SHOW WHO LIKED THIS =============
   const [showWhoLikedThis, setShowWhoLikedThis] = useState(false);
@@ -144,7 +155,9 @@ const Post = ({ post }) => {
         <div className='reactions'>
           {/* LIKE BUTTON */}
           <button onClick={handleLikeSubmit} className={userLiked ? 'unlike-button' : 'like-button'}>
+            <div className='icon'>
             {userLiked ? <BiSolidLike /> : <BiLike />}
+            </div>
           </button>
 
           {/* CLICKABLE NUMBER OF LIKES */}
@@ -156,17 +169,17 @@ const Post = ({ post }) => {
           </button>
 
           <button onClick={handleShowCommentsButton} className='show-comments'>
-            <p className='comments-num'>{num_comments}</p>
+            <p className='comments-num'><span className='icon'>{showComments ? <BiSolidCommentDetail /> : <BiCommentDetail />  }</span>   {num_comments}</p>
           </button>
 
-          <button onClick={handleShowCommentsButton} className='show-leave-comment-box-button'>
-            Leave Comment
+          <button onClick={handleShowNewCommentBoxButton} className='show-leave-comment-box-button'>
+            <p><span className='icon'>{showNewCommentBox ? <BiSolidCommentAdd /> :< BiCommentAdd/>  }</span>  Leave Comment</p>
           </button>
         </div>
       </div>  
 
-      
-      {showComments && <CommentsBox post={post}/>}
+      {/* TODO CHANGE LOGIC TO SHOW ONE OR THE OTHER HERE */}
+      {(showComments || showNewCommentBox) && <CommentsBox post={post}/>}
     </article>
   )
 }
