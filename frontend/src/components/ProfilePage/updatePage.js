@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ProfilePage.css'
 
-const UpdatePage = ({navigate}) =>{
+const UpdatePage = (props) =>{
   const [bio, setBio] = useState("")
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [bioSubmit, setBioSubmit] = useState('')
-  const [displayName, setDisplayName ] = useState('')
+  const [firstName, setFirstName ] = useState('')
+  const [lastName, setLastName ] = useState('')
   // handles the change so you can see what you're typing
   const handleChange = (event) => {
     if(event.target.id === "bioedit"){
       setBio(event.target.value)
     }
-    else if (event.target.id === "nameEdit")
-    setDisplayName(event.target.value)
+    else if (event.target.id === "firstNameEdit"){
+      setFirstName(event.target.value)
+      
+    }
+    else if (event.target.id === "lastNameEdit"){
+      setLastName(event.target.value)
+      
+    }
+    
     
   }
   
@@ -22,10 +30,17 @@ const UpdatePage = ({navigate}) =>{
 const handleSubmit = async (event) => {
   
 
+  
+  
+
   // checks if token (if user signed in)
   if(token){
     
     event.preventDefault();
+    
+     
+
+ 
     
     //uses put rather than post to update
     // and goes to new route user data because it needs to check the token
@@ -41,7 +56,8 @@ const handleSubmit = async (event) => {
     
     body : JSON.stringify({
     bio: bio,
-    disName: displayName,
+    firstName: firstName,
+    lastName: lastName,
     type: event.target.id
     })
     })
@@ -50,6 +66,7 @@ const handleSubmit = async (event) => {
       // not sure if its necessary or just convention  
       if(response.status === 200){
         console.log("updated bio")
+        console.log()
         return response.json()
       }
       else{
@@ -88,17 +105,30 @@ const handleSubmit = async (event) => {
 
         
       </form>
-      <form id="name" onSubmit={handleSubmit}>
+      <form id="firstName" onSubmit={handleSubmit}>
           {/* handles the change so you can see what you're typing  */}
-      <textarea id="nameEdit" value={displayName} onChange={handleChange} className={styles.bio} placeholder="update your name "/>
+      <textarea id="firstNameEdit" value={firstName} onChange={handleChange} className={styles.bio} placeholder="update your first name "/>
       <label>
-      update your display name
+      update your first name
           <input type="submit" name="submit"/>
         </label>
        
 
         
       </form>
+      <form id="lastName" onSubmit={handleSubmit}>
+          {/* handles the change so you can see what you're typing  */}
+      <textarea id="lastNameEdit" value={lastName} onChange={handleChange} className={styles.bio} placeholder="update your last name "/>
+      <label>
+      update your lastname {props.lastName}
+          <input type="submit" name="submit"/>
+        </label>
+       
+
+        
+      </form>
+      
+     
       
       
       </div>
