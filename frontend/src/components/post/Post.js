@@ -71,7 +71,7 @@ const Post = ({ post }) => {
   const likes_formatted_with_user_preview = formatLikesUsersPreview(post.likes, sessionUserID)
 
 
-  // ======== FORMATTING TIME ==============
+  // ------- FORMATTING TIME -------------
   const postedDateTime = new Date(post.date_posted);
   // '19 Nov 2023 at 5:45PM' 
   const fullDateTimeString = formatFullDateString(postedDateTime)
@@ -85,7 +85,29 @@ const Post = ({ post }) => {
   // TODO change to user profile pic --> Change to conditional. if 'null' or empty, then display default profile pic.
   const fillerImage = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/35.png"
 
-  // ========= JSX FOR THE UI OF THE COMPONENT =====================
+
+
+  // ======= SHOW COMMENTS & LEAVE A COMMENT BUTTON ===============
+  const [showComments, setShowComments] = useState(false);
+
+  const handleShowCommentsButton = (event) => {
+    console.log(`Show comments pressed: ${showComments}`);
+    setShowComments(!showComments);
+    console.log(`Show comments: ${showComments}`);
+  }
+
+  // ======= SHOW WHO LIKED THIS =============
+  const [showWhoLikedThis, setShowWhoLikedThis] = useState(false);
+
+  const handleShowWhoLikedThisButton = (event) => {
+    console.log(`Show who liked this pressed: ${showWhoLikedThis}`);
+    setShowWhoLikedThis(!showWhoLikedThis);
+    console.log(`Show who liked this: ${showWhoLikedThis}`);
+
+  }
+
+
+// ========= JSX FOR THE UI OF THE COMPONENT =====================
   return (
     <article className='thread-container' data-cy="post" key={post._id}>
       <div className='post-container'>
@@ -127,26 +149,26 @@ const Post = ({ post }) => {
 
           {/* CLICKABLE NUMBER OF LIKES */}
           {/* TODO make number of likes clickable -- popup that shows each user who liked this */}
-          <button onClick={console.log('show who-liked-this')} className='who-liked-this'>
+          <button onClick={handleShowWhoLikedThisButton} className='who-liked-this'>
             {/* <button onClick={handleWhoLikesThisSubmit} className='who-liked-this'> */}
             {/* <p className='likes'>{likes_formatted}</p> */}
             <p className='likes-users'>{likes_formatted_with_user_preview}</p>
           </button>
 
           {/* TODO Add showComments state that is activated when you click 'comments' */}
-          <button onClick={console.log('show comments')} className='show-comments'>
+          <button onClick={handleShowCommentsButton} className='show-comments'>
             <p className='comments-num'>{num_comments}</p>
           </button>
 
           {/* TODO Add showWriteReply state that is activated when you click 'reply' */}
-          <button onClick={console.log('show leave-comment box')} className='show-leave-comment-box-button'>
+          <button onClick={handleShowCommentsButton} className='show-leave-comment-box-button'>
             Leave Comment
           </button>
         </div>
       </div>  
 
       
-      <CommentsBox post={post}/>
+      {showComments && <CommentsBox post={post}/>}
     </article>
   )
 }
