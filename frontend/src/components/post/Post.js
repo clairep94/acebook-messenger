@@ -7,6 +7,8 @@ import formatFullDateString from '../utility/getFullDateString';
 import convertRelativeDateTimeString from '../utility/getRelativeTimestamp';
 import CommentsBox from '../comments/CommentsBox';
 
+import { BiLike } from "react-icons/bi";
+import { BiSolidLike } from "react-icons/bi";
 
 const Post = ({ post }) => {
 
@@ -79,28 +81,57 @@ const Post = ({ post }) => {
   const relativeDateTimeString = convertRelativeDateTimeString(postedDateTime);
 
 
+  const fillerImage = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/35.png"
+
   // ========= JSX FOR THE UI OF THE COMPONENT =====================
   return (
-    <article className='post-container' data-cy="post" key={post._id}>
-      {/* change below to display name later */}
-      <a href={`/users/${post.user_id._id}`}>
-      <h3 className='user-display-name'>{ post.user_id.fullName }</h3> </a>
-      {/* choose one format later */}
-      <p className='date-posted'>{fullDateTimeString}</p>
-      <p className='date-posted'>{relativeDateTimeString}</p>
+    <article className='thread-container' data-cy="post" key={post._id}>
+      <div className='post-container'>
 
-      <p className='message'>{post.message}</p>
+        <div class="circle-container">
+          <img src={fillerImage} alt="Image Alt Text"/>
+        </div>
 
-      {/* choose one format later */}
-      <p className='likes'>{likes_formatted}</p>
-      {/* change this to be a link to see a list of all users who liked this */}
-      <p className='test-likes-users'>{likes_formatted_with_user_preview}</p>
-      {/* Display image if available */}
-      {post.imageUrl && (
-        <img src={post.imageUrl} alt="Post" className="post-image" />
-      )}
+        <div class="author-and-timestamp">
+          <a href={`/users/${post.user_id._id}`}>
+            <p className='user-full-name'>{ post.user_id.fullName }</p> 
+          </a>
+          {/* choose one format later */}
+          {/* <p className='date-posted'>{fullDateTimeString}</p> */}
+          <p className='date-posted'>{relativeDateTimeString}</p>
+        </div>
+
+        <div className="content">
+          <p className='message'>{post.message}</p>
+
+          {/* Display image if available */}
+          {post.imageUrl && (
+            <img src={post.imageUrl} alt="Post" className="post-image" />
+          )}
+          
+        </div>
+        
+        <div className='reactions'>
+          {/* choose one format later */}
+          {/* <button onClick={handleLikeSubmit} className={userLiked ? 'unlike-button' : 'like-button'}>{userLiked ? 'Unlike' : 'Like'}</button> */}
+          <button onClick={handleLikeSubmit} className={userLiked ? 'unlike-button' : 'like-button'}>
+            {userLiked ? <BiSolidLike /> : <BiLike />}
+          </button>
+          {/* <p className='likes'>{likes_formatted}</p> */}
+          {/* TODO make number of likes clickable -- popup that shows each user who liked this */}
+          <p className='likes-users'>{likes_formatted_with_user_preview}</p>
+
+          {/* TODO Add showComments state that is activated when you click 'comments' */}
+          <p className='comments-num'>{`${post.comments.length} comments`}</p>
+
+          {/* TODO Add showWriteReply state that is activated when you click 'reply' */}
+          <button onClick={console.log('show leave-comment box')} className='show-leave-comment-box-button'>
+            Leave Comment
+          </button>
+        </div>
+      </div>  
+
       <CommentsBox post={post}/>
-      <button onClick={handleLikeSubmit} className={userLiked ? 'unlike-button' : 'like-button'}>{userLiked ? 'Unlike' : 'Like'}</button>
     </article>
   )
 }
