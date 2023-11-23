@@ -8,7 +8,7 @@
   .textarea {
     border: 2px solid #4267B2;
     outline: none;
-    width: calc(100% - 100px);
+    width: calc(100% - 50px);
     /* width: 100%; */
     max-width: 500px; 
     height: 80px;
