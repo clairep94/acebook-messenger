@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styles from './newPostForm.module.css';
+import getSessionUserID from '../utility/getSessionUserID';
+import useFetchUserDataByID from '../utility/getselectuserinfo';
 
 const NewPostForm = ({ navigate }) => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -80,9 +82,10 @@ const NewPostForm = ({ navigate }) => {
     const handleMessageChange = (event) => {
         setMessage(event.target.value)
     }
- //TODO add session userName to placeholder
-
-    const sessionUserName = "Claire"
+    
+    // get the session user's name for the text field placeholder
+    const sessionUserID = getSessionUserID(token);
+    const sessionUser = useFetchUserDataByID(sessionUserID);
 
     // ========= JSX FOR THE UI OF THE COMPONENT =====================
     // one input field and a submit button
@@ -90,7 +93,7 @@ const NewPostForm = ({ navigate }) => {
         <>
             <div >
                 <form onSubmit={handleSubmit} className={styles.Form} >
-                    <textarea id="message" value={message} onChange={handleMessageChange} className={styles.textarea} placeholder={`What's on your mind, ${sessionUserName}?`} />
+                    <textarea id="message" value={message} onChange={handleMessageChange} className={styles.textarea} placeholder={`What's on your mind, ${sessionUser.firstName}?`} />
                     <br />
                     <div className={styles.buttonsrow}>
                         <input type="file" onChange={handleFileChange} className={styles.Button} />
