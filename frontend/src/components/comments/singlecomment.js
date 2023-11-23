@@ -4,6 +4,7 @@ import convertRelativeDateTimeString from '../utility/getRelativeTimestamp';
 import useFetchUserDataByID from '../utility/getselectuserinfo';
 
 const SingleComment = ({ comment }) => {
+
     const postedDateTime = new Date(comment.date_posted);
     const fullDateTimeString = formatFullDateString(postedDateTime);
     const relativeDateTimeString = convertRelativeDateTimeString(postedDateTime);

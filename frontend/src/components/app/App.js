@@ -9,10 +9,10 @@ import Feed from '../feed/Feed';
 import { useNavigate, Routes, Route, } from "react-router-dom";
 import Countdown from '../countdown/countdown';
 import Index from '../../pages/timeline';
-import OtherUserProfile from '../../pages/otherProfilepage';
 import Welcome from '../../pages/welcome'
 import UploadImage from '../upload_image/UploadImage';
 import LoginPage from '../../pages/loginPage';
+import SignedOutUserPage from '../ProfilePage/SignedOutUserPage';
 
 const App = () => {
   // Routes for each page of the website
@@ -20,7 +20,7 @@ const App = () => {
 
     <Routes>
       <Route path='/' element={<Welcome navigate={useNavigate()} />} />
-      <Route path='/users/:userId' element={<OtherUserProfile navigate={ useNavigate() }/>} />
+      <Route path='/users/:userId' element={<SignedOutUserPage navigate={ useNavigate() }/>} />
       <Route path='/posts' element={<Feed navigate={useNavigate()} />} />
       <Route path='/login' element={<LoginPage navigate={useNavigate()} />} />
 

@@ -3,17 +3,19 @@ import Navbar from '../navbar/navbar';
 import styles from './ProfilePage.css'
 import defaultProfilePic from './profilePic/defaultProfilePic.png'
 import UpdatePage from './updatePage';
+import getSessionUserID from '../utility/getSessionUserID';
 const ProfilePage = () =>{
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userData, setUserData] = useState(null)
   const [update, setUpdate] = useState(null)
- 
+  
   // sends the fetch (get) request 
   useEffect(() => {
     // checks if signed in
     if (token) {
-      //goes to new route user data because it needs to check the token
-      fetch("/userData", {
+      const id = getSessionUserID(token)
+      console.log(id)
+      fetch(`/userData/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`, 
         }

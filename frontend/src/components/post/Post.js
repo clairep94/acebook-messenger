@@ -5,10 +5,14 @@ import formatNumLikes from '../utility/getNumLikes';
 import formatLikesUsersPreview from '../utility/getNumLikesUserPreview';
 import formatFullDateString from '../utility/getFullDateString';
 import convertRelativeDateTimeString from '../utility/getRelativeTimestamp';
+import formatNumComments from '../utility/getNumComments';
 import CommentsBox from '../comments/CommentsBox';
+import NewCommentForm from '../CommentWrite/CommentWrite';
 
-import { BiLike } from "react-icons/bi";
-import { BiSolidLike } from "react-icons/bi";
+import { BiLike, BiSolidLike, BiCommentAdd, BiSolidCommentAdd,  BiCommentDetail, BiSolidCommentDetail} from "react-icons/bi";
+// import { FaComments, FaRegComments, FaRegCommentDots } from "react-icons/fa6";
+// import { FaCommentDots } from 'react-icons/fa6';
+
 
 const Post = ({ post }) => {
 
@@ -62,76 +66,128 @@ const Post = ({ post }) => {
         })
     }
   }
-// ============= DISPLAYING LIKES ==================
+// ============= DISPLAYING REACTIONS ==================
 
-  // --------- "X like(s)" ---------------
+  // "X like(s)" 
   const likes_formatted = formatNumLikes(post.likes)
-
-  // --------- "You/User and X others liked this" ---------------
+  // "You/User and X others liked this"
   const likes_formatted_with_user_preview = formatLikesUsersPreview(post.likes, sessionUserID)
 
 
-  // ======== FORMATTING TIME ==============
+  // ------- FORMATTING TIME -------------
   const postedDateTime = new Date(post.date_posted);
-
-  // ------------ '19 Nov 2023 at 5:45PM' -------------
+  // '19 Nov 2023 at 5:45PM' 
   const fullDateTimeString = formatFullDateString(postedDateTime)
-
-  // ------------ 'X seconds ago / X minutes ago / X hours ago / X days ago / fullDateTime --------------
+  // 'X seconds ago / X minutes ago / X hours ago / X days ago / fullDateTime 
   const relativeDateTimeString = convertRelativeDateTimeString(postedDateTime);
 
+  // "X comment(s)"
+  const num_comments = formatNumComments(post.comments)
 
+
+  // TODO change to user profile pic --> Change to conditional. if 'null' or empty, then display default profile pic.
   const fillerImage = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/35.png"
 
-  // ========= JSX FOR THE UI OF THE COMPONENT =====================
+
+
+  // ======= SHOW COMMENTS BUTTON ===============
+  const [showComments, setShowComments] = useState(false);
+
+  const handleShowCommentsButton = (event) => {
+    console.log(`Show comments pressed: ${showComments}`);
+    setShowComments(!showComments);
+    console.log(`Show comments: ${showComments}`);
+  }
+
+  // ======= SHOW LEAVE A COMMENT COMMENT BUTTON ===============
+    const [showNewCommentBox, setNewCommentBox] = useState(false);
+
+    const handleShowNewCommentBoxButton = (event) => {
+      console.log(`Show new comment pressed: ${showNewCommentBox}`);
+      setNewCommentBox(!showNewCommentBox);
+      console.log(`Show new comment: ${showNewCommentBox}`);
+    }
+
+  // ======= SHOW WHO LIKED THIS =============
+  const [showWhoLikedThis, setShowWhoLikedThis] = useState(false);
+
+  const handleShowWhoLikedThisButton = (event) => {
+    console.log(`Show who liked this pressed: ${showWhoLikedThis}`);
+    setShowWhoLikedThis(!showWhoLikedThis);
+    console.log(`Show who liked this: ${showWhoLikedThis}`);
+
+  }
+
+
+// ========= JSX FOR THE UI OF THE COMPONENT =====================
   return (
     <article className='thread-container' data-cy="post" key={post._id}>
       <div className='post-container'>
 
+        {/* LINKED USER PROFILE PIC */}
         <div class="circle-container">
+        <a href={`/users/${post.user_id._id}`}>
           <img src={fillerImage} alt="Image Alt Text"/>
+        </a>
         </div>
 
         <div class="author-and-timestamp">
+          {/* LINKED USER FULL NAME */}
           <a href={`/users/${post.user_id._id}`}>
             <p className='user-full-name'>{ post.user_id.firstName } { post.user_id.lastName }</p> 
           </a>
-          {/* choose one format later */}
-          {/* <p className='date-posted'>{fullDateTimeString}</p> */}
-          <p className='date-posted'>{relativeDateTimeString}</p>
+          {/* RELATIVE DATE STAMP AND HOVER FULL DATE STAMP */}
+          <div className='tooltip'>
+            <p className='date-posted'>{relativeDateTimeString}</p>
+              <span className='tooltiptext'>{fullDateTimeString}</span>
+          </div>
         </div>
 
         <div className="content">
+          {/* TEXT CONTENT */}
           <p className='message'>{post.message}</p>
 
           {/* Display image if available */}
           {post.imageUrl && (
             <img src={post.imageUrl} alt="Post" className="post-image" />
           )}
-          
         </div>
         
         <div className='reactions'>
-          {/* choose one format later */}
-          {/* <button onClick={handleLikeSubmit} className={userLiked ? 'unlike-button' : 'like-button'}>{userLiked ? 'Unlike' : 'Like'}</button> */}
+          {/* LIKE BUTTON */}
           <button onClick={handleLikeSubmit} className={userLiked ? 'unlike-button' : 'like-button'}>
+            <div className='icon'>
             {userLiked ? <BiSolidLike /> : <BiLike />}
+            </div>
           </button>
-          {/* <p className='likes'>{likes_formatted}</p> */}
+
+          {/* CLICKABLE NUMBER OF LIKES */}
           {/* TODO make number of likes clickable -- popup that shows each user who liked this */}
-          <p className='likes-users'>{likes_formatted_with_user_preview}</p>
+          <button onClick={handleShowWhoLikedThisButton} className='who-liked-this'>
+            {/* <button onClick={handleWhoLikesThisSubmit} className='who-liked-this'> */}
+            {/* <p className='likes'>{likes_formatted}</p> */}
+            <p className='likes-users'>{likes_formatted_with_user_preview}</p>
+          </button>
 
-          {/* TODO Add showComments state that is activated when you click 'comments' */}
-          <p className='comments-num'>{`${post.comments.length} comments`}</p>
+          <button onClick={handleShowCommentsButton} className='show-comments'>
+            <p className='comments-num'><span className='icon'>{showComments ? <BiSolidCommentDetail /> : <BiCommentDetail />  }</span>   {num_comments}</p>
+          </button>
 
-          {/* TODO Add showWriteReply state that is activated when you click 'reply' */}
-          <button onClick={console.log('show leave-comment box')} className='show-leave-comment-box-button'>
-            Leave Comment
+          <button onClick={handleShowNewCommentBoxButton} className='show-leave-comment-box-button'>
+            <p><span className='icon'>{showNewCommentBox ? <BiSolidCommentAdd /> :< BiCommentAdd/>  }</span>  Leave Comment</p>
           </button>
         </div>
       </div>  
 
-      <CommentsBox post={post}/>
+      {/* COMMENTS CONTAINER */}
+      <div className='comments-container' id={`parent_id: ${post._id}`}>
+        {/* TODO CHANGE LOGIC TO SHOW ONE OR THE OTHER HERE */}
+        {/* {(showComments || showNewCommentBox) && <CommentsBox post={post}/>} */}
+        {showComments && <CommentsBox post={post}/>}
+        {showNewCommentBox && <NewCommentForm currentPost={post}/>}
+      </div>
+
+
     </article>
   )
 }
