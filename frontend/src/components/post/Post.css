@@ -1,11 +1,18 @@
+/* =============== THREAD CONTAINER =================== */
+.thread-container {
+  width: 500px;
+  margin: 20px auto; 
+  display: grid; /* Enable the grid layout */
+}
+
 /* =============== POST CONTAINER =============*/
 .post-container {
   border: 2px solid #4267B2;
   background-color: #ffffff;
   border-radius: 5px;
 
-  width: 500px;
-  margin: 20px auto; 
+  width: 100%;
+  /* margin: 20px auto;  */
   display: grid; /* Enable the grid layout */
 
   grid-template-rows: 100px auto auto ; /* Define rows, adjust as needed */

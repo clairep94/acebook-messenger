@@ -7,6 +7,7 @@ import formatFullDateString from '../utility/getFullDateString';
 import convertRelativeDateTimeString from '../utility/getRelativeTimestamp';
 import formatNumComments from '../utility/getNumComments';
 import CommentsBox from '../comments/CommentsBox';
+import NewCommentForm from '../CommentWrite/CommentWrite';
 
 import { BiLike, BiSolidLike, BiCommentAdd, BiSolidCommentAdd,  BiCommentDetail, BiSolidCommentDetail} from "react-icons/bi";
 // import { FaComments, FaRegComments, FaRegCommentDots } from "react-icons/fa6";
@@ -178,8 +179,14 @@ const Post = ({ post }) => {
         </div>
       </div>  
 
+      {/* COMMENTS CONTAINER */}
+
       {/* TODO CHANGE LOGIC TO SHOW ONE OR THE OTHER HERE */}
-      {(showComments || showNewCommentBox) && <CommentsBox post={post}/>}
+      {/* {(showComments || showNewCommentBox) && <CommentsBox post={post}/>} */}
+      {showComments && <CommentsBox post={post}/>}
+      {showNewCommentBox && <NewCommentForm currentPost={post}/>}
+
+
     </article>
   )
 }
