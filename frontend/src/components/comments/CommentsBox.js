@@ -18,7 +18,7 @@ const CommentsBox = ({ post }) => {
         // If there are no comments
         <div>No comments yet</div>
       )}
-      <NewCommentForm currentPost={post} />
+      {/* <NewCommentForm currentPost={post} /> */}
     </div>
   );
 };

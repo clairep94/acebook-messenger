@@ -85,7 +85,8 @@ const NewPostForm = ({ navigate }) => {
     
     // get the session user's name for the text field placeholder
     const sessionUserID = getSessionUserID(token);
-    const sessionUser = useFetchUserDataByID(sessionUserID);
+    const FoundUser = useFetchUserDataByID(sessionUserID);
+    const AuthorFirstName = FoundUser && FoundUser.firstName ? FoundUser.firstName : '';
 
     // ========= JSX FOR THE UI OF THE COMPONENT =====================
     // one input field and a submit button
@@ -93,7 +94,7 @@ const NewPostForm = ({ navigate }) => {
         <>
             <div >
                 <form onSubmit={handleSubmit} className={styles.Form} >
-                    <textarea id="message" value={message} onChange={handleMessageChange} className={styles.textarea} placeholder={`What's on your mind, ${sessionUser.firstName}?`} />
+                    <textarea id="message" value={message} onChange={handleMessageChange} className={styles.textarea} placeholder={`What's on your mind, ${AuthorFirstName}?`} />
                     <br />
                     <div className={styles.buttonsrow}>
                         <input type="file" onChange={handleFileChange} className={styles.Button} />

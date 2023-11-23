@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import getSessionUserID from '../utility/getSessionUserID';
 import styles from './CommentWrite.module.css'
+import useFetchUserDataByID from '../utility/getselectuserinfo';
+
 
 const NewCommentForm = ({ currentPost }) => {
   const [message, setMessage] = useState('');
@@ -62,11 +64,8 @@ const NewCommentForm = ({ currentPost }) => {
     setMessage(event.target.value);
   };
 
-
-
-
-
-    const threadAuthor = "Greg"
+  // Get the parent post's author's first name:
+  const threadAuthor = currentPost.user_id.firstName
 
     // ========= JSX FOR THE UI OF THE COMPONENT =====================
     // one input field and a submit button
