@@ -6,6 +6,7 @@
     /* height: 70px; */
     align-items: center;
     z-index: 200;
+    box-shadow: 0px 0px 4px #606d88; /* adding small amount of dropshadow */
   }
   
   /* Style the links inside the navigation bar */

@@ -8,7 +8,7 @@ const CommentsBox = ({ post }) => {
   
   return (
     <div>
-      <b>Comments</b>
+      {/* <b>Comments</b> */}
       {post.comments.length > 0 ? (
         // If there are comments
         <div>
