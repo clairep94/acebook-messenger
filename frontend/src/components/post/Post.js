@@ -88,17 +88,24 @@ const Post = ({ post }) => {
     <article className='thread-container' data-cy="post" key={post._id}>
       <div className='post-container'>
 
+        {/* LINKED USER PROFILE PIC */}
         <div class="circle-container">
+        <a href={`/users/${post.user_id._id}`}>
           <img src={fillerImage} alt="Image Alt Text"/>
+        </a>
         </div>
 
         <div class="author-and-timestamp">
+          {/* LINKED USER FULL NAME */}
           <a href={`/users/${post.user_id._id}`}>
             <p className='user-full-name'>{ post.user_id.firstName } { post.user_id.lastName }</p> 
           </a>
-          {/* choose one format later */}
-          {/* <p className='date-posted'>{fullDateTimeString}</p> */}
-          <p className='date-posted'>{relativeDateTimeString}</p>
+          {/* RELATIVE DATE STAMP AND HOVER FULL DATE STAMP */}
+          <div className='tooltip'>
+            <p className='date-posted'>{relativeDateTimeString}</p>
+          <span className='tooltiptext'>{fullDateTimeString}</span>
+      </div>
+
         </div>
 
         <div className="content">
@@ -131,6 +138,7 @@ const Post = ({ post }) => {
         </div>
       </div>  
 
+      
       <CommentsBox post={post}/>
     </article>
   )

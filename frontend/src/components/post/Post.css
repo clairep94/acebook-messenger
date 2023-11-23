@@ -1,3 +1,4 @@
+/* =============== POST CONTAINER =============*/
 .post-container {
   border: 2px solid #4267B2;
   background-color: #ffffff;
@@ -13,11 +14,11 @@
 }
 
 
-/* DISPLAY PICTURE */
+/* ============= DISPLAY PICTURE ============*/
 .circle-container {
   margin: auto;
-  margin-top: 15px;
-  margin-left: 12px;
+  margin-top: 13px;
+  margin-left: 13px;
   width: 85px;
   height: 85px;
   border-radius: 50%; /* Make it a circle by setting border-radius to 50% */
@@ -33,7 +34,7 @@
 
 
 
-/* AUTHOR & TIMESTAMP */
+/* ================ AUTHOR & TIMESTAMP ================ */
 
 .author-and-timestamp{
     max-height: 100px;
@@ -41,7 +42,8 @@
     grid-column-end: 3;
     grid-row-start: 1;
     grid-row-end: 2;
-    padding-top: 30px
+    padding-top: 35px;
+    padding-left: 2px;
 
   }
 
@@ -50,7 +52,7 @@
     font-weight: bold;
     font-size: 22px;
     margin: 5px;
-    margin-bottom: 7px;
+    margin-bottom: 0px;
     
   }
   .date-posted {
@@ -84,6 +86,7 @@
     grid-row: 4; */
   }
 
+/* =================== REACTIONS BAR =============== */
 .reactions{
   color: white;
   grid-column-start: 1;
@@ -95,39 +98,75 @@
 }
 
 
-.like-button,
-.unlike-button {
-  font-size: 20px;
-  background-color: transparent; /* Set the default background color to transparent */
-  border: none;
-  color: white;
-  padding: 8px 16px;
-  margin: 5px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
+  .like-button,
+  .unlike-button {
+    font-size: 20px;
+    background-color: transparent; /* Set the default background color to transparent */
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    margin: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
 
-.like-button:hover,
-.unlike-button:hover,
-.show-leave-comment-box-button:hover {
-  background-color: #5B7EC2; /* Set the background color on hover */
-}
+  .like-button:hover,
+  .unlike-button:hover,
+  .show-leave-comment-box-button:hover {
+    background-color: #5B7EC2; /* Set the background color on hover */
+  }
 
-.unlike-button {
-  background-color: #4267B2; /* Set the background color for the liked state */
-}
+  .unlike-button {
+    background-color: #4267B2; /* Set the background color for the liked state */
+  }
 
 
-.show-leave-comment-box-button{
-  font-size: 15px;
-  background-color: transparent; /* Set the default background color to transparent */
-  border: none;
-  color: white;
-  padding: 8px 16px;
-  margin: 5px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
+  .show-leave-comment-box-button{
+    font-size: 15px;
+    background-color: transparent; /* Set the default background color to transparent */
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    margin: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
 
-}
+
+  .tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip .tooltiptext {
+    font-size: small;
+    visibility: hidden;
+    width: 150px;
+    background-color: #5B7EC2;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 1px 0;
+    position: absolute;
+    z-index: 1;
+    top: 50%; /* Adjust the tooltip's position vertically */
+    left: calc(100% + 10px); /* Adjust the tooltip's position horizontally */
+    transform: translateY(-50%); /* Center vertically */
+  }
+  
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #5B7EC2 transparent transparent;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
