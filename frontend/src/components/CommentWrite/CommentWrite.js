@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import getSessionUserID from '../utility/getSessionUserID';
+import styles from './CommentWrite.module.css'
 
 const NewCommentForm = ({ currentPost }) => {
   const [message, setMessage] = useState('');
@@ -54,24 +55,48 @@ const NewCommentForm = ({ currentPost }) => {
         console.error('Error during fetch:', error);
       });
     }
+
   };
 
   const handleMessageChange = (event) => {
     setMessage(event.target.value);
   };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <textarea 
-        id="message" 
-        value={message} 
-        onChange={handleMessageChange}  
-        placeholder="Share your Thoughts on acebook..."
-      />
-      <br/>
-      <input id="submit" type="submit" value="Submit" />
-    </form>
-  );
-};
+
+
+
+
+    const threadAuthor = "Greg"
+
+    // ========= JSX FOR THE UI OF THE COMPONENT =====================
+    // one input field and a submit button
+
+    return (
+        // <form onSubmit={handleSubmit} >
+
+    //       <textarea id="message" value={message} onChange={handleMessageChange}  placeholder="Share your Thoughts on acebook..."/>
+    //       <br/>
+    //       <input id="submit" type="submit" value="Submit" />
+    //   </form>
+         
+    // )
+    <>
+    <div >
+        <form onSubmit={handleSubmit} className={styles.Form} >
+            <textarea id="message" value={message} onChange={handleMessageChange} className={styles.textarea} placeholder={`Replying to ${threadAuthor}...`} />
+            <br />
+            <div className={styles.buttonsrow}>
+                {/* <input type="file" onChange={handleFileChange} className={styles.Button} /> */}
+                <input id="submit" type="submit" value="Submit" className={styles.Button} />
+
+            </div>
+
+        </form>
+    </div>
+</>
+);
+
+}
+
 
 export default NewCommentForm;

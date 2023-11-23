@@ -4,7 +4,7 @@ const formatLikesUsersPreview = (arr, sessionUserID) => {
     const numLikes = arr.length;
     // 0 likes
     if (numLikes === 0){
-      return "Noone liked this"
+      return "No one liked this"
     // 1 like
     } else if (numLikes === 1){ //Check if sessionUserID liked this
       return (arr.some(user => user._id === sessionUserID) ? 'You liked this' : `${arr[0].firstName} ${arr[0].lastName} liked this`);

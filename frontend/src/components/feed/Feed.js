@@ -47,7 +47,7 @@ const Feed = ({ navigate }) => {
   if (token) { // if user is logged in
     return (
       <>
-        <h2>Posts</h2>
+        <p className='subtitles' id='welcome-to-acebook' >Newsfeed</p>
         <div id='feed' role="feed">
           {posts.map(
             (post) => (<Post post={post} key={post._id} />) // <======= 
