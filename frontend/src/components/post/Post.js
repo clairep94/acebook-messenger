@@ -94,7 +94,7 @@ const Post = ({ post }) => {
 
         <div class="author-and-timestamp">
           <a href={`/users/${post.user_id._id}`}>
-            <p className='user-full-name'>{ post.user_id.fullName }</p> 
+            <p className='user-full-name'>{ post.user_id.firstName } { post.user_id.lastName }</p> 
           </a>
           {/* choose one format later */}
           {/* <p className='date-posted'>{fullDateTimeString}</p> */}
