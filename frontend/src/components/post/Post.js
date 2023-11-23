@@ -180,11 +180,12 @@ const Post = ({ post }) => {
       </div>  
 
       {/* COMMENTS CONTAINER */}
-
-      {/* TODO CHANGE LOGIC TO SHOW ONE OR THE OTHER HERE */}
-      {/* {(showComments || showNewCommentBox) && <CommentsBox post={post}/>} */}
-      {showComments && <CommentsBox post={post}/>}
-      {showNewCommentBox && <NewCommentForm currentPost={post}/>}
+      <div className='comments-container' id={`parent_id: ${post._id}`}>
+        {/* TODO CHANGE LOGIC TO SHOW ONE OR THE OTHER HERE */}
+        {/* {(showComments || showNewCommentBox) && <CommentsBox post={post}/>} */}
+        {showComments && <CommentsBox post={post}/>}
+        {showNewCommentBox && <NewCommentForm currentPost={post}/>}
+      </div>
 
 
     </article>
