@@ -10,8 +10,6 @@ import CommentsBox from '../comments/CommentsBox';
 import NewCommentForm from '../CommentWrite/CommentWrite';
 
 import { BiLike, BiSolidLike, BiCommentAdd, BiSolidCommentAdd,  BiCommentDetail, BiSolidCommentDetail} from "react-icons/bi";
-// import { FaComments, FaRegComments, FaRegCommentDots } from "react-icons/fa6";
-// import { FaCommentDots } from 'react-icons/fa6';
 
 
 const Post = ({ post }) => {
@@ -85,9 +83,14 @@ const Post = ({ post }) => {
   const num_comments = formatNumComments(post.comments)
 
 
-  // TODO change to user profile pic --> Change to conditional. if 'null' or empty, then display default profile pic.
-  const fillerImage = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/35.png"
-
+  // -------- SET PROFILE PICTURE ------------  
+  // const fillerImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png"
+  const fillerImage = `https://source.boringavatars.com/beam/120/${post.user_id.email}408469-5c627a-a3b6a2-b2ccaf-fffaac`
+  let profilePicture = post.user_id.profilePictureURL;
+  if (profilePicture === null || "" || undefined){
+    profilePicture = fillerImage;
+  }
+  console.log(`Profile picture URL: ${profilePicture}`)
 
 
   // ======= SHOW COMMENTS BUTTON ===============
@@ -99,7 +102,7 @@ const Post = ({ post }) => {
     console.log(`Show comments: ${showComments}`);
   }
 
-  // ======= SHOW LEAVE A COMMENT COMMENT BUTTON ===============
+  // ======= SHOW LEAVE A COMMENT BUTTON ===============
     const [showNewCommentBox, setNewCommentBox] = useState(false);
 
     const handleShowNewCommentBoxButton = (event) => {
@@ -181,8 +184,6 @@ const Post = ({ post }) => {
 
       {/* COMMENTS CONTAINER */}
       <div className='comments-container' id={`parent_id: ${post._id}`}>
-        {/* TODO CHANGE LOGIC TO SHOW ONE OR THE OTHER HERE */}
-        {/* {(showComments || showNewCommentBox) && <CommentsBox post={post}/>} */}
         {showComments && <CommentsBox post={post}/>}
         {showNewCommentBox && <NewCommentForm currentPost={post}/>}
       </div>
