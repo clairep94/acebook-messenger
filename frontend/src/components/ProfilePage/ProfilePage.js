@@ -9,9 +9,8 @@ const ProfilePage = () =>{
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userData, setUserData] = useState(null)
   const [update, setUpdate] = useState(null)
-
  let fillerImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png'
-let profilePicture= fillerImage
+
 
 
   const [myId, setMyId] = useState('')
@@ -40,14 +39,6 @@ let profilePicture= fillerImage
           // and the user data is stored in the state 
           // you can access specific types of data using userData.atribute eg userData.email
           setUserData(data.user);
-
-          // unsed Code for setting image below -=-=-=-=-=-=-=-==-=
-  //         fillerImage = `https://picsum.photos/seed/${userData._id}/300`
-  //         let profilePicture = userData.profilePictureURL;
-  // if (profilePicture === null || "" || undefined){
-  //   profilePicture = fillerImage;
-  // }
-
         })
         .catch((error) => {
           // console.error works like console.log but displays it as and error message
@@ -67,7 +58,6 @@ let profilePicture= fillerImage
         <Navbar />
   
         {/* TODO - style this -- Hyperlink to update page */}
-        <a href='/updateprofile' className="right">UpdatePage</a>
         {/* TODO -- this image is just a placeholder, we'll need to do some conditional rendering 
             so that it only displays if no one has uploaded a picture  */}
         {/* <img className="profilepic" src={(userData.profilePictureURL) ? defaultProfilePic : userData.profilePictureURL}></img> */}
@@ -81,18 +71,21 @@ let profilePicture= fillerImage
   
             <div className="wrap">
               <div className="floatleft">
-                <img src={profilePicture} className='profilepic'/>
+              <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
+              <img src={userData.avatar} className='profilepic'/>
               </div>
               <div className="floatright">
+              <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
                 <h1 className='name'>{userData.firstName} {userData.lastName}</h1>
-                <p><span style={{color:'#5B7EC2'}}>Email:</span><br/>{userData.email}</p>
-                <p><span style={{color:'#5B7EC2'}}>Bio:</span><br/><span id="bio" className={styles.bio}>{userData.bio}</span></p>
+                <p><span style={{color:'#5B7EC2'}}><b>Email:</b></span><br/><span className='bio'>{userData.email}</span></p>
+                <p><span style={{color:'#5B7EC2'}}><b>Bio:</b></span><br/><span id="bio" className='bio'>{userData.bio}</span></p>
+              <button className='UpdateButton'><a href='/updateprofile'>UpdatePage</a></button>
               </div>
               <div style={{ clear: 'both' }}></div>
             </div>
-  
             <div>
               {/* Assuming myId is defined somewhere */}
+              
               <CustomFeed userId={myId} firstName={"your Page"} />
             </div>
           </>

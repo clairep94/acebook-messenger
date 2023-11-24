@@ -28,7 +28,6 @@ const SignUpForm = ({ navigate, onSignupSuccess }) => {
         email: email, // <====== UNIQUE
         password: password, // TODO create password rules like length, char types, etc.
         bio: null,
-        profilePictureURL: null
       }) 
     })
       .then(async response => {

@@ -62,11 +62,12 @@ const SignedOutUserPage = ({navigate}) => {
   return (
     <div>
       <Navbar/>
-      <img className="profilepic" src={defaultProfilePic}></img>
+      
       {user && (
           <>
             <div>
                {/* modified to dispaly the email as display name if there is no display name */}
+               <img className="profilepic" src={user.avatar}></img>
               <h1>{user.firstName} {user.lastName}</h1>
               <h3>{user.firstName}'s Email: {user.email}</h3>
               <h3>{user.firstName}'s Bio: <span id="bio" className={styles.bio}>{user.bio}</span></h3>
