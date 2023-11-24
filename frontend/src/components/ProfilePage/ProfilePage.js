@@ -64,58 +64,43 @@ let profilePicture= fillerImage
   return (
     <>
       <div>
-       
         <Navbar />
-
+  
         {/* TODO - style this -- Hyperlink to update page */}
         <a href='/updateprofile' className="right">UpdatePage</a>
-        {/* TODO -- this image is just a place holder, we'll need to do some conditional rendering 
-        so that it only displays if no ones uploaded a picture  */}
+        {/* TODO -- this image is just a placeholder, we'll need to do some conditional rendering 
+            so that it only displays if no one has uploaded a picture  */}
         {/* <img className="profilepic" src={(userData.profilePictureURL) ? defaultProfilePic : userData.profilePictureURL}></img> */}
         {/* <img className="profilepic" src={defaultProfilePic}></img> */}
-        
-
-
+  
         {/* Profile information */}
         {userData && (
           <>
-
-               {/* modified to dispaly the email as display name if there is no display name */}
-              {/* <h1>{name}'s ProfilePage</h1> */}
-              
-
-
-              <div className="wrap">
-        <div className="floatleft">
-          <img src={profilePicture} className='profilepic'/>
-        </div>
-        <div className="floatright">
-              <h1 className='name'>{userData.firstName} {userData.lastName}</h1>
-              <p> <l style={{color:'#5B7EC2'}}>Email:</l> <br/>{userData.email}</p>
-              <p><l style={{color:'#5B7EC2'}}>Bio: </l><br/><span id="bio" className={styles.bio}>{userData.bio}</span></p>
-        </div>
-        <div style={{ clear: 'both' }}></div>
-
-
-
-
-
-
-             
-
-            <div>
-             <CustomFeed userId={myId} firstName={"your Page"} />
+            {/* modified to display the email as a display name if there is no display name */}
+            {/* <h1>{name}'s ProfilePage</h1> */}
+  
+            <div className="wrap">
+              <div className="floatleft">
+                <img src={profilePicture} className='profilepic'/>
+              </div>
+              <div className="floatright">
+                <h1 className='name'>{userData.firstName} {userData.lastName}</h1>
+                <p><span style={{color:'#5B7EC2'}}>Email:</span><br/>{userData.email}</p>
+                <p><span style={{color:'#5B7EC2'}}>Bio:</span><br/><span id="bio" className={styles.bio}>{userData.bio}</span></p>
+              </div>
+              <div style={{ clear: 'both' }}></div>
             </div>
-
+  
+            <div>
+              {/* Assuming myId is defined somewhere */}
+              <CustomFeed userId={myId} firstName={"your Page"} />
+            </div>
           </>
         )}
-
-        {/* Update page link again */}
-        
       </div>
     </>
   );
-};
+        }  
 
 
 
