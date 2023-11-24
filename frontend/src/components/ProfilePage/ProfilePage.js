@@ -81,7 +81,7 @@ let profilePicture= fillerImage
               <div style={{ clear: 'both' }}></div>
             </div>
             <div>
-              {/* Assuming myId is defined somewhere */}
+
               <CustomFeed userId={myId} firstName={"your Page"} />
             </div>
           </>

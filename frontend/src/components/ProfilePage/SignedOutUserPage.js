@@ -80,7 +80,7 @@ const SignedOutUserPage = ({navigate}) => {
           <div>
             {/* Assuming myId is defined somewhere */}
             
-            <CustomFeed userId={user.id} firstName={`Posts by ${user.firstName}`} />
+            <CustomFeed userId={user._id} firstName={`Posts by ${user.firstName}`} />
           </div>
         </>
         )}

@@ -1,4 +1,28 @@
-.who-liked-this-result{
-    color:black;
-    font-size: 12px;
-}
+.who-likes-this-list {
+    padding-top: 4px;
+  }
+  
+  .liked-user {
+    padding-top: 4px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px; 
+  }
+  
+  .smallcirclemask {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #ffffff;
+    object-fit: cover;
+    margin-right: 10px; 
+  }
+  
+  .smallcirclemask img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
