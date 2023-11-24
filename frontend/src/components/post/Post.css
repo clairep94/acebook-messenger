@@ -1,7 +1,7 @@
 /* =============== THREAD CONTAINER =================== */
 .thread-container {
   width: 500px;
-  margin: 20px auto; 
+  margin: 35px auto; 
   display: grid; /* Enable the grid layout */
 }
 

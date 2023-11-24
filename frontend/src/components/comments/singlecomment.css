@@ -26,14 +26,15 @@
     position: relative;
 }
 
-
+/* VERTICAL BAR */
 .vertical-bar {
     position: absolute;
-    left: -15px;
+    left: -13px;
     top: 5px;
     bottom: 5px;
     width: 6px; /* Adjust the width as needed */
-    background-color: #4267B2; /* Adjust the color as needed */
+    /* background-color: #4267B2; */
+    background-color: #5B7EC2;
     border-radius: 4px; /* Adjust the border-radius to get rounded edges */
 }
 
