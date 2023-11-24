@@ -10,7 +10,7 @@
   box-shadow: 0px 0px 6px #d9dbdf; /* adding small amount of dropshadow instead of border to distinguish between forms and posts/comments*/
   /* border: 2px solid #4267B2; */
   background-color: #ffffff;
-  border-radius: 2px;
+  border-radius: 5px;
 
   width: 100%;
   /* margin: 20px auto;  */
@@ -39,7 +39,7 @@
   height: 80px;
   border-radius: 50%; /* Make it a circle by setting border-radius to 50% */
   overflow: hidden; /* Clip the content to the rounded shape */
-  background-color: #dac8c8; /* Optional background color for the container */
+  background-color: #ffffff; 
 }
 
   .circle-container img {

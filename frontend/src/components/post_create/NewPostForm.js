@@ -16,7 +16,8 @@ const NewPostForm = ({ navigate }) => {
     const handleFileChange = (event) => {
         setSelectedFile(event.target.files[0]);
     };
-
+    
+// ===== CREATE A NEW POST ===============
     const createPost = async (imageUrl) => {
         const postPayload = {
             message: message,
