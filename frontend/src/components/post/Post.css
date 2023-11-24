@@ -6,9 +6,10 @@
 }
 
 .who-liked-this-list{
-  background-color: #5B7EC2;
+  background-color: #7793cc;
   color: white;
   padding-left: 10px;
+  font-size: 14px;
 }
 
 /* =============== POST CONTAINER =============*/
