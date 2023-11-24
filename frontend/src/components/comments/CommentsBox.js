@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import NewCommentForm from '../CommentWrite/CommentWrite';
 import SingleComment from './singlecomment';
+import './CommentsBox.css'
 
 
 const CommentsBox = ({ post }) => {
@@ -16,7 +17,7 @@ const CommentsBox = ({ post }) => {
         </div>
       ) : (
         // If there are no comments
-        <div>No comments yet</div>
+        <div className='no-comments-box'>No comments yet</div>
       )}
       {/* <NewCommentForm currentPost={post} /> */}
     </div>
