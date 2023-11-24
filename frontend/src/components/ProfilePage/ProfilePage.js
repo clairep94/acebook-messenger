@@ -4,16 +4,19 @@ import styles from './ProfilePage.css'
 import defaultProfilePic from './profilePic/defaultProfilePic.png'
 import UpdatePage from './updatePage';
 import getSessionUserID from '../utility/getSessionUserID';
+import CustomFeed from '../feed/customFeed';
 const ProfilePage = () =>{
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userData, setUserData] = useState(null)
   const [update, setUpdate] = useState(null)
+  const [myId, setMyId] = useState('')
   
   // sends the fetch (get) request 
   useEffect(() => {
     // checks if signed in
     if (token) {
       const id = getSessionUserID(token)
+      setMyId(id)
       console.log(id)
       fetch(`/userData/${id}`, {
         headers: {
@@ -59,6 +62,7 @@ const ProfilePage = () =>{
         {/* <img className="profilepic" src={defaultProfilePic}></img> */}
         <img className="profilepic" src={defaultProfilePic}></img>
 
+
         {/* Profile information */}
         {userData && (
           <>
@@ -72,7 +76,7 @@ const ProfilePage = () =>{
 
 
 
-             
+             <CustomFeed userId={myId} firstName={"your Page"} />
             </div>
           </>
         )}

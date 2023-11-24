@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect, useSyncExternalStore } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import Navbar from '../navbar/navbar';
 import styles from './ProfilePage.css'
 import defaultProfilePic from './profilePic/defaultProfilePic.png'
+import CustomFeed from '../feed/customFeed';
+import Feed from '../feed/Feed'
+
 const parseJwt = (token) => {
   try {
     return JSON.parse(atob(token.split('.')[1]));
@@ -71,6 +74,7 @@ const SignedOutUserPage = ({navigate}) => {
               <span id="bio" className={styles.bio}>
                 {user.bio}
               </span>
+              <CustomFeed userId={userId} firstName={user.firstName} lastName={user.lastName}/>
             </div>
           </>
         )}
