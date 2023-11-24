@@ -1,0 +1,22 @@
+.no-comments-box{
+    margin-top: 7px;
+    margin-bottom: 3px;
+    /* margin: 10px auto; */
+    /* display: grid; */
+    float: right;
+
+    box-shadow: 0px 0px 6px #bdc0c5; /* adding small amount of dropshadow instead of border to distinguish between forms and posts/comments*/
+    border: px solid #4267B2;
+    border-radius: 2px;
+
+    /* HARDCODING WIDTH: -- TODO FIX LATER */
+    width: 430px;
+    text-align: left;
+
+    padding: 10px;
+    background-color: rgb(238, 238, 245);
+    font-size: 16px;
+    font-style: italic;
+    color: rgb(102, 100, 100)
+
+}

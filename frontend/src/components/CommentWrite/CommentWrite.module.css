@@ -6,6 +6,7 @@
   }
   
   .textarea {
+    margin-top: 3px;
     border: 2px solid #4267B2;
     outline: none;
     width: calc(100% - 50px);
