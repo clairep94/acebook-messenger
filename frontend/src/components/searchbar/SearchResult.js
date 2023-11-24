@@ -8,7 +8,7 @@ export const SearchResult = ({result}) => {
     <div className="search-result">
         <a href={`/users/${result._id}`}>
             {/* <img className="profilepic" src={`https://robohash.org/${result._id}.png`}></img> */}
-            {result.fullName}
+            {`${result.firstName} ${result.lastName}`}
         </a>
     </div>
     )
