@@ -42,13 +42,6 @@ let profilePicture= fillerImage
           // you can access specific types of data using userData.atribute eg userData.email
           setUserData(data.user);
 
-          // unsed Code for setting image below -=-=-=-=-=-=-=-==-=
-  //         fillerImage = `https://picsum.photos/seed/${userData._id}/300`
-  //         let profilePicture = userData.profilePictureURL;
-  // if (profilePicture === null || "" || undefined){
-  //   profilePicture = fillerImage;
-  // }
-
         })
         .catch((error) => {
           // console.error works like console.log but displays it as and error message
@@ -66,9 +59,6 @@ let profilePicture= fillerImage
     <>
       <div>
         <Navbar />
-  
-        {/* TODO - style this -- Hyperlink to update page */}
-        <a href='/updateprofile' className="right">UpdatePage</a>
         {/* TODO -- this image is just a placeholder, we'll need to do some conditional rendering 
             so that it only displays if no one has uploaded a picture  */}
         {/* <img className="profilepic" src={(userData.profilePictureURL) ? defaultProfilePic : userData.profilePictureURL}></img> */}
@@ -79,7 +69,7 @@ let profilePicture= fillerImage
           <>  
             <div className="wrap">
               <div className="floatleft">
-                <img src={profilePicture} className='profilepic'/>
+                <img src={userData.avatar} className='profilepic'/>
               </div>
               <div className="floatright">
               <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
