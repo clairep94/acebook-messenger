@@ -22,6 +22,9 @@ const SingleComment = ({ comment }) => {
     return (
         <div className='comment-container'>
 
+            {/* Vertical bar */}
+            <div className='vertical-bar'></div>
+
             {/* LINKED USER PROFILE PIC */}
             <div class="circle-container-comment">
                 <a href={`/users/${comment.user_id}`}>
