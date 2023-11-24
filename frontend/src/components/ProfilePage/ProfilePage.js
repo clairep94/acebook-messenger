@@ -55,37 +55,38 @@ const ProfilePage = () =>{
 
   
   return (
+
+    
     <>
-      <div>
+<div>
         <Navbar />
-  
-        {/* TODO - style this -- Hyperlink to update page */}
-        <a href='/updateprofile' className="right">UpdatePage</a>
-  
+    
         {/* Profile information */}
         {userData && (
-          <>  
+          <>
+  
             <div className="wrap">
               <div className="floatleft">
-              
-                {profilePicture ? (
-                  <img src={profilePicture} alt="Profile" className='profilepic' />
-                ) : (
-                  <img src={`https://picsum.photos/seed/${userData._id}/300`} alt="Profile" className='profilepic'/>
-                )}
-              
+              <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
+              {profilePicture ? (
+                <img src={profilePicture} alt="Profile" className='profilepic' />
+              ) : (
+                <img src={`https://picsum.photos/seed/${userData._id}/300`} alt="Profile" className='profilepic'/>
+              )}
               </div>
               <div className="floatright">
+              <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
                 <h1 className='name'>{userData.firstName} {userData.lastName}</h1>
-                <p><span style={{color:'#5B7EC2'}}>Email:</span><br/>{userData.email}</p>
-                <p><span style={{color:'#5B7EC2'}}>Bio:</span><br/><span id="bio" className={styles.bio}>{userData.bio}</span></p>
+                <p><span style={{color:'#5B7EC2'}}><b>Email:</b></span><br/><span className='bio'>{userData.email}</span></p>
+                <p><span style={{color:'#5B7EC2'}}><b>Bio:</b></span><br/><span id="bio" className='bio'>{userData.bio}</span></p>
+              <button className='UpdateButton'><a href='/updateprofile'>UpdatePage</a></button>
               </div>
               <div style={{ clear: 'both' }}></div>
             </div>
-  
             <div>
               {/* Assuming myId is defined somewhere */}
-              <CustomFeed userId={myId} firstName={"your Posts"} />
+              
+              <CustomFeed userId={myId} firstName={"your Page"} />
             </div>
           </>
         )}
