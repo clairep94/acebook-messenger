@@ -72,18 +72,19 @@ const SignedOutUserPage = ({navigate}) => {
                   <img src={`https://picsum.photos/seed/${userId}/300`} alt="Profile" className='profilepic'/>
                 )}
 
-
       {user && (
           <>
-            <div>
-               {/* modified to dispaly the email as display name if there is no display name */}
-              <h1>{user.firstName} {user.lastName}</h1>
-              <h3>{user.firstName}'s Email: {user.email}</h3>
-              <h3>{user.firstName}'s Bio: <span id="bio" className={styles.bio}>{user.bio}</span></h3>
-              
-              <span id="bio" className={styles.bio}>
-                {user.bio}
-              </span>
+            <div className="wrap">
+              <div className="floatleft">
+                <img src={profilePicture} className='profilepic'/>
+              </div>
+              <div className="floatright">
+                <h1 className='name'>{user.firstName} {user.lastName}</h1>
+                <p><span style={{color:'#5B7EC2'}}>Email:</span><br/>{user.email}</p>
+                <p><span style={{color:'#5B7EC2'}}>Bio:</span><br/><span id="bio" className={styles.bio}>{user.bio}</span></p>
+              </div>
+              <div style={{ clear: 'both' }}></div>
+            
               <CustomFeed userId={userId} firstName={user.firstName} lastName={user.lastName}/>
             </div>
           </>
