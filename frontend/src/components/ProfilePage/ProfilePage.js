@@ -4,18 +4,25 @@ import styles from './ProfilePage.css'
 import defaultProfilePic from './profilePic/defaultProfilePic.png'
 import UpdatePage from './updatePage';
 import getSessionUserID from '../utility/getSessionUserID';
+import CustomFeed from '../feed/customFeed';
 const ProfilePage = () =>{
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userData, setUserData] = useState(null)
   const [update, setUpdate] = useState(null)
+
  let fillerImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png'
 let profilePicture= fillerImage
+
+
+  const [myId, setMyId] = useState('')
+  
 
   // sends the fetch (get) request 
   useEffect(() => {
     // checks if signed in
     if (token) {
       const id = getSessionUserID(token)
+      setMyId(id)
       console.log(id)
       fetch(`/userData/${id}`, {
         headers: {
@@ -68,6 +75,7 @@ let profilePicture= fillerImage
         {/* <img className="profilepic" src={defaultProfilePic}></img> */}
         
 
+
         {/* Profile information */}
         {userData && (
           <>
@@ -87,12 +95,17 @@ let profilePicture= fillerImage
               <p><l style={{color:'#5B7EC2'}}>Bio: </l><br/><span id="bio" className={styles.bio}>{userData.bio}</span></p>
         </div>
         <div style={{ clear: 'both' }}></div>
-      </div>
+
+
 
 
 
 
              
+
+            <div>
+             <CustomFeed userId={myId} firstName={"your Page"} />
+            </div>
 
           </>
         )}

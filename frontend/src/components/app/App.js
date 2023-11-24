@@ -13,6 +13,7 @@ import Welcome from '../../pages/welcome'
 import UploadImage from '../upload_image/UploadImage';
 import LoginPage from '../../pages/loginPage';
 import SignedOutUserPage from '../ProfilePage/SignedOutUserPage';
+import CustomFeed from '../feed/customFeed';
 
 const App = () => {
   // Routes for each page of the website
@@ -23,6 +24,7 @@ const App = () => {
       <Route path='/users/:userId' element={<SignedOutUserPage navigate={ useNavigate() }/>} />
       <Route path='/posts' element={<Feed navigate={useNavigate()} />} />
       <Route path='/login' element={<LoginPage navigate={useNavigate()} />} />
+      <Route path='/custompost' element={<CustomFeed navigate={useNavigate()} />} />
 
       {/* <Route path='/login' element={<LoginForm navigate={useNavigate()} />} /> */}
       <Route path='/signup' element={<SignUpForm navigate={useNavigate()} />} />
@@ -32,6 +34,9 @@ const App = () => {
       <Route path='/profile' element={<ProfilePage navigate={useNavigate()} />} />
       <Route path='/updateprofile' element={<UpdatePage navigate={useNavigate()} />} />
       <Route path='/upload_image' element={<UploadImage navigate={useNavigate()} />} />
+     
+       
+
 
     </Routes>
   );
