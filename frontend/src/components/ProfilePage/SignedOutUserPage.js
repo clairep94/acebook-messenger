@@ -19,10 +19,6 @@ const SignedOutUserPage = ({navigate}) => {
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [user, setUser] = useState(null); // State to hold user data
   
- 
-
-
-
   useEffect(() => {
     if (token) {
     
@@ -65,19 +61,29 @@ const SignedOutUserPage = ({navigate}) => {
       
       {user && (
           <>
-            <div>
-               {/* modified to dispaly the email as display name if there is no display name */}
-               <img className="profilepic" src={user.avatar}></img>
-              <h1>{user.firstName} {user.lastName}</h1>
-              <h3>{user.firstName}'s Email: {user.email}</h3>
-              <h3>{user.firstName}'s Bio: <span id="bio" className={styles.bio}>{user.bio}</span></h3>
-              
-              <span id="bio" className={styles.bio}>
-                {user.bio}
-              </span>
-              <CustomFeed userId={userId} firstName={user.firstName} lastName={user.lastName}/>
+          {/* modified to display the email as a display name if there is no display name */}
+          {/* <h1>{name}'s ProfilePage</h1> */}
+
+          <div className="wrap">
+            <div className="floatleft">
+            <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
+            <img src={user.avatar} className='profilepic'/>
             </div>
-          </>
+            <div className="floatright">
+            <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
+              <h1 className='name'>{user.firstName} {user.lastName}</h1>
+              <p><span style={{color:'#5B7EC2'}}><b>Email:</b></span><br/><span className='bio'>{user.email}</span></p>
+              <p><span style={{color:'#5B7EC2'}}><b>Bio:</b></span><br/><span id="bio" className='bio'>{user.bio}</span></p>
+            <button className='UpdateButton'><a href='/updateprofile'>UpdatePage</a></button>
+            </div>
+            <div style={{ clear: 'both' }}></div>
+          </div>
+          <div>
+            {/* Assuming myId is defined somewhere */}
+            
+            <CustomFeed userId={user.id} firstName={"your Page"} />
+          </div>
+        </>
         )}
 
     </div>
