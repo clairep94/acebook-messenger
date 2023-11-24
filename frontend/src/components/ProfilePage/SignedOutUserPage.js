@@ -66,22 +66,25 @@ const SignedOutUserPage = ({navigate}) => {
     <div>
       <Navbar/>
 
-                {profilePicture ? (
-                  <img src={profilePicture} alt="Profile" className='profilepic' />
-                ) : (
-                  <img src={`https://picsum.photos/seed/${userId}/300`} alt="Profile" className='profilepic'/>
-                )}
-
       {user && (
           <>
             <div className="wrap">
               <div className="floatleft">
-                <img src={profilePicture} className='profilepic'/>
+              <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
+
+              {profilePicture ? (
+                  <img src={profilePicture} alt="Profile" className='profilepic' />
+                ) : (
+                  <img src={`https://picsum.photos/seed/${userId}/300`} alt="Profile" className='profilepic'/>
+                )}
               </div>
+
               <div className="floatright">
+              <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
+
                 <h1 className='name'>{user.firstName} {user.lastName}</h1>
-                <p><span style={{color:'#5B7EC2'}}>Email:</span><br/>{user.email}</p>
-                <p><span style={{color:'#5B7EC2'}}>Bio:</span><br/><span id="bio" className={styles.bio}>{user.bio}</span></p>
+                <p><span style={{color:'#5B7EC2'}}><b>Email:</b></span><br/><span className='bio'>{user.email}</span></p>
+                <p><span style={{color:'#5B7EC2'}}><b>Bio:</b></span><br/><span id="bio" className='bio'>{user.bio}</span></p>
               </div>
               <div style={{ clear: 'both' }}></div>
             
