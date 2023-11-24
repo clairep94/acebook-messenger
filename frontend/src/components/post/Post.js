@@ -84,8 +84,9 @@ const Post = ({ post }) => {
 
 
   // -------- SET PROFILE PICTURE ------------  
-  // const fillerImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png"
-  const fillerImage = `https://source.boringavatars.com/beam/120/${post.user_id.email}408469-5c627a-a3b6a2-b2ccaf-fffaac`
+  // const fillerImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png" // anonymous user image
+  // const fillerImage = `https://source.boringavatars.com/beam/120/${post.user_id.email}408469-5c627a-a3b6a2-b2ccaf-fffaac` // smileys with colours
+  const fillerImage = `https://picsum.photos/seed/${post.user_id._id}/300` // 'real' profile pictures
   let profilePicture = post.user_id.profilePictureURL;
   if (profilePicture === null || "" || undefined){
     profilePicture = fillerImage;
