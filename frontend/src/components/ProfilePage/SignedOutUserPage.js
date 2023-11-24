@@ -18,7 +18,8 @@ const SignedOutUserPage = ({navigate}) => {
   const { userId } = useParams();
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [user, setUser] = useState(null); // State to hold user data
-  
+  const [profilePicture, setProfilePicture] = useState(null)
+
  
 
 
@@ -40,6 +41,8 @@ const SignedOutUserPage = ({navigate}) => {
 
         // Set user data obtained from the API response to the state
         setUser(userData.user);
+        setProfilePicture(user.profilePictureURL)
+
        
         
         const decodedToken = parseJwt(token);
@@ -62,7 +65,14 @@ const SignedOutUserPage = ({navigate}) => {
   return (
     <div>
       <Navbar/>
-      <img className="profilepic" src={defaultProfilePic}></img>
+
+                {profilePicture ? (
+                  <img src={profilePicture} alt="Profile" className='profilepic' />
+                ) : (
+                  <img src={`https://picsum.photos/seed/${user._id}/300`} alt="Profile" className='profilepic'/>
+                )}
+
+
       {user && (
           <>
             <div>
