@@ -74,7 +74,6 @@ const SignedOutUserPage = ({navigate}) => {
               <h1 className='name'>{user.firstName} {user.lastName}</h1>
               <p><span style={{color:'#5B7EC2'}}><b>Email:</b></span><br/><span className='bio'>{user.email}</span></p>
               <p><span style={{color:'#5B7EC2'}}><b>Bio:</b></span><br/><span id="bio" className='bio'>{user.bio}</span></p>
-            <button className='UpdateButton'><a href='/updateprofile'>UpdatePage</a></button>
             </div>
             <div style={{ clear: 'both' }}></div>
           </div>
