@@ -69,7 +69,7 @@ const SignedOutUserPage = ({navigate}) => {
                 {profilePicture ? (
                   <img src={profilePicture} alt="Profile" className='profilepic' />
                 ) : (
-                  <img src={`https://picsum.photos/seed/${user._id}/300`} alt="Profile" className='profilepic'/>
+                  <img src={`https://picsum.photos/seed/${userId}/300`} alt="Profile" className='profilepic'/>
                 )}
 
 
