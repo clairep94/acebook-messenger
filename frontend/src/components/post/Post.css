@@ -5,6 +5,13 @@
   display: grid; /* Enable the grid layout */
 }
 
+.who-liked-this-list{
+  background-color: #7793cc;
+  color: white;
+  padding-left: 10px;
+  font-size: 14px;
+}
+
 /* =============== POST CONTAINER =============*/
 .post-container {
   box-shadow: 0px 0px 6px #d9dbdf; /* adding small amount of dropshadow instead of border to distinguish between forms and posts/comments*/

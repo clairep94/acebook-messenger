@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../navbar/navbar';
 import styles from './ProfilePage.css'
-import defaultProfilePic from './profilePic/defaultProfilePic.png'
 import UpdatePage from './updatePage';
 import getSessionUserID from '../utility/getSessionUserID';
 import CustomFeed from '../feed/customFeed';
+
 const ProfilePage = () =>{
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userData, setUserData] = useState(null)
   const [update, setUpdate] = useState(null)
- let fillerImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png'
 
+ let fillerImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png'
+let profilePicture= fillerImage
 
 
   const [myId, setMyId] = useState('')
@@ -21,6 +22,7 @@ const ProfilePage = () =>{
     // checks if signed in
     if (token) {
       const id = getSessionUserID(token)
+      // get the userID
       setMyId(id)
       console.log(id)
       fetch(`/userData/${id}`, {
@@ -39,6 +41,14 @@ const ProfilePage = () =>{
           // and the user data is stored in the state 
           // you can access specific types of data using userData.atribute eg userData.email
           setUserData(data.user);
+
+          // unsed Code for setting image below -=-=-=-=-=-=-=-==-=
+  //         fillerImage = `https://picsum.photos/seed/${userData._id}/300`
+  //         let profilePicture = userData.profilePictureURL;
+  // if (profilePicture === null || "" || undefined){
+  //   profilePicture = fillerImage;
+  // }
+
         })
         .catch((error) => {
           // console.error works like console.log but displays it as and error message
@@ -58,6 +68,7 @@ const ProfilePage = () =>{
         <Navbar />
   
         {/* TODO - style this -- Hyperlink to update page */}
+        <a href='/updateprofile' className="right">UpdatePage</a>
         {/* TODO -- this image is just a placeholder, we'll need to do some conditional rendering 
             so that it only displays if no one has uploaded a picture  */}
         {/* <img className="profilepic" src={(userData.profilePictureURL) ? defaultProfilePic : userData.profilePictureURL}></img> */}
@@ -65,14 +76,10 @@ const ProfilePage = () =>{
   
         {/* Profile information */}
         {userData && (
-          <>
-            {/* modified to display the email as a display name if there is no display name */}
-            {/* <h1>{name}'s ProfilePage</h1> */}
-  
+          <>  
             <div className="wrap">
               <div className="floatleft">
-              <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
-              <img src={userData.avatar} className='profilepic'/>
+                <img src={profilePicture} className='profilepic'/>
               </div>
               <div className="floatright">
               <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
@@ -85,7 +92,6 @@ const ProfilePage = () =>{
             </div>
             <div>
               {/* Assuming myId is defined somewhere */}
-              
               <CustomFeed userId={myId} firstName={"your Page"} />
             </div>
           </>

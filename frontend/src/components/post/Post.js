@@ -8,7 +8,7 @@ import convertRelativeDateTimeString from '../utility/getRelativeTimestamp';
 import formatNumComments from '../utility/getNumComments';
 import CommentsBox from '../comments/CommentsBox';
 import NewCommentForm from '../CommentWrite/CommentWrite';
-
+import WhoLikedThisList from '../wholikedthis/whoLikedThisList';
 import { BiLike, BiSolidLike, BiCommentAdd, BiSolidCommentAdd,  BiCommentDetail, BiSolidCommentDetail} from "react-icons/bi";
 
 
@@ -180,6 +180,10 @@ const Post = ({ post }) => {
           </button>
         </div>
       </div>  
+      {/* WHO LIKED THIS CONTAINER */}
+      <div className='who-liked-this-list' id={`parent_id: ${post._id}`}>
+        {showWhoLikedThis && <WhoLikedThisList post={post}/>}
+      </div>
 
       {/* COMMENTS CONTAINER */}
       <div className='comments-container' id={`parent_id: ${post._id}`}>
