@@ -8,7 +8,9 @@ const ProfilePage = () =>{
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userData, setUserData] = useState(null)
   const [update, setUpdate] = useState(null)
-  
+ let fillerImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png'
+let profilePicture= fillerImage
+
   // sends the fetch (get) request 
   useEffect(() => {
     // checks if signed in
@@ -31,7 +33,14 @@ const ProfilePage = () =>{
           // and the user data is stored in the state 
           // you can access specific types of data using userData.atribute eg userData.email
           setUserData(data.user);
-        
+
+          // unsed Code for setting image below -=-=-=-=-=-=-=-==-=
+  //         fillerImage = `https://picsum.photos/seed/${userData._id}/300`
+  //         let profilePicture = userData.profilePictureURL;
+  // if (profilePicture === null || "" || undefined){
+  //   profilePicture = fillerImage;
+  // }
+
         })
         .catch((error) => {
           // console.error works like console.log but displays it as and error message
@@ -57,23 +66,34 @@ const ProfilePage = () =>{
         so that it only displays if no ones uploaded a picture  */}
         {/* <img className="profilepic" src={(userData.profilePictureURL) ? defaultProfilePic : userData.profilePictureURL}></img> */}
         {/* <img className="profilepic" src={defaultProfilePic}></img> */}
-        <img className="profilepic" src={defaultProfilePic}></img>
+        
 
         {/* Profile information */}
         {userData && (
           <>
-            <div>
+
                {/* modified to dispaly the email as display name if there is no display name */}
               {/* <h1>{name}'s ProfilePage</h1> */}
-              <h1>{userData.firstName} {userData.lastName}</h1>
-              <h3>{userData.firstName}'s Email: {userData.email}</h3>
-              <h3>{userData.firstName}'s Bio: <span id="bio" className={styles.bio}>{userData.bio}</span></h3>
+              
+
+
+              <div className="wrap">
+        <div className="floatleft">
+          <img src={profilePicture} className='profilepic'/>
+        </div>
+        <div className="floatright">
+              <h1 className='name'>{userData.firstName} {userData.lastName}</h1>
+              <p> <l style={{color:'#5B7EC2'}}>Email:</l> <br/>{userData.email}</p>
+              <p><l style={{color:'#5B7EC2'}}>Bio: </l><br/><span id="bio" className={styles.bio}>{userData.bio}</span></p>
+        </div>
+        <div style={{ clear: 'both' }}></div>
+      </div>
 
 
 
 
              
-            </div>
+
           </>
         )}
 
@@ -87,3 +107,5 @@ const ProfilePage = () =>{
 
 
 export default ProfilePage
+
+

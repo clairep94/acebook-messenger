@@ -1,11 +1,40 @@
 /* ProfilePage.css */
-
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f8f8f8;
 }
+
+.wrap {
+    width: 100%;
+    }
+    
+    .floatleft {
+        float:left; 
+        width: 40%;
+        height: 400px;
+        padding: 20px; /* Add padding to create space around the elements */
+        box-sizing: border-box; 
+        
+    }
+    
+    .floatright {
+    float: right;
+    vertical-align: center;
+    height: 400px;
+    width: 60%;
+    }
+
+    .name {
+      font-family: 'Staatliches', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #5B7EC2
+    }
+
+
 
 .container {
   max-width: 800px;
@@ -58,12 +87,16 @@ a:hover {
 } */
 
 .profilepic {
-  max-width: 120px; /* Set the maximum width to 100px */
-  height: 120px; /* Set the height to 100px */
-  object-fit: cover; /* Ensure the image covers the entire container */
-  border-radius: 50%; /* Make the image circular */
-  margin: 0 auto 5px; /* Center the image and add bottom margin */
+  margin: auto;
+  margin-top: 13px;
+  margin-left: 13px;
+  width: 185px;
+  height: 185px;
+  border-radius: 50%; /* Make it a circle by setting border-radius to 50% */
+  overflow: hidden; /* Clip the content to the rounded shape */
+  background-color: #ffffff; 
 }
+
 
 
 
