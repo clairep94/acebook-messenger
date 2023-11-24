@@ -131,7 +131,7 @@ const Post = ({ post }) => {
         {/* LINKED USER PROFILE PIC */}
         <div class="circle-container">
         <a href={`/users/${post.user_id._id}`}>
-          <img src={fillerImage} alt="Image Alt Text"/>
+          <img src={profilePicture} alt="Image Alt Text"/>
         </a>
         </div>
 
