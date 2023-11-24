@@ -52,7 +52,7 @@ const CustomFeed = (props) => {
     return (
       <>
         <p className='subtitles' id='welcome-to-acebook'>
-        {props.firstName} {props.lastName ? `${props.lastName}'s Page` : ''}
+        {props.firstName} {props.lastName ? `${props.lastName}'s Posts` : ''}
         </p>
         <div id='feed' role="feed">
           {posts.map(
