@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../navbar/navbar';
 import styles from './ProfilePage.css'
-import defaultProfilePic from './profilePic/defaultProfilePic.png'
 import UpdatePage from './updatePage';
 import getSessionUserID from '../utility/getSessionUserID';
 import CustomFeed from '../feed/customFeed';
+
 const ProfilePage = () =>{
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userData, setUserData] = useState(null)
   const [update, setUpdate] = useState(null)
-
- let fillerImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png'
-let profilePicture= fillerImage
-
+  const [profilePicture, setProfilePicture] = useState(null)
 
   const [myId, setMyId] = useState('')
   
@@ -22,6 +19,7 @@ let profilePicture= fillerImage
     // checks if signed in
     if (token) {
       const id = getSessionUserID(token)
+      // get the userID
       setMyId(id)
       console.log(id)
       fetch(`/userData/${id}`, {
@@ -40,13 +38,8 @@ let profilePicture= fillerImage
           // and the user data is stored in the state 
           // you can access specific types of data using userData.atribute eg userData.email
           setUserData(data.user);
-
-          // unsed Code for setting image below -=-=-=-=-=-=-=-==-=
-  //         fillerImage = `https://picsum.photos/seed/${userData._id}/300`
-  //         let profilePicture = userData.profilePictureURL;
-  // if (profilePicture === null || "" || undefined){
-  //   profilePicture = fillerImage;
-  // }
+          // setProfilePicture to the one stored in userData. --> IN RENDERING IF IT DOES NOT EXIST, WE USE THE PLACEHOLDER IMAGE AS IMG SRC
+          setProfilePicture(userData.profilePictureURL)
 
         })
         .catch((error) => {
@@ -68,20 +61,19 @@ let profilePicture= fillerImage
   
         {/* TODO - style this -- Hyperlink to update page */}
         <a href='/updateprofile' className="right">UpdatePage</a>
-        {/* TODO -- this image is just a placeholder, we'll need to do some conditional rendering 
-            so that it only displays if no one has uploaded a picture  */}
-        {/* <img className="profilepic" src={(userData.profilePictureURL) ? defaultProfilePic : userData.profilePictureURL}></img> */}
-        {/* <img className="profilepic" src={defaultProfilePic}></img> */}
   
         {/* Profile information */}
         {userData && (
-          <>
-            {/* modified to display the email as a display name if there is no display name */}
-            {/* <h1>{name}'s ProfilePage</h1> */}
-  
+          <>  
             <div className="wrap">
               <div className="floatleft">
-                <img src={profilePicture} className='profilepic'/>
+              
+                {profilePicture ? (
+                  <img src={profilePicture} alt="Profile" className='profilepic' />
+                ) : (
+                  <img src={`https://picsum.photos/seed/${userData._id}/300`} alt="Profile" className='profilepic'/>
+                )}
+              
               </div>
               <div className="floatright">
                 <h1 className='name'>{userData.firstName} {userData.lastName}</h1>
