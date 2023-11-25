@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Post from '../post/Post'
-
+import Trending from '../utility/Trending';
 // Feed Page
 const Feed = ({ navigate }) => {
 
   // =========== STATE VARIABLES =========================
   const [posts, setPosts] = useState([]); //all posts
   const [token, setToken] = useState(window.localStorage.getItem("token")); //similar to session id
+  const [displayPosts, setDispalyPosts] = useState([])
+  const [trendingPosts, setTrendingPosts] = useState(null)
+  const trend = new Trending()
 
   // =========== GET ALL POSTS WHEN THE COMPONENT MOUNTS =========================
   useEffect(() => {
@@ -28,18 +31,36 @@ const Feed = ({ navigate }) => {
 
           // Sort posts based on date_posted in descending order
           const sortedPosts = data.posts.sort((a, b) => new Date(b.date_posted) - new Date(a.date_posted));
-          // Updates posts with all posts retrieved in descending order
+          setDispalyPosts(sortedPosts)
           setPosts(sortedPosts);
+          
+
+         
+          // Updates posts with all posts retrieved in descending order
+          
+          
         })
     }
   }, [])
 
   // =========== FUNCTION TO HANDLE USER LOGOUT: =========================
+ 
   const logout = () => {
     window.localStorage.removeItem("token")
     navigate('/login')
   }
-
+  const handleSubmit = () =>{
+    const trendyPosts = posts.sort((a, b) => trend.getTrendingResult(b) - trend.getTrendingResult(a));
+    setTrendingPosts(trendyPosts)
+    trendingPosts.map((post) =>{
+      console.log(trend.getCommentStreak(post), trend.getTimeDiff(post), 'time', trend.getCommentStreak(post))
+    })
+  }
+  const handleNewPosts = () =>{
+    window.location.reload();
+  }
+  
+ 
   // ========================= JSX FOR THE UI OF THE COMPONENT =================================
   // currently shows 'Posts' header, a logout button and a feed of posts
   // see ../post/Post for formatting
@@ -48,9 +69,12 @@ const Feed = ({ navigate }) => {
     return (
       <>
         <p className='subtitles' id='welcome-to-acebook' >Newsfeed</p>
+        <button id="Trend" onClick={handleSubmit}>trending</button>
+        <button id="New" onClick={handleNewPosts}>new</button>
         <div id='feed' role="feed">
-          {posts.map(
-            (post) => (<Post post={post} key={post._id} />) // <======= 
+       
+          {displayPosts.map(
+            (post) => (<Post post={post} key={post._id}  />) // <======= 
           )}
         </div>
       </>

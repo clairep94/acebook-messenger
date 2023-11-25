@@ -10,7 +10,7 @@ import CommentsBox from '../comments/CommentsBox';
 import NewCommentForm from '../CommentWrite/CommentWrite';
 import WhoLikedThisList from '../wholikedthis/whoLikedThisList';
 import { BiLike, BiSolidLike, BiCommentAdd, BiSolidCommentAdd,  BiCommentDetail, BiSolidCommentDetail} from "react-icons/bi";
-
+import Trending from '../utility/Trending';
 
 const Post = ({ post }) => {
 
@@ -19,6 +19,8 @@ const Post = ({ post }) => {
   let sessionUserID = getSessionUserID(token);
   // checks if sessionUserID is in user._id for user in post.likes --> array of Users, not user_id's due to populate in controllers/posts line 7-8
   const [userLiked, setUserLiked] = useState(post.likes.some(user => user._id === sessionUserID));
+  const trend = new Trending()
+  const isThisPostTrending = trend.isPostTrending(post)
 
 
   // ============ LIKE BUTTON =============================
@@ -133,7 +135,10 @@ const Post = ({ post }) => {
         <a href={`/users/${post.user_id._id}`}>
           <img src={profilePicture} alt="Image Alt Text"/>
         </a>
-        </div>
+        </div>{isThisPostTrending && (
+        <span className="trending-label" role="img" aria-label="trending">🔥</span>
+      )}
+
 
         <div class="author-and-timestamp">
           {/* LINKED USER FULL NAME */}
