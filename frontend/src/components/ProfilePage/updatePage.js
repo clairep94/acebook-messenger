@@ -1,140 +1,118 @@
-import React, { useEffect, useState } from 'react';
-import styles from './ProfilePage.css'
+import React, { useState } from 'react';
+import styles from './ProfilePage.css';
 
-const UpdatePage = (props) =>{
-  const [bio, setBio] = useState("")
-  const [token, setToken] = useState(window.localStorage.getItem("token"));
-  const [bioSubmit, setBioSubmit] = useState('')
-  const [firstName, setFirstName ] = useState('')
-  const [lastName, setLastName ] = useState('')
-  // handles the change so you can see what you're typing
+const UpdatePage = ({user}) => {
+  const [bio, setBio] = useState('');
+  const [token] = useState(window.localStorage.getItem('token'));
+  const [bioSubmit, setBioSubmit] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+
+  // Handles the change in input fields
   const handleChange = (event) => {
-    if(event.target.id === "bioedit"){
-      setBio(event.target.value)
+    if (event.target.id === 'bioedit') {
+      setBio(event.target.value);
+    } else if (event.target.id === 'firstNameEdit') {
+      setFirstName(event.target.value);
+    } else if (event.target.id === 'lastNameEdit') {
+      setLastName(event.target.value);
     }
-    else if (event.target.id === "firstNameEdit"){
-      setFirstName(event.target.value)
-      
-    }
-    else if (event.target.id === "lastNameEdit"){
-      setLastName(event.target.value)
-      
-    }
-    
-    
-  }
-  
-  
-  
-// most of this is a modified version of the make post function
-const handleSubmit = async (event) => {
-  
-
-  
-  
-
-  // checks if token (if user signed in)
-  if(token){
-    
-    event.preventDefault();
-    
-     
-
- 
-    
-    //uses put rather than post to update
-    // and goes to new route user data because it needs to check the token
-    fetch('/userData', {
-      method: 'put',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-    },
-    // this has been modified to change the request when the update bio or update
-    // display name is clicked, its not super efficient (probobly should figure out how to only send necessary data) 
-    //  but it works
-    
-    body : JSON.stringify({
-    bio: bio,
-    firstName: firstName,
-    lastName: lastName,
-    type: event.target.id
-    })
-    })
-    .then(response =>{
-      // the respone code is 200 for a put request rather than 201
-      // not sure if its necessary or just convention  
-      if(response.status === 200){
-        console.log("updated bio")
-        console.log()
-        return response.json()
-      }
-      else{
-        console.log("did not work")
-      }
-    })
-    
-    }  
-  
   };
-  
-    return( 
-      <div>
-        <a href='/profile' class="right" >return to your page</a>
 
-       
-          {/* This is conditonal, if you dont change your bio it wont display  */}
-          {/* also check it our, I just learnt how to to comment in react :) */}
+  // Handles form submission for updating user data
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (token) {
+      // Makes a PUT request to update user data
+      fetch('/userData', {
+        method: 'put',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          bio: bio,
+          firstName: firstName,
+          lastName: lastName,
+          type: event.target.id // Identifies the type of update
+        })
+      })
+        .then(response => {
+          if (response.status === 200) {
+            console.log('Updated bio');
+            window.location.reload(); // Reloads the page after successful update
+            return response.json();
+          } else {
+            console.log('Update failed');
+          }
+        });
+    }
+  };
+
+  return (
+    <div>
+      {/* Displays confirmation message when bio is updated */}
       {bioSubmit && (
-          <div>
-           
-            <h2>Bio updated!</h2>
-            
-      
-          </div>
-        )}
-      {/* button for submiting the put request  */}
-      <form id="bioSub" onSubmit={handleSubmit}>
-          {/* handles the change so you can see what you're typing  */}
-      <textarea id="bioedit" value={bio} onChange={handleChange} className={styles.bio} placeholder="write some shit no one will read"/>
-      <label>
-          update bio
-          <input type="submit" name="submit"/>
-        </label>
-       
+        <div>
+          <h2>Bio updated!</h2>
+        </div>
+      )}
+      <span className='Pagetitle'>Update your Profile</span>
+      <div style={{ '--spacer-height': '20px' }} className="spacer"></div>
 
-        
-      </form>
+
+      {/* Form for updating first name */}
       <form id="firstName" onSubmit={handleSubmit}>
-          {/* handles the change so you can see what you're typing  */}
-      <textarea id="firstNameEdit" value={firstName} onChange={handleChange} className={styles.bio} placeholder="update your first name "/>
-      <label>
-      update your first name
-          <input type="submit" name="submit"/>
-        </label>
-       
-
-        
+      <span className='name'>First name</span>
+      <br/>
+        <input
+          id="firstNameEdit"
+          type='text'
+          value={firstName}
+          onChange={handleChange}
+          className='Profileinput-oneline'
+          placeholder="Update Your First Name"
+        />
+        <br/>
+          <input type="submit" name="submit" value='Update' className='smallerButton'/>
       </form>
+
+      <div style={{ '--spacer-height': '40px' }} className="spacer"></div>
+      {/* Form for updating last name */}
       <form id="lastName" onSubmit={handleSubmit}>
-          {/* handles the change so you can see what you're typing  */}
-      <textarea id="lastNameEdit" value={lastName} onChange={handleChange} className={styles.bio} placeholder="update your last name "/>
-      <label>
-      update your lastname {props.lastName}
-          <input type="submit" name="submit"/>
-        </label>
-       
-
-        
+      <span className='name'>Last Name</span>
+      <br/>
+        <input
+          id="lastNameEdit"
+          type='text'
+          value={lastName}
+          onChange={handleChange}
+          className='Profileinput-oneline'
+          placeholder="Update Your Last Name"
+        />
+        <br/>
+          <input type="submit" name="submit" value='Update' className='smallerButton'/>
       </form>
-      
-     
-      
-      
-      </div>
-      
-  
-    )
-    
-  }
-export default UpdatePage
+
+      <div style={{ '--spacer-height': '40px' }} className="spacer"></div>
+            {/* Form for updating bio */}
+            <form id="bioSub" onSubmit={handleSubmit}>
+        <span className='name'>Biography</span>
+        <br/>
+        <textarea
+          id="bioedit"
+          value={bio}
+          onChange={handleChange}
+          className={styles.bio}
+          placeholder="Update Your Bio"
+          className='Profileinput-multiline'
+        />  
+        <br/>
+          <input type="submit" name="submit" value='Update' className='smallerButton'/>
+      </form>
+    </div>
+  );
+};
+
+export default UpdatePage;

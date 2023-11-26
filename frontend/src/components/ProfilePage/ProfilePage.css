@@ -105,7 +105,7 @@ a:hover {
   border-radius: 4px;
   cursor: pointer;
   display: flex; 
-  justify-content: center; 
+  justify-content: left; 
 
 }
 
@@ -122,7 +122,53 @@ a {
   text-decoration: inherit; /* no underline */
 }
 
+.smallerButton {
+  float: left;
+  width: 150px; /* Set your desired fixed width for the submit button */
+  background-color: #4267B2;
+  color: white;
+  padding: 5px 20px;
+  margin: 0 auto;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex; 
+  justify-content: center; 
 
+}
+
+.smallerButton:hover {
+  background-color: #5B7EC2;
+}
+
+.Profileinput-oneline {
+  width: 450px;
+  padding: 12px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #4267B2;
+  resize: none;
+}
+
+.Profileinput-multiline {
+  width: 450px;
+  height: 150px;
+  box-sizing: border-box;
+  border: 2px solid #4267B2;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+  outline: none;
+}
+
+.Pagetitle{
+  font-family: 'Staatliches';
+  color:#4267B2;
+  font-size: 30px;
+  text-align: center;
+}
 
 /* Add your additional styling as needed */
 

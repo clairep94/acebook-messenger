@@ -4,19 +4,27 @@ import styles from './ProfilePage.css'
 import UpdatePage from './updatePage';
 import getSessionUserID from '../utility/getSessionUserID';
 import CustomFeed from '../feed/customFeed';
+import UpdateProfilePopUp from './UpdateProfilePopUp';
 
 const ProfilePage = () =>{
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userData, setUserData] = useState(null)
   const [update, setUpdate] = useState(null)
-
- let fillerImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png'
-let profilePicture= fillerImage
-
-
   const [myId, setMyId] = useState('')
-  
 
+// POPUP INFORMATION HERE ---------------------------------
+   // State for controlling the visibility of login and sign-up success pop-ups
+   const [isUpdatePopupVisible, setUpdatePopupVisible] = useState(false); // Login pop-up visibility
+    // Function to handle click event for displaying the login pop-up
+    const handleUpdateProfileClick = () => {
+      setUpdatePopupVisible(false); // Close the successful signup popup if visible
+      setUpdatePopupVisible(true); // Set login pop-up visibility to true
+    }
+  
+    // Function to close the login pop-up
+    const closeLoginPopup = () => {
+      setUpdatePopupVisible(false); // Set login pop-up visibility to false
+    }
   // sends the fetch (get) request 
   useEffect(() => {
     // checks if signed in
@@ -76,7 +84,7 @@ let profilePicture= fillerImage
                 <h1 className='name'>{userData.firstName} {userData.lastName}</h1>
                 <p><span style={{color:'#5B7EC2'}}><b>Email:</b></span><br/><span className='bio'>{userData.email}</span></p>
                 <p><span style={{color:'#5B7EC2'}}><b>Bio:</b></span><br/><span id="bio" className='bio'>{userData.bio}</span></p>
-              <button className='UpdateButton'><a href='/updateprofile'>UpdatePage</a></button>
+              <button className='UpdateButton' onClick={handleUpdateProfileClick}>Update Profile</button>
               </div>
               <div style={{ clear: 'both' }}></div>
             </div>
@@ -87,6 +95,11 @@ let profilePicture= fillerImage
           </>
         )}
       </div>
+          {/* POPUP */}
+        {/* Render the LoginPopup coSmponent conditionally based on isUpdatePopupVisible */}
+        {isUpdatePopupVisible && 
+          <UpdateProfilePopUp onClose={closeLoginPopup} />
+        }
     </>
   );
         }  
