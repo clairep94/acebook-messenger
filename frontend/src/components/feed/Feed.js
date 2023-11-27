@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Post from '../post/Post'
-import Trending from '../utility/Trending';
+import TrendingCalculator from '../utility/Trending';
 // Feed Page
 const Feed = ({ navigate }) => {
 
@@ -9,7 +9,7 @@ const Feed = ({ navigate }) => {
   const [token, setToken] = useState(window.localStorage.getItem("token")); //similar to session id
   const [displayPosts, setDisplayPosts] = useState([])
   const [trendingPosts, setTrendingPosts] = useState(null)
-  const trend = new Trending()
+  const trendCalc = new TrendingCalculator()
 
   // =========== GET ALL POSTS WHEN THE COMPONENT MOUNTS =========================
   useEffect(() => {
@@ -48,10 +48,10 @@ const Feed = ({ navigate }) => {
 
   // Sort by trending
   const handleSubmit = () =>{
-    const trendyPosts = posts.sort((a, b) => trend.getTrendingResult(b) - trend.getTrendingResult(a));
+    const trendyPosts = posts.sort((a, b) => trendCalc.getTrendingResult(b) - trendCalc.getTrendingResult(a));
     setTrendingPosts(trendyPosts)
     trendingPosts.map((post) =>{
-      console.log(trend.getCommentStreak(post), trend.getTimeDiff(post), 'time', trend.getCommentStreak(post))
+      console.log(trendCalc.getCommentStreak(post), trendCalc.getTimeDiff(post), 'time', trendCalc.getCommentStreak(post))
     })
   }
 
