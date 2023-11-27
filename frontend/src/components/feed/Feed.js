@@ -18,26 +18,20 @@ const Feed = ({ navigate }) => {
       // Sends GET request to '/posts' with the auth token
       fetch("/posts", {
         headers: {
-          'Authorization': `Bearer ${token}` // <======= BODY OF REQUEST
-          //Use for all GET requests that require login
+          'Authorization': `Bearer ${token}` 
         }
       })
         .then(response => response.json())
         .then(async data => {
-          console.log(data.posts); // Log to check the structure of the post data
+          // console.log(data.posts);
           // Updates to a new token when the GET request is complete
           window.localStorage.setItem("token", data.token)
           setToken(window.localStorage.getItem("token"))
 
-          // Sort posts based on date_posted in descending order
+          // DEFAULT SORTING: by date_posted in descending order
           const sortedPosts = data.posts.sort((a, b) => new Date(b.date_posted) - new Date(a.date_posted));
           setDisplayPosts(sortedPosts)
           setPosts(sortedPosts);
-          
-
-         
-          // Updates posts with all posts retrieved in descending order
-          
           
         })
     }
@@ -49,6 +43,10 @@ const Feed = ({ navigate }) => {
     window.localStorage.removeItem("token")
     navigate('/login')
   }
+
+  // =========== FUNCTION TO HANDLE POSTS SORTING BY TRENDING VS NEW: =========================
+
+  // Sort by trending
   const handleSubmit = () =>{
     const trendyPosts = posts.sort((a, b) => trend.getTrendingResult(b) - trend.getTrendingResult(a));
     setTrendingPosts(trendyPosts)
@@ -56,6 +54,8 @@ const Feed = ({ navigate }) => {
       console.log(trend.getCommentStreak(post), trend.getTimeDiff(post), 'time', trend.getCommentStreak(post))
     })
   }
+
+  // Sort by new -- return to default by re-loading component
   const handleNewPosts = () =>{
     window.location.reload();
   }
