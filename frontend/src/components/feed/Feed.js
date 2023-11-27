@@ -7,7 +7,7 @@ const Feed = ({ navigate }) => {
   // =========== STATE VARIABLES =========================
   const [posts, setPosts] = useState([]); //all posts
   const [token, setToken] = useState(window.localStorage.getItem("token")); //similar to session id
-  const [displayPosts, setDispalyPosts] = useState([])
+  const [displayPosts, setDisplayPosts] = useState([])
   const [trendingPosts, setTrendingPosts] = useState(null)
   const trend = new Trending()
 
@@ -31,7 +31,7 @@ const Feed = ({ navigate }) => {
 
           // Sort posts based on date_posted in descending order
           const sortedPosts = data.posts.sort((a, b) => new Date(b.date_posted) - new Date(a.date_posted));
-          setDispalyPosts(sortedPosts)
+          setDisplayPosts(sortedPosts)
           setPosts(sortedPosts);
           
 
