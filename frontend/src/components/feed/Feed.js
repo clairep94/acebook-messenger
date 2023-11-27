@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Post from '../post/Post'
 import TrendingCalculator from '../utility/Trending';
+
 // Feed Page
 const Feed = ({ navigate }) => {
 
@@ -32,22 +33,15 @@ const Feed = ({ navigate }) => {
           const sortedPosts = data.posts.sort((a, b) => new Date(b.date_posted) - new Date(a.date_posted));
           setDisplayPosts(sortedPosts)
           setPosts(sortedPosts);
-          
         })
     }
   }, [])
 
-  // =========== FUNCTION TO HANDLE USER LOGOUT: =========================
- 
-  const logout = () => {
-    window.localStorage.removeItem("token")
-    navigate('/login')
-  }
 
   // =========== FUNCTION TO HANDLE POSTS SORTING BY TRENDING VS NEW: =========================
 
   // Sort by trending
-  const handleSubmit = () =>{
+  const handleTrendingPosts = () =>{
     const trendyPosts = posts.sort((a, b) => trendCalc.getTrendingResult(b) - trendCalc.getTrendingResult(a));
     setTrendingPosts(trendyPosts)
     trendingPosts.map((post) =>{
@@ -62,17 +56,14 @@ const Feed = ({ navigate }) => {
   
  
   // ========================= JSX FOR THE UI OF THE COMPONENT =================================
-  // currently shows 'Posts' header, a logout button and a feed of posts
-  // see ../post/Post for formatting
 
   if (token) { // if user is logged in
     return (
       <>
         <p className='subtitles' id='welcome-to-acebook' >Newsfeed</p>
-        <button id="Trend" onClick={handleSubmit}>trending</button>
+        <button id="Trend" onClick={handleTrendingPosts}>trending</button>
         <button id="New" onClick={handleNewPosts}>new</button>
         <div id='feed' role="feed">
-       
           {displayPosts.map(
             (post) => (<Post post={post} key={post._id}  />) // <======= 
           )}

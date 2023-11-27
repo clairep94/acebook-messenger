@@ -30,6 +30,9 @@
   grid-gap: 5px; /* Adjust the gap between grid items */
 
 }
+
+/* =============== TRENDING POST LABEL =============*/
+
 .trending-label {
   position: absolute;
   top: 10px;

@@ -93,7 +93,7 @@ const Post = ({ post }) => {
   if (profilePicture === null || "" || undefined){
     profilePicture = fillerImage;
   }
-  console.log(`Profile picture URL: ${profilePicture}`)
+  // console.log(`Profile picture URL: ${profilePicture}`)
 
 
   // ======= SHOW COMMENTS BUTTON ===============
