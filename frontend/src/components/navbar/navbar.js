@@ -58,6 +58,8 @@ const Navbar = () => {
       return (
         <div class="topnav">
           <a href='/timeline' className='image'> <img src={logo}alt="Logo" /></a>
+
+            <SearchBar setResults={setResults}/>
           <a href='/login' className='txt right' >Log in</a>
         </div>
       )
