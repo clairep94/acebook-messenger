@@ -20,9 +20,6 @@ const SignedOutUserPage = ({navigate}) => {
   const [user, setUser] = useState(null); // State to hold user data
   const [profilePicture, setProfilePicture] = useState(null)
 
- 
-
-
 
   useEffect(() => {
     if (token) {
@@ -87,6 +84,7 @@ const SignedOutUserPage = ({navigate}) => {
                 <h1 className='name'>{user.firstName} {user.lastName}</h1>
                 <p><span style={{color:'#5B7EC2'}}><b>Email:</b></span><br/><span className='bio'>{user.email}</span></p>
                 <p><span style={{color:'#5B7EC2'}}><b>Bio:</b></span><br/><span id="bio" className='bio'>{user.bio}</span></p>
+              
               </div>
               <div style={{ clear: 'both' }}></div>
             
