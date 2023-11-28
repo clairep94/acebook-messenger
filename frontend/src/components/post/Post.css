@@ -5,6 +5,7 @@
   display: grid; /* Enable the grid layout */
 }
 
+/* =============== WHO LIKED THIS LIST =============*/
 .who-liked-this-list{
   background-color: #7793cc;
   color: white;

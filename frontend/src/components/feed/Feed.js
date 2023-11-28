@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Post from '../post/Post'
 import TrendingCalculator from '../utility/Trending';
+import './Feed.css'
 
 // Feed Page
 const Feed = ({ navigate }) => {
@@ -10,6 +11,7 @@ const Feed = ({ navigate }) => {
   const [token, setToken] = useState(window.localStorage.getItem("token")); //similar to session id
   const [displayPosts, setDisplayPosts] = useState([])
   const [trendingPosts, setTrendingPosts] = useState(null)
+  const [sortByMethod, setSortByMethod] = useState("New (Default)")
   const trendCalc = new TrendingCalculator()
 
   // =========== GET ALL POSTS WHEN THE COMPONENT MOUNTS =========================
@@ -33,6 +35,7 @@ const Feed = ({ navigate }) => {
           const sortedPosts = data.posts.sort((a, b) => new Date(b.date_posted) - new Date(a.date_posted));
           setDisplayPosts(sortedPosts)
           setPosts(sortedPosts);
+          setSortByMethod("New (Default)");
         })
     }
   }, [])
@@ -44,9 +47,7 @@ const Feed = ({ navigate }) => {
   const handleTrendingPosts = () =>{
     const trendyPosts = posts.sort((a, b) => trendCalc.getTrendingResult(b) - trendCalc.getTrendingResult(a));
     setTrendingPosts(trendyPosts)
-    trendingPosts.map((post) =>{
-      console.log(trendCalc.getCommentStreak(post), trendCalc.getTimeDiff(post), 'time', trendCalc.getCommentStreak(post))
-    })
+    setSortByMethod("Trending");
   }
 
   // Sort by new -- return to default by re-loading component
@@ -60,9 +61,17 @@ const Feed = ({ navigate }) => {
   if (token) { // if user is logged in
     return (
       <>
-        <p className='subtitles' id='welcome-to-acebook' >Newsfeed</p>
-        <button id="Trend" onClick={handleTrendingPosts}>trending</button>
-        <button id="New" onClick={handleNewPosts}>new</button>
+        <p className='subtitles' id='newsfeed-title' >Newsfeed</p>
+
+        <div className='dropdown'>
+          <button class="dropbtn">Sort by: {sortByMethod}</button>
+          <div class="dropdown-content">
+            <a href="#" onClick={handleNewPosts}>New (Default)</a>
+            <a href="#" onClick={handleTrendingPosts}>Trending</a>
+          </div>
+        </div>
+
+
         <div id='feed' role="feed">
           {displayPosts.map(
             (post) => (<Post post={post} key={post._id}  />) // <======= 
