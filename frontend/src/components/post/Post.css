@@ -5,15 +5,18 @@
   display: grid; /* Enable the grid layout */
 }
 
+/* =============== WHO LIKED THIS LIST =============*/
 .who-liked-this-list{
   background-color: #7793cc;
   color: white;
   padding-left: 10px;
   font-size: 14px;
+  z-index: 200;
 }
 
 /* =============== POST CONTAINER =============*/
 .post-container {
+  position: relative;
   box-shadow: 0px 0px 6px #d9dbdf; /* adding small amount of dropshadow instead of border to distinguish between forms and posts/comments*/
   /* border: 2px solid #4267B2; */
   background-color: #ffffff;
@@ -27,6 +30,35 @@
   grid-template-columns: 100px auto; /* One column, adjust as needed */
   grid-gap: 5px; /* Adjust the gap between grid items */
 
+}
+
+/* =============== TRENDING POST LABEL =============*/
+
+.trending-label {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+}
+.trending-label {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer; /* Add this to make the cursor change on hover */
+}
+
+.trending-label:hover::before {
+  content: 'Trending'; /* Add the tooltip content */
+  position: absolute;
+  top: 30px;
+  right: -50px;
+  background-color: #333; /* Tooltip background color */
+  color: #fff; /* Tooltip text color */
+  padding: 5px;
+  border-radius: 5px;
+  display: inline-block;
+  font-size: 14px;
 }
 
 /* =============== COMMENTS CONTAINER =============*/
@@ -207,3 +239,4 @@
   .tooltip:hover .tooltiptext {
     visibility: visible;
   }
+  

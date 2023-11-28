@@ -79,6 +79,21 @@ Then, after signing up, you should be able to log in by going to `http://localho
 
 After logging in, you won't see much but you can create posts using PostMan and they should then show up in the browser if you refresh the page.
 
+### How to set up cloudinary
+1. signup for a cloudinary account
+2. From the root (/)
+   ; cd api
+   ; npm install cloudinary multer dotenv
+   ; cd ../frontend
+   ; npm install --save-dev cypress-file-upload
+   ```
+3. Add a .env file to your root folder and add the following variables (replacing the values with your cloudinary account api credentials)
+
+   ; CLOUDINARY_CLOUD_NAME=your_cloud_name
+   ; CLOUDINARY_API_KEY=your_api_key
+   ; CLOUDINARY_API_SECRET=your_api_secret
+   ```
+
 ### How to run automated tests
 
 The automated tests run by sending actual HTTP requests to the API. Therefore, before anything, you'll need to start the backend server in test mode (so that it connects to the test DB).

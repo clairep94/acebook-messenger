@@ -64,27 +64,43 @@ const ProfilePage = () =>{
 
   
   return (
+
+    
     <>
-      <div>
+<div>
         <Navbar />
-        {/* TODO -- this image is just a placeholder, we'll need to do some conditional rendering 
-            so that it only displays if no one has uploaded a picture  */}
-        {/* <img className="profilepic" src={(userData.profilePictureURL) ? defaultProfilePic : userData.profilePictureURL}></img> */}
-        {/* <img className="profilepic" src={defaultProfilePic}></img> */}
-  
+    
         {/* Profile information */}
         {userData && (
-          <>  
+          <>
+  
             <div className="wrap">
               <div className="floatleft">
+    
+               {/* NEW USER.AVATAR */}
                 <img src={userData.avatar} className='profilepic'/>
+                  
+             {/* ============= OLD USER.PROFILE PICTURE FIX ============== */}
+
+              <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
+              {profilePicture ? (
+                <img src={profilePicture} alt="Profile" className='profilepic' />
+              ) : (
+                <img src={`https://picsum.photos/seed/${userData._id}/300`} alt="Profile" className='profilepic'/>
+              )}
+              
+              {/* ============= END OLD USER.PROFILE PICTURE FIX ============== */}
+
               </div>
               <div className="floatright">
               <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
                 <h1 className='name'>{userData.firstName} {userData.lastName}</h1>
                 <p><span style={{color:'#5B7EC2'}}><b>Email:</b></span><br/><span className='bio'>{userData.email}</span></p>
                 <p><span style={{color:'#5B7EC2'}}><b>Bio:</b></span><br/><span id="bio" className='bio'>{userData.bio}</span></p>
+
               <button className='UpdateButton' onClick={handleUpdateProfileClick}>Update Profile</button>
+               {/* <button className='UpdateButton'><a href='/updateprofile'>UpdatePage</a></button>  */}
+
               </div>
               <div style={{ clear: 'both' }}></div>
             </div>
