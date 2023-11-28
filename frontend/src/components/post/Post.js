@@ -10,7 +10,7 @@ import CommentsBox from '../comments/CommentsBox';
 import NewCommentForm from '../CommentWrite/CommentWrite';
 import WhoLikedThisList from '../wholikedthis/whoLikedThisList';
 import { BiLike, BiSolidLike, BiCommentAdd, BiSolidCommentAdd,  BiCommentDetail, BiSolidCommentDetail} from "react-icons/bi";
-import Trending from '../utility/Trending';
+import TrendingCalculator from '../utility/Trending';
 
 const Post = ({ post }) => {
 
@@ -19,8 +19,8 @@ const Post = ({ post }) => {
   let sessionUserID = getSessionUserID(token);
   // checks if sessionUserID is in user._id for user in post.likes --> array of Users, not user_id's due to populate in controllers/posts line 7-8
   const [userLiked, setUserLiked] = useState(post.likes.some(user => user._id === sessionUserID));
-  const trend = new Trending()
-  const isThisPostTrending = trend.isPostTrending(post)
+  const trendCalc = new TrendingCalculator()
+  const isThisPostTrending = trendCalc.isPostTrending(post)
 
 
   // ============ LIKE BUTTON =============================
@@ -29,7 +29,7 @@ const Post = ({ post }) => {
     if (token) {
       event.preventDefault();
 
-      // Step 1: Put request for the session user to Like/Unlike the post
+      // Step 1: PUT request for the session user to Like/Unlike the post
       fetch(`/posts/${post._id}`, {
         method: 'put',
         headers: {
@@ -86,14 +86,11 @@ const Post = ({ post }) => {
 
 
   // -------- SET PROFILE PICTURE ------------  
-  // const fillerImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png" // anonymous user image
-  // const fillerImage = `https://source.boringavatars.com/beam/120/${post.user_id.email}408469-5c627a-a3b6a2-b2ccaf-fffaac` // smileys with colours
   const fillerImage = `https://picsum.photos/seed/${post.user_id._id}/300` // 'real' profile pictures
   let profilePicture = post.user_id.profilePictureURL;
   if (profilePicture === null || "" || undefined){
     profilePicture = fillerImage;
   }
-  console.log(`Profile picture URL: ${profilePicture}`)
 
 
   // ======= SHOW COMMENTS BUTTON ===============

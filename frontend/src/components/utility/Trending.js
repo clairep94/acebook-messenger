@@ -1,5 +1,5 @@
 
-class Trending {
+class TrendingCalculator {
   constructor() {
     // was messing around whith these numbers, feel free to change them, its a bit tricky for me to figure out if any of this works!
 
@@ -38,7 +38,7 @@ class Trending {
     else if(this.getCommentStreak(post) > this.streakThreshold){
       return true
     }else{
-      return null
+      return false
     }
   }
   getTimeDiff(post){
@@ -64,4 +64,4 @@ class Trending {
   
   
 }
-export default Trending
+export default TrendingCalculator
