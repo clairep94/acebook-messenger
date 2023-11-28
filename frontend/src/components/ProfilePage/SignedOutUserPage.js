@@ -7,6 +7,11 @@ import CustomFeed from '../feed/customFeed';
 import Feed from '../feed/Feed'
 import LoginPopup from "../auth/LoginPopup";
 import useTokenValidityCheck from '../loggedin/useTokenValidityCheck';
+import getSessionUserID from '../utility/getSessionUserID';
+
+import { TbFriends, TbFriendsOff } from "react-icons/tb";
+
+
 
 const parseJwt = (token) => {
   try {
@@ -23,6 +28,10 @@ const SignedOutUserPage = ({navigate}) => {
 
   const [profilePicture, setProfilePicture] = useState(null)
 
+  let sessionUserID = getSessionUserID(token);
+  const [friendRequested, setFriendRequested] = useState(false); //useState(user.requests.some(requester => requester._id === sessionUserID));
+  const [areFriends, setAreFriends] = useState(false); //useState(user.)
+
 
   // ===== LOGIN POPUP & TIMEOUT CHECKER: COPY TO EVERY AUTHENTICATED PAGE: ========== 
   let showLoginPopup = !useTokenValidityCheck(); // checks every 5 seconds if token is valid and changes true/false
@@ -31,9 +40,35 @@ const SignedOutUserPage = ({navigate}) => {
   }
 
 
+  // ===== ADD FRIEND BUTTON ==============
+  const handleFriendRequest = () => {
+    if (!friendRequested) {
+      setFriendRequested(true)
+      console.log(`Friend Requested!`)
+    } else {
+      setFriendRequested(false)
+      console.log(`Friend Cancelled!`)
+    }
+  }
 
+  // ====== UNFRIEND BUTTON ========
+  const handleUnfriend = () => {
+    if (areFriends) {
+      setAreFriends(false)
+      console.log(`Unfriended`)
+    } else {
+      setAreFriends(true)
+      console.log(`Reset unfriend button`)
+    }
+  }
+
+  // ========= COMPONENT MOUNT ===============
   useEffect(() => {
     if (token) {
+
+      if (sessionUserID === userId) {
+        navigate('/profile');
+      }
     
       // This ensures the user's ID is fetched dynamically from the URL
       fetch(`/userData/${userId}`, {
@@ -52,15 +87,6 @@ const SignedOutUserPage = ({navigate}) => {
 
         setProfilePicture(user.profilePictureURL) //TODO take out line, use .avatar
 
-        const decodedToken = parseJwt(token);
-        const uId = decodedToken ? decodedToken.user_id : null;
-        console.log('the token id', uId)
-
-        if(userData.user._id === uId){
-          
-          navigate('/profile');
-        }
-        
       })
       .catch(error => {
         console.error('Error fetching user data:', error);
@@ -69,6 +95,10 @@ const SignedOutUserPage = ({navigate}) => {
     }
   }, []); 
 
+
+
+
+  // ============ JSX UI ========================
   return (
     <div>
       <Navbar/>
@@ -99,9 +129,23 @@ const SignedOutUserPage = ({navigate}) => {
                 <p><span style={{color:'#5B7EC2'}}><b>Email:</b></span><br/><span className='bio'>{user.email}</span></p>
                 <p><span style={{color:'#5B7EC2'}}><b>Bio:</b></span><br/><span id="bio" className='bio'>{user.bio}</span></p>
                 
+                <div>
+                  <button className={friendRequested ? 'friend-request-button-cancel' : "friend-request-button-add"} onClick={handleFriendRequest}>
+                    {friendRequested ? "Cancel Request" : "Add Friend"}
+                  </button>
+                </div>
+
+                <div>
+                  <button className={areFriends ? 'unfriend-button' : ""} onClick={handleUnfriend}>
+                  {areFriends ? "Unfriend" : " "}
+                  </button>
+                </div>
+
               </div>
               <div style={{ clear: 'both' }}></div>
             
+
+              
               {/* USER POSTS */}
 
               <CustomFeed userId={user._id} firstName={user.firstName} lastName={user.lastName}/>
