@@ -37,11 +37,13 @@ const Navbar = () => {
             
             {/* TODO change to .avatar */}
             {/* <a href='/profile' className='smallcirclemasknav'> <img src={AuthorProfilePic}alt="Logo" /></a> */}
+            <a href='/profile'>
             {AuthorProfilePic ? (
                 <img src={AuthorProfilePic} alt="Profile" className='smallcirclemasknav' />
               ) : (
                 <img src={`https://picsum.photos/seed/${sessionUserID}/300`} alt="Profile" className='smallcirclemasknav'/>
               )}
+            </a>
 
             <a href='/profile' className='navbarname'> {AuthorFirstName} {AuthorLastName}</a>
             <SearchBar setResults={setResults}/>
