@@ -4,16 +4,27 @@ import styles from './ProfilePage.css'
 import UpdatePage from './updatePage';
 import getSessionUserID from '../utility/getSessionUserID';
 import CustomFeed from '../feed/customFeed';
+import UpdateProfilePopUp from './UpdateProfilePopUp';
 
 const ProfilePage = () =>{
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userData, setUserData] = useState(null)
   const [update, setUpdate] = useState(null)
-  const [profilePicture, setProfilePicture] = useState(null)
-
   const [myId, setMyId] = useState('')
-  
 
+// POPUP INFORMATION HERE ---------------------------------
+   // State for controlling the visibility of login and sign-up success pop-ups
+   const [isUpdatePopupVisible, setUpdatePopupVisible] = useState(false); // Login pop-up visibility
+    // Function to handle click event for displaying the login pop-up
+    const handleUpdateProfileClick = () => {
+      setUpdatePopupVisible(false); // Close the successful signup popup if visible
+      setUpdatePopupVisible(true); // Set login pop-up visibility to true
+    }
+  
+    // Function to close the login pop-up
+    const closeLoginPopup = () => {
+      setUpdatePopupVisible(false); // Set login pop-up visibility to false
+    }
   // sends the fetch (get) request 
   useEffect(() => {
     // checks if signed in
@@ -38,8 +49,6 @@ const ProfilePage = () =>{
           // and the user data is stored in the state 
           // you can access specific types of data using userData.atribute eg userData.email
           setUserData(data.user);
-          // setProfilePicture to the one stored in userData. --> IN RENDERING IF IT DOES NOT EXIST, WE USE THE PLACEHOLDER IMAGE AS IMG SRC
-          setProfilePicture(userData.profilePictureURL)
 
         })
         .catch((error) => {
@@ -95,15 +104,19 @@ const ProfilePage = () =>{
 
           </div>
           <div>
-              {/* Assuming myId is defined somewhere */}
-              
 
               {/* USER POSTS */}
+
               <CustomFeed userId={myId} firstName={"your Page"} />
           </div>
           </>
         )}
       </div>
+          {/* POPUP */}
+        {/* Render the LoginPopup coSmponent conditionally based on isUpdatePopupVisible */}
+        {isUpdatePopupVisible && 
+          <UpdateProfilePopUp onClose={closeLoginPopup} />
+        }
     </>
   );
         }  

@@ -18,7 +18,9 @@ const SignedOutUserPage = ({navigate}) => {
   const { userId } = useParams();
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [user, setUser] = useState(null); // State to hold user data
+
   const [profilePicture, setProfilePicture] = useState(null)
+
 
 
   useEffect(() => {
@@ -38,7 +40,9 @@ const SignedOutUserPage = ({navigate}) => {
 
         // Set user data obtained from the API response to the state
         setUser(userData.user);
+
         setProfilePicture(user.profilePictureURL) //TODO take out line, use .avatar
+
 
        
         
@@ -63,24 +67,24 @@ const SignedOutUserPage = ({navigate}) => {
     <div>
       <Navbar/>
 
-      {user && (
-          <>
-            <div className="wrap">
+       {user && (
+            <>
+              <div className="wrap">
+  
+                {/* PROFILE PICTURE */}
+                <div className="floatleft">
+                  <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
+  
+                  {/* TODO change to .avatar */}
+                  {/* <img className="profilepic" src={user.avatar}></img> */}
+                  {profilePicture ? (
+                      <img src={profilePicture} alt="Profile" className='profilepic' />
+                    ) : (
+                      <img src={`https://picsum.photos/seed/${userId}/300`} alt="Profile" className='profilepic'/>
+                    )}
+                </div>
 
-              {/* PROFILE PICTURE */}
-              <div className="floatleft">
-                <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
 
-                {/* TODO change to .avatar */}
-                {/* <img className="profilepic" src={user.avatar}></img> */}
-                {profilePicture ? (
-                    <img src={profilePicture} alt="Profile" className='profilepic' />
-                  ) : (
-                    <img src={`https://picsum.photos/seed/${userId}/300`} alt="Profile" className='profilepic'/>
-                  )}
-              </div>
-
-              
               {/* USER INFO */}
               <div className="floatright">
                 <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
@@ -93,9 +97,11 @@ const SignedOutUserPage = ({navigate}) => {
               <div style={{ clear: 'both' }}></div>
             
               {/* USER POSTS */}
+
               <CustomFeed userId={user._id} firstName={user.firstName} lastName={user.lastName}/>
+
             </div>
-          </>
+        </>
         )}
 
     </div>

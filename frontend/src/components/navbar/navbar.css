@@ -18,9 +18,20 @@
     font-size: 17px;
     display: inline-block;
   }
+
+  .navbarname {
+    font-family: 'Staatliches', sans-serif;
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 25px 20px;
+    text-decoration: none;
+    font-size: 17px;
+    display: inline-block;
+  }
   
   /* Change the color of links on hover */
-  .txt:hover {
+  .navbarname:hover {
     background-color: #4267B2;
     color: white;
   }
@@ -46,7 +57,15 @@
     font-size: 17px;
     width: auto;
     height: 50px;
+    padding-right: 20px;
   }
-  .topnav a.image img:hover {
-    background-color: #4267B2;
+
+  .smallcirclemasknav {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #ffffff;
+    object-fit: cover;
+    margin-right: 10px; 
   }

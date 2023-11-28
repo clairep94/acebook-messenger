@@ -13,6 +13,7 @@ const SingleComment = ({ comment }) => {
     const FoundUser = useFetchUserDataByID(userID);
     const AuthorFirstName = FoundUser && FoundUser.firstName ? FoundUser.firstName : '';
     const AuthorLastName = FoundUser && FoundUser.lastName ? FoundUser.lastName : '';
+
     const fillerImage = `https://picsum.photos/seed/${comment.user_id}/300`
     // TODO Change to below:
     // const fillerImage = 'https://res.cloudinary.com/dexcxd3xi/image/upload/v1700761470/stock-illustration-male-avatar-profile-picture-use_bxlg4g.jpg'
