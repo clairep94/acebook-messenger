@@ -64,10 +64,8 @@ const ProfilePage = () =>{
 
   
   return (
-
-    
     <>
-<div>
+      <div>
         <Navbar />
     
         {/* Profile information */}
@@ -75,6 +73,8 @@ const ProfilePage = () =>{
           <>
   
             <div className="wrap">
+
+              {/* PROFILE PICTURE */}
               <div className="floatleft">
     
                {/* NEW USER.AVATAR */}
@@ -83,31 +83,39 @@ const ProfilePage = () =>{
              {/* ============= OLD USER.PROFILE PICTURE FIX ============== */}
 
               <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
+
+              {/* TODO change to .avatar */}
+              {/* <img className="profilepic" src={userData.avatar}></img> */}
               {profilePicture ? (
                 <img src={profilePicture} alt="Profile" className='profilepic' />
               ) : (
                 <img src={`https://picsum.photos/seed/${userData._id}/300`} alt="Profile" className='profilepic'/>
               )}
-              
-              {/* ============= END OLD USER.PROFILE PICTURE FIX ============== */}
 
-              </div>
-              <div className="floatright">
+
+            {/* USER INFO */}
+            <div className="floatright">
               <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
-                <h1 className='name'>{userData.firstName} {userData.lastName}</h1>
-                <p><span style={{color:'#5B7EC2'}}><b>Email:</b></span><br/><span className='bio'>{userData.email}</span></p>
-                <p><span style={{color:'#5B7EC2'}}><b>Bio:</b></span><br/><span id="bio" className='bio'>{userData.bio}</span></p>
 
-              <button className='UpdateButton' onClick={handleUpdateProfileClick}>Update Profile</button>
-               {/* <button className='UpdateButton'><a href='/updateprofile'>UpdatePage</a></button>  */}
+              <h1 className='name'>{userData.firstName} {userData.lastName}</h1>
+              <p><span style={{color:'#5B7EC2'}}><b>Email:</b></span><br/><span className='bio'>{userData.email}</span></p>
+              <p><span style={{color:'#5B7EC2'}}><b>Bio:</b></span><br/><span id="bio" className='bio'>{userData.bio}</span></p>
 
-              </div>
-              <div style={{ clear: 'both' }}></div>
+              <button className='UpdateButton'><a href='/updateprofile'>UpdatePage</a></button>
+
             </div>
-            <div>
+
+            <div style={{ clear: 'both' }}></div>
+
+          </div>
+          <div>
+              {/* Assuming myId is defined somewhere */}
+              
+
+              {/* USER POSTS */}
 
               <CustomFeed userId={myId} firstName={"your Page"} />
-            </div>
+          </div>
           </>
         )}
       </div>
