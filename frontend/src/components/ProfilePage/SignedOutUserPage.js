@@ -41,7 +41,7 @@ const SignedOutUserPage = ({navigate}) => {
 
         // Set user data obtained from the API response to the state
         setUser(userData.user);
-        setProfilePicture(user.profilePictureURL)
+        setProfilePicture(user.profilePictureURL) //TODO take out line, use .avatar
 
        
         
@@ -72,6 +72,8 @@ const SignedOutUserPage = ({navigate}) => {
               <div className="floatleft">
               <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
 
+              {/* TODO change to .avatar */}
+              {/* <img className="profilepic" src={user.avatar}></img> */}
               {profilePicture ? (
                   <img src={profilePicture} alt="Profile" className='profilepic' />
                 ) : (
