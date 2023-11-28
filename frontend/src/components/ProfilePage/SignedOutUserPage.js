@@ -4,15 +4,17 @@ import Navbar from '../navbar/navbar';
 import styles from './ProfilePage.css'
 import defaultProfilePic from './profilePic/defaultProfilePic.png'
 import CustomFeed from '../feed/customFeed';
-import Feed from '../feed/Feed'
 import LoginPopup from "../auth/LoginPopup";
 import useTokenValidityCheck from '../loggedin/useTokenValidityCheck';
 import getSessionUserID from '../utility/getSessionUserID';
+import FriendRequestButton from '../friends/FriendRequest';
 
 import { TbFriends, TbFriendsOff } from "react-icons/tb";
 
 
 const SignedOutUserPage = ({navigate}) => {
+
+  // =========== STATE VARIABLES ==========================
   const { userId } = useParams(); //ID of the profile page owner
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [user, setUser] = useState(null); // State to hold user data
@@ -20,7 +22,9 @@ const SignedOutUserPage = ({navigate}) => {
   const [profilePicture, setProfilePicture] = useState(null)
 
   let sessionUserID = getSessionUserID(token);
-  const [friendRequested, setFriendRequested] = useState(false); //useState(user.requests.some(requester => requester._id === sessionUserID));
+  // const [friendRequested, setFriendRequested] = useState(false);
+
+  const [friendRequested, setFriendRequested] = useState(user.requests.some(requester => requester._id === sessionUserID));
   const [areFriends, setAreFriends] = useState(true); //useState(user.friends.some(friend => friend._id === sessionUserID));
 
 
@@ -31,32 +35,28 @@ const SignedOutUserPage = ({navigate}) => {
   }
 
 
-  // ===== FRIEND REQUEST BUTTON ==============
   const handleFriendRequest = async (event) => {
 
-    // PLACEHOLDER:
-    // if (!friendRequested) {
-    //   setFriendRequested(true)
-    //   console.log(`Friend Requested!`)
-    // } else {
-    //   setFriendRequested(false)
-    //   console.log(`Friend Cancelled!`)
-    // }
-
-
     if (token) {
-      event.preventDefault();
+    event.preventDefault();
 
     // Step 1: PUT request for the session user to be added to this user's friend_requests
-    fetch(`/userData/${user._id}/requests`, {
-      method: 'put',
-      headers: {
+    let putEndpoint = `/userData/${user._id}/requests/`
+    if (friendRequested){
+        putEndpoint += 'delete' //UsersController.DeleteFriendRequest if session user has already sent a friend request to the profile owner
+    } else {
+        putEndpoint += 'new' //UsersController.SendFriendRequest if session user has not sent a request yet.
+    }
+
+    fetch(putEndpoint, {
+    method: 'put',
+    headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({})
+    },
+    body: JSON.stringify({})
     }) // complete Put request & update token
-      .then(async response => {
+    .then(async response => {
         let putData = await response.json();
         console.log("token", putData)
         window.localStorage.setItem("token", putData.token);
@@ -64,29 +64,28 @@ const SignedOutUserPage = ({navigate}) => {
 
         // Step 2: Perform the GET request to fetch the updated post
         return fetch(`/userData/${user._id}`, {
-          method: 'get',
-          headers: {
+        method: 'get',
+        headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
-          }
+        }
         });
-      }) // Update user.requests to the data from the new GET request
-      .then(getResponse => {
+    }) // Update user.requests to the data from the new GET request
+    .then(getResponse => {
         if (!getResponse.ok) {
-          throw new Error(`Failed to fetch updated user with ID ${user._id}`);
+        throw new Error(`Failed to fetch updated user with ID ${user._id}`);
         }
         return getResponse.json();
-      })
-      .then(getData => {
+    })
+    .then(getData => {
         // Update the likes and userLiked state using the updated post data
-        user.requests = getData.user.requests
+        // user.requests = getData.user.requests
+        setUser(getData.user)
         setFriendRequested(user.requests.some(requester => requester._id === sessionUserID));
-      })
-  }
-}
+    })
+}}
+
       
-
-
 
 
   // ====== UNFRIEND BUTTON ========
@@ -166,10 +165,12 @@ const SignedOutUserPage = ({navigate}) => {
                 <p><span style={{color:'#5B7EC2'}}><b>Bio:</b></span><br/><span id="bio" className='bio'>{user.bio}</span></p>
                 
                 <div>
-                  <button className={friendRequested ? 'friend-request-button-cancel' : "friend-request-button-add"} onClick={handleFriendRequest}>
-                    {friendRequested ? "Cancel Request" : "Add Friend"}
-                  </button>
-                </div>
+        <button className={friendRequested ? 'friend-request-button-cancel' : "friend-request-button-add"} onClick={handleFriendRequest}>
+            {friendRequested ? "Cancel Request" : "Add Friend"}
+        </button>
+        </div>
+
+                {/* <FriendRequestButton user={user}/> */}
 
                 <div>
                   <button className={areFriends ? 'unfriend-button' : ""} onClick={handleUnfriend}>

@@ -62,6 +62,8 @@ const UsersController = {
     // not the token
     User.findById(req.params.id)
     .populate('user_id', '-password')
+    .populate('friends', '-password')
+    .populate('requests', '-password')
     .exec((err, users) => {
       if (err) {
         throw err;
