@@ -21,7 +21,8 @@ const Navbar = () => {
       const FoundUser = useFetchUserDataByID(sessionUserID);
       const AuthorFirstName = FoundUser && FoundUser.firstName ? FoundUser.firstName : '';
       const AuthorLastName = FoundUser && FoundUser.lastName ? FoundUser.lastName : '';
-      const AuthorProfilePic = FoundUser && FoundUser.avatar ? FoundUser.avatar : '';
+      // const AuthorProfilePic = FoundUser && FoundUser.avatar ? FoundUser.avatar : '';
+      const AuthorProfilePic = FoundUser && FoundUser.profilePictureURL ? FoundUser.profilePictureURL : `https://picsum.photos/seed/${FoundUser._id}/300`;
   
 
   // SEARCH BAR:

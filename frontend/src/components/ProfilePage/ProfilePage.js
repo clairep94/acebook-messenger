@@ -10,6 +10,9 @@ const ProfilePage = () =>{
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userData, setUserData] = useState(null)
   const [update, setUpdate] = useState(null)
+
+  const [profilePicture, setProfilePicture] = useState(null)
+  
   const [myId, setMyId] = useState('')
 
 // POPUP INFORMATION HERE ---------------------------------
@@ -25,6 +28,9 @@ const ProfilePage = () =>{
     const closeLoginPopup = () => {
       setUpdatePopupVisible(false); // Set login pop-up visibility to false
     }
+  
+
+  // COMPONENT MOUNT ---------------------------
   // sends the fetch (get) request 
   useEffect(() => {
     // checks if signed in
@@ -49,6 +55,7 @@ const ProfilePage = () =>{
           // and the user data is stored in the state 
           // you can access specific types of data using userData.atribute eg userData.email
           setUserData(data.user);
+          setProfilePicture(userData.profilePictureURL)
 
         })
         .catch((error) => {
