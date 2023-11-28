@@ -103,7 +103,6 @@ const ProfilePage = () =>{
               <p><span style={{color:'#5B7EC2'}}><b>Email:</b></span><br/><span className='bio'>{userData.email}</span></p>
               <p><span style={{color:'#5B7EC2'}}><b>Bio:</b></span><br/><span id="bio" className='bio'>{userData.bio}</span></p>
 
-              {/* <button className='UpdateButton'><a href='/updateprofile'>UpdatePage</a></button> */}
               <button className='UpdateButton' onClick={handleUpdateProfileClick}>Update Page</button>
 
             </div>
