@@ -13,7 +13,7 @@ import { TbFriends, TbFriendsOff } from "react-icons/tb";
 
 
 const SignedOutUserPage = ({navigate}) => {
-  const { userId } = useParams();
+  const { userId } = useParams(); //ID of the profile page owner
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [user, setUser] = useState(null); // State to hold user data
 
@@ -31,16 +31,63 @@ const SignedOutUserPage = ({navigate}) => {
   }
 
 
-  // ===== ADD FRIEND BUTTON ==============
-  const handleFriendRequest = () => {
-    if (!friendRequested) {
-      setFriendRequested(true)
-      console.log(`Friend Requested!`)
-    } else {
-      setFriendRequested(false)
-      console.log(`Friend Cancelled!`)
-    }
+  // ===== FRIEND REQUEST BUTTON ==============
+  const handleFriendRequest = async (event) => {
+
+    // PLACEHOLDER:
+    // if (!friendRequested) {
+    //   setFriendRequested(true)
+    //   console.log(`Friend Requested!`)
+    // } else {
+    //   setFriendRequested(false)
+    //   console.log(`Friend Cancelled!`)
+    // }
+
+
+    if (token) {
+      event.preventDefault();
+
+    // Step 1: PUT request for the session user to be added to this user's friend_requests
+    fetch(`/userData/${user._id}/requests`, {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({})
+    }) // complete Put request & update token
+      .then(async response => {
+        let putData = await response.json();
+        console.log("token", putData)
+        window.localStorage.setItem("token", putData.token);
+        setToken(window.localStorage.getItem("token"));
+
+        // Step 2: Perform the GET request to fetch the updated post
+        return fetch(`/userData/${user._id}`, {
+          method: 'get',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+      }) // Update user.requests to the data from the new GET request
+      .then(getResponse => {
+        if (!getResponse.ok) {
+          throw new Error(`Failed to fetch updated user with ID ${user._id}`);
+        }
+        return getResponse.json();
+      })
+      .then(getData => {
+        // Update the likes and userLiked state using the updated post data
+        user.requests = getData.user.requests
+        setFriendRequested(user.requests.some(requester => requester._id === sessionUserID));
+      })
   }
+}
+      
+
+
+
 
   // ====== UNFRIEND BUTTON ========
   const handleUnfriend = () => {
@@ -85,8 +132,6 @@ const SignedOutUserPage = ({navigate}) => {
       });
     }
   }, []); 
-
-
 
 
   // ============ JSX UI ========================

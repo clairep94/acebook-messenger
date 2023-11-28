@@ -13,4 +13,11 @@ router.put("/", UsersController.UpdateProfile);
 router.get("/:id", UsersController.FindUser);
 router.get("/", UsersController.Index);
 
+
+router.put("/:id/requests/new", UsersController.SendFriendRequest);
+router.put("/:id/requests/delete", UsersController.DeleteFriendRequest);
+
+router.put("/:id/friends/new", UsersController.AddFriend);
+router.put("/:id/friends/delete", UsersController.DeleteFriend);
+
 module.exports = router;

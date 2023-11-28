@@ -23,12 +23,24 @@ const UserSchema = new mongoose.Schema({
   },
   bio: { type: String },
   
-  profilePictureURL: { type: String }
+  profilePictureURL: { type: String },
   // TODO replace above:
   // avatar: {
   //   type: String,
   //   default: 'https://res.cloudinary.com/dexcxd3xi/image/upload/v1700761470/stock-illustration-male-avatar-profile-picture-use_bxlg4g.jpg',
 
+
+  // new properties
+  friends: {
+    type: [mongoose.Schema.Types.ObjectId],
+    default: [],
+    ref: 'User'
+  },
+  requests: {
+    type: [mongoose.Schema.Types.ObjectId],
+    default: [],
+    ref: 'User'
+  },
 });
 
 const User = mongoose.model("User", UserSchema);
