@@ -70,7 +70,7 @@ const SignedOutUserPage = ({navigate}) => {
               {/* PROFILE PICTURE */}
               <div className="floatleft">
                 <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
-                
+
                 {/* TODO change to .avatar */}
                 {/* <img className="profilepic" src={user.avatar}></img> */}
                 {profilePicture ? (
@@ -93,7 +93,7 @@ const SignedOutUserPage = ({navigate}) => {
               <div style={{ clear: 'both' }}></div>
             
               {/* USER POSTS */}
-              <CustomFeed userId={userId} firstName={user.firstName} lastName={user.lastName}/>
+              <CustomFeed userId={user._id} firstName={user.firstName} lastName={user.lastName}/>
             </div>
           </>
         )}
