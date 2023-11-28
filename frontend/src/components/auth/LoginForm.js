@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styles from './LoginForm.module.css'
 
 // Login Page
@@ -8,6 +9,7 @@ const LogInForm = ({ navigate }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const location = useLocation();
 
   // ============ FORM SUBMISSION FOR LOGIN ====================
   const handleSubmit = async (event) => {
@@ -32,7 +34,13 @@ const LogInForm = ({ navigate }) => {
       console.log("yay")
       let data = await response.json()
       window.localStorage.setItem("token", data.token)
-      navigate('/timeline');
+      
+      // Check the current location and navigate accordingly
+      if (location.pathname === '/') {
+        navigate('/timeline');
+      } else {
+        // 
+      }
       window.location.reload(); // Necessary addition so that page after successful login if logging in after timed out
     }
   }

@@ -5,8 +5,11 @@ import UpdatePage from './updatePage';
 import getSessionUserID from '../utility/getSessionUserID';
 import CustomFeed from '../feed/customFeed';
 import UpdateProfilePopUp from './UpdateProfilePopUp';
+import LoginPopup from "../auth/LoginPopup";
+import useTokenValidityCheck from '../loggedin/useTokenValidityCheck';
 
-const ProfilePage = () =>{
+
+const ProfilePage = ({navigate}) =>{
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userData, setUserData] = useState(null)
   const [update, setUpdate] = useState(null)
@@ -15,7 +18,16 @@ const ProfilePage = () =>{
   
   const [myId, setMyId] = useState('')
 
-// POPUP INFORMATION HERE ---------------------------------
+
+  // ===== LOGIN POPUP & TIMEOUT CHECKER: COPY TO EVERY AUTHENTICATED PAGE: ========== 
+  let showLoginPopup = !useTokenValidityCheck(); // checks every 5 seconds if token is valid and changes true/false
+  const closeLoginPopup = () => {
+    navigate('/');
+  }
+
+
+
+  // UPDATE PROFILE POPUP INFORMATION HERE ---------------------------------
    // State for controlling the visibility of login and sign-up success pop-ups
    const [isUpdatePopupVisible, setUpdatePopupVisible] = useState(false); // Login pop-up visibility
     // Function to handle click event for displaying the login pop-up
@@ -24,8 +36,8 @@ const ProfilePage = () =>{
       setUpdatePopupVisible(true); // Set login pop-up visibility to true
     }
   
-    // Function to close the login pop-up
-    const closeLoginPopup = () => {
+    // Function to close the Update Profile Pic pop-up
+    const closeUpdateProfilePopup = () => {
       setUpdatePopupVisible(false); // Set login pop-up visibility to false
     }
   
@@ -122,8 +134,16 @@ const ProfilePage = () =>{
           {/* POPUP */}
         {/* Render the LoginPopup coSmponent conditionally based on isUpdatePopupVisible */}
         {isUpdatePopupVisible && 
-          <UpdateProfilePopUp onClose={closeLoginPopup} />
+          <UpdateProfilePopUp onClose={closeUpdateProfilePopup} />
         }
+
+        {/* LOGIN POPUP -- COPY TO EVERY AUTHENTICATED PAGE */}
+        {showLoginPopup && 
+            <LoginPopup 
+              navigate={navigate} 
+              onClose={closeLoginPopup} 
+            />
+          }
     </>
   );
         }  

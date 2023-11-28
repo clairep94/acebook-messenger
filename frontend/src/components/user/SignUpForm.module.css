@@ -23,7 +23,7 @@
 /* Buttons */
 .Button {
   width: 150px; /* Set your desired fixed width for the submit button */
-  background-color: #4267B2;
+  background-color: #50bc67;
   color: white;
   padding: 14px 20px;
   margin: 0 auto;
@@ -33,7 +33,7 @@
 }
 
 .Button:hover {
-  background-color: #5B7EC2;
+  background-color: rgb(122, 200, 139);;
 }
 
 /* Links */

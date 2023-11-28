@@ -5,6 +5,8 @@ import styles from './ProfilePage.css'
 import defaultProfilePic from './profilePic/defaultProfilePic.png'
 import CustomFeed from '../feed/customFeed';
 import Feed from '../feed/Feed'
+import LoginPopup from "../auth/LoginPopup";
+import useTokenValidityCheck from '../loggedin/useTokenValidityCheck';
 
 const parseJwt = (token) => {
   try {
@@ -20,6 +22,13 @@ const SignedOutUserPage = ({navigate}) => {
   const [user, setUser] = useState(null); // State to hold user data
 
   const [profilePicture, setProfilePicture] = useState(null)
+
+
+  // ===== LOGIN POPUP & TIMEOUT CHECKER: COPY TO EVERY AUTHENTICATED PAGE: ========== 
+  let showLoginPopup = !useTokenValidityCheck(); // checks every 5 seconds if token is valid and changes true/false
+  const closeLoginPopup = () => {
+    navigate('/');
+  }
 
 
 
@@ -43,9 +52,6 @@ const SignedOutUserPage = ({navigate}) => {
 
         setProfilePicture(user.profilePictureURL) //TODO take out line, use .avatar
 
-
-       
-        
         const decodedToken = parseJwt(token);
         const uId = decodedToken ? decodedToken.user_id : null;
         console.log('the token id', uId)
@@ -61,7 +67,7 @@ const SignedOutUserPage = ({navigate}) => {
         // Handle errors, e.g., set an error state or display a message
       });
     }
-  }, []); // Include token and userId in the dependency array
+  }, []); 
 
   return (
     <div>
@@ -103,7 +109,13 @@ const SignedOutUserPage = ({navigate}) => {
             </div>
         </>
         )}
-
+        {/* LOGIN POPUP -- COPY TO EVERY AUTHENTICATED PAGE */}
+        {showLoginPopup && 
+            <LoginPopup 
+              navigate={navigate} 
+              onClose={closeLoginPopup} 
+            />
+          }
     </div>
   );
 };
