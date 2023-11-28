@@ -58,6 +58,7 @@
     width: auto;
     height: 50px;
     padding-right: 20px;
+    padding-left: 10px;
   }
 
   .smallcirclemasknav {
@@ -67,7 +68,7 @@
     overflow: hidden;
     background-color: #ffffff;
     /* object-fit: cover; */
-    margin-right: 10px; 
+    margin-right: 0px; 
   }
   .smallcirclemasknav img {
     width: 100%;

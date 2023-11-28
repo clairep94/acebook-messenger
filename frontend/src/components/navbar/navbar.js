@@ -22,6 +22,7 @@ const Navbar = () => {
   const AuthorFirstName = FoundUser && FoundUser.firstName ? FoundUser.firstName : '';
   const AuthorLastName = FoundUser && FoundUser.lastName ? FoundUser.lastName : '';
   // const AuthorProfilePic = FoundUser && FoundUser.avatar ? FoundUser.avatar : '';
+  // TODO change back to .avatar above
   const AuthorProfilePic = FoundUser && FoundUser.profilePictureURL ? FoundUser.profilePictureURL : '';
 
 
@@ -33,6 +34,8 @@ const Navbar = () => {
         <div>
           <div className="topnav">
             <a href='/timeline' className='image'> <img src={logo}alt="Logo" /></a>
+            
+            {/* TODO change to .avatar */}
             {/* <a href='/profile' className='smallcirclemasknav'> <img src={AuthorProfilePic}alt="Logo" /></a> */}
             {AuthorProfilePic ? (
                 <img src={AuthorProfilePic} alt="Profile" className='smallcirclemasknav' />
