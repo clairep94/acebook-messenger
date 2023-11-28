@@ -45,7 +45,10 @@ const UserSchema = new mongoose.Schema({
     required: [true, 'Password is required.']
   },
   bio: { type: String },
-  profilePictureURL: { type: String }
+  avatar: {
+    type: String,
+    default: 'https://res.cloudinary.com/dexcxd3xi/image/upload/v1700761470/stock-illustration-male-avatar-profile-picture-use_bxlg4g.jpg',
+  },
 });
 
 // // Define a virtual property for fullName

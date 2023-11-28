@@ -87,10 +87,13 @@ const Post = ({ post }) => {
 
   // -------- SET PROFILE PICTURE ------------  
   const fillerImage = `https://picsum.photos/seed/${post.user_id._id}/300` // 'real' profile pictures
-  let profilePicture = post.user_id.profilePictureURL;
-  if (profilePicture === null || "" || undefined){
-    profilePicture = fillerImage;
-  }
+
+
+//   let profilePicture = post.user_id.profilePictureURL;
+//   if (profilePicture === null || "" || undefined){
+//     profilePicture = fillerImage;
+//   }
+
 
 
   // ======= SHOW COMMENTS BUTTON ===============
@@ -130,7 +133,7 @@ const Post = ({ post }) => {
         {/* LINKED USER PROFILE PIC */}
         <div class="circle-container">
         <a href={`/users/${post.user_id._id}`}>
-          <img src={profilePicture} alt="Image Alt Text"/>
+          <img src={post.user_id.avatar} alt="Image Alt Text"/>
         </a>
         </div>{isThisPostTrending && (
         <span className="trending-label" role="img" aria-label="trending">🔥</span>

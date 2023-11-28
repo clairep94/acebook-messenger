@@ -18,12 +18,7 @@ const SignedOutUserPage = ({navigate}) => {
   const { userId } = useParams();
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [user, setUser] = useState(null); // State to hold user data
-  const [profilePicture, setProfilePicture] = useState(null)
-
- 
-
-
-
+  
   useEffect(() => {
     if (token) {
     
@@ -41,8 +36,6 @@ const SignedOutUserPage = ({navigate}) => {
 
         // Set user data obtained from the API response to the state
         setUser(userData.user);
-        setProfilePicture(user.profilePictureURL)
-
        
         
         const decodedToken = parseJwt(token);
@@ -66,18 +59,27 @@ const SignedOutUserPage = ({navigate}) => {
     <div>
       <Navbar/>
 
+
       {user && (
           <>
             <div className="wrap">
               <div className="floatleft">
               <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
 
+
+            {/* NEW USER.AVATAR */}
+            <img src={user.avatar} className='profilepic'/>
+              
+              
+             {/* ============= OLD USER.PROFILE PICTURE FIX ============== */}
               {profilePicture ? (
                   <img src={profilePicture} alt="Profile" className='profilepic' />
                 ) : (
                   <img src={`https://picsum.photos/seed/${userId}/300`} alt="Profile" className='profilepic'/>
                 )}
               </div>
+              {/* ============= END OLD USER.PROFILE PICTURE FIX ============== */}
+
 
               <div className="floatright">
               <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
@@ -89,8 +91,22 @@ const SignedOutUserPage = ({navigate}) => {
               <div style={{ clear: 'both' }}></div>
             
               <CustomFeed userId={userId} firstName={user.firstName} lastName={user.lastName}/>
+
             </div>
-          </>
+            <div className="floatright">
+            <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
+              <h1 className='name'>{user.firstName} {user.lastName}</h1>
+              <p><span style={{color:'#5B7EC2'}}><b>Email:</b></span><br/><span className='bio'>{user.email}</span></p>
+              <p><span style={{color:'#5B7EC2'}}><b>Bio:</b></span><br/><span id="bio" className='bio'>{user.bio}</span></p>
+            </div>
+            <div style={{ clear: 'both' }}></div>
+          </div>
+          <div>
+            {/* Assuming myId is defined somewhere */}
+            
+            <CustomFeed userId={user._id} firstName={`Posts by ${user.firstName}`} />
+          </div>
+        </>
         )}
 
     </div>
