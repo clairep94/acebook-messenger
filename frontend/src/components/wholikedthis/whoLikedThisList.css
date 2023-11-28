@@ -2,6 +2,10 @@
     padding-top: 4px;
     padding-bottom: 4px;
   }
+
+  .who-liked-this-span{
+    vertical-align: 10px;
+  }
   
   .liked-user {
     padding-top: 4px;
@@ -9,11 +13,12 @@
     display: flex;
     align-items: center;
     margin-bottom: 5px; 
+    font-size: 15px;
   }
   
   .smallcirclemask {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     overflow: hidden;
     background-color: #ffffff;

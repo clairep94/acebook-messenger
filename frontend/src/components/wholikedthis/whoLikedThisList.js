@@ -15,8 +15,8 @@ const WhoLikedThisList = ({ post }) => {
       {post.likes.map((user, id) => (
         <div key={id} className='liked-user'>
             {/* <img src={user.avatar} className='smallcirclemask' alt="Image Alt Text" /> */}
-            <img src={`https://picsum.photos/seed/${user._id}/300`} className='smallcirclemask' alt="Image Alt Text" />
-          <a href={`/users/${user._id}`}><span>{user.firstName} {user.lastName}</span></a>
+            
+          <a href={`/users/${user._id}`}><img src={`https://picsum.photos/seed/${user._id}/300`} className='smallcirclemask' alt="Image Alt Text" /><span className='who-liked-this-span'>{user.firstName} {user.lastName}</span></a>
         </div>
       ))}
     </div>
