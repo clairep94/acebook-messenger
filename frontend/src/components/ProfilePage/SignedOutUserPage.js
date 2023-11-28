@@ -12,15 +12,6 @@ import getSessionUserID from '../utility/getSessionUserID';
 import { TbFriends, TbFriendsOff } from "react-icons/tb";
 
 
-
-const parseJwt = (token) => {
-  try {
-    return JSON.parse(atob(token.split('.')[1]));
-  } catch (e) {
-    return null;
-  }
-};
-
 const SignedOutUserPage = ({navigate}) => {
   const { userId } = useParams();
   const [token, setToken] = useState(window.localStorage.getItem("token"));
@@ -30,7 +21,7 @@ const SignedOutUserPage = ({navigate}) => {
 
   let sessionUserID = getSessionUserID(token);
   const [friendRequested, setFriendRequested] = useState(false); //useState(user.requests.some(requester => requester._id === sessionUserID));
-  const [areFriends, setAreFriends] = useState(false); //useState(user.)
+  const [areFriends, setAreFriends] = useState(true); //useState(user.friends.some(friend => friend._id === sessionUserID));
 
 
   // ===== LOGIN POPUP & TIMEOUT CHECKER: COPY TO EVERY AUTHENTICATED PAGE: ========== 

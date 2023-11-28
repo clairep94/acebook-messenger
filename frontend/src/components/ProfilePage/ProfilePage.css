@@ -23,7 +23,7 @@ body {
     .floatright {
     float: right;
     vertical-align: center;
-    height: 400px;
+    /* height: 400px; */
     width: 60%;
     }
 
@@ -94,10 +94,12 @@ a:hover {
   background-color: #ffffff; 
 }
 
-.UpdateButton {
+.UpdateButton,
+.friend-request-button-cancel,
+.friend-request-button-add,
+.unfriend-button {
   float: left;
   width: 150px; /* Set your desired fixed width for the submit button */
-  background-color: #4267B2;
   color: white;
   padding: 14px 20px;
   margin: 0 auto;
@@ -105,12 +107,23 @@ a:hover {
   border-radius: 4px;
   cursor: pointer;
   display: flex; 
-/*   justify-content: left;  */
   justify-content: center; 
-
 }
 
-.UpdateButton:hover {
+
+
+
+.UpdateButton,
+.friend-request-button-cancel,
+.friend-request-button-add,
+.unfriend-button {
+  background-color: #4267B2;
+}
+
+.UpdateButton:hover,
+.friend-request-button-cancel:hover,
+.friend-request-button-add:hover,
+.unfriend-button:hover {
   background-color: #5B7EC2;
 }
 

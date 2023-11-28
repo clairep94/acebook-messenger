@@ -42,7 +42,7 @@ const ProfilePage = ({navigate}) =>{
     }
   
 
-  // COMPONENT MOUNT ---------------------------
+  // =============== COMPONENT MOUNT ========================
   // sends the fetch (get) request 
   useEffect(() => {
     // checks if signed in
@@ -81,7 +81,7 @@ const ProfilePage = ({navigate}) =>{
 
   
 
-  
+  // ============ JSX UI ========================
   return (
     <>
       <div>
