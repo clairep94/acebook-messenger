@@ -67,7 +67,6 @@ const SignedOutUserPage = ({navigate}) => {
     <div>
       <Navbar/>
 
-
        {user && (
             <>
               <div className="wrap">
@@ -85,7 +84,7 @@ const SignedOutUserPage = ({navigate}) => {
                     )}
                 </div>
 
-              
+
               {/* USER INFO */}
               <div className="floatright">
                 <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
@@ -98,7 +97,8 @@ const SignedOutUserPage = ({navigate}) => {
               <div style={{ clear: 'both' }}></div>
             
               {/* USER POSTS */}
-              <CustomFeed userId={userId} firstName={user.firstName} lastName={user.lastName}/>
+
+              <CustomFeed userId={user._id} firstName={user.firstName} lastName={user.lastName}/>
 
             </div>
         </>
