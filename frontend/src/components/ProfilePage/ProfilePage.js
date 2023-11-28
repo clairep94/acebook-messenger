@@ -76,12 +76,6 @@ const ProfilePage = () =>{
 
               {/* PROFILE PICTURE */}
               <div className="floatleft">
-    
-               {/* NEW USER.AVATAR */}
-                <img src={userData.avatar} className='profilepic'/>
-                  
-             {/* ============= OLD USER.PROFILE PICTURE FIX ============== */}
-
               <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
 
               {/* TODO change to .avatar */}
@@ -91,6 +85,7 @@ const ProfilePage = () =>{
               ) : (
                 <img src={`https://picsum.photos/seed/${userData._id}/300`} alt="Profile" className='profilepic'/>
               )}
+            </div>
 
 
             {/* USER INFO */}
@@ -109,8 +104,6 @@ const ProfilePage = () =>{
 
           </div>
           <div>
-              {/* Assuming myId is defined somewhere */}
-              
 
               {/* USER POSTS */}
 
