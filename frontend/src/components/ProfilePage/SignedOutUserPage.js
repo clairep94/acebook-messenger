@@ -66,28 +66,33 @@ const SignedOutUserPage = ({navigate}) => {
       {user && (
           <>
             <div className="wrap">
-              <div className="floatleft">
-              <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
 
-              {/* TODO change to .avatar */}
-              {/* <img className="profilepic" src={user.avatar}></img> */}
-              {profilePicture ? (
-                  <img src={profilePicture} alt="Profile" className='profilepic' />
-                ) : (
-                  <img src={`https://picsum.photos/seed/${userId}/300`} alt="Profile" className='profilepic'/>
-                )}
+              {/* PROFILE PICTURE */}
+              <div className="floatleft">
+                <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
+                
+                {/* TODO change to .avatar */}
+                {/* <img className="profilepic" src={user.avatar}></img> */}
+                {profilePicture ? (
+                    <img src={profilePicture} alt="Profile" className='profilepic' />
+                  ) : (
+                    <img src={`https://picsum.photos/seed/${userId}/300`} alt="Profile" className='profilepic'/>
+                  )}
               </div>
 
+              
+              {/* USER INFO */}
               <div className="floatright">
-              <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
+                <div style={{ '--spacer-height': '60px' }} className="spacer"></div>
 
                 <h1 className='name'>{user.firstName} {user.lastName}</h1>
                 <p><span style={{color:'#5B7EC2'}}><b>Email:</b></span><br/><span className='bio'>{user.email}</span></p>
                 <p><span style={{color:'#5B7EC2'}}><b>Bio:</b></span><br/><span id="bio" className='bio'>{user.bio}</span></p>
-              
+                
               </div>
               <div style={{ clear: 'both' }}></div>
             
+              {/* USER POSTS */}
               <CustomFeed userId={userId} firstName={user.firstName} lastName={user.lastName}/>
             </div>
           </>
