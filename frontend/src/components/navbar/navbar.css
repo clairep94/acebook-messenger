@@ -19,7 +19,9 @@
     display: inline-block;
   }
 
-  .navbarname {
+  .navbarname,
+  .navbar-friend-requests,
+  .navbar-friends {
     font-family: 'Staatliches', sans-serif;
     float: left;
     color: #f2f2f2;
@@ -31,17 +33,43 @@
   }
   
   /* Change the color of links on hover */
-  .navbarname:hover {
+  .navbarname:hover,
+  .navbar-friend-requests:hover,
+  .navbar-friends:hover {
+    float: right;
     background-color: #4267B2;
     color: white;
   }
   
+  .navbar-friend-requests{
+    margin-left: auto;
+  }
+
+  .navbar-friends{
+    width: 50px;
+  }
+  .navbar-friend-requests{
+    width: 127px;
+  }
+
+
+  .red-circle {
+    width: 15px;
+    height: 15px;
+    background-color: rgb(234, 31, 31);
+    border-radius: 50%;
+    display: inline-block; /* Initially hide the circle */
+    margin-top: -5px; /* Adjust the position */
+    margin-left: 5px; /* Adjust the position */
+  }
+  
+
   /* Create a right-aligned (split) link inside the navigation bar */
   .txt.right {
     float: right;
     background-color: #4267B2;
     color: white;
-    margin-left: auto;
+    /* margin-left: auto; */
   }
   .txt.right:hover {
     float: right;

@@ -7,7 +7,7 @@ import CustomFeed from '../feed/customFeed';
 import LoginPopup from "../auth/LoginPopup";
 import useTokenValidityCheck from '../loggedin/useTokenValidityCheck';
 import getSessionUserID from '../utility/getSessionUserID';
-import FriendRequestButton from '../friends/FriendRequest';
+import FriendRequestButton from '../friends/SendOrCancelFriendRequest';
 
 import { TbFriends, TbFriendsOff } from "react-icons/tb";
 

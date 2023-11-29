@@ -47,7 +47,11 @@ const Navbar = () => {
 
             <a href='/profile' className='navbarname'> {AuthorFirstName} {AuthorLastName}</a>
             <SearchBar setResults={setResults}/>
+            <a href='/friendrequests' className='navbar-friend-requests'>Friend Requests <span class='red-circle'></span> </a>
+            <a href='/friends' className='navbar-friends'>Friends</a>
+
             <a href='/' className='txt right' onClick={logout}>Log-Out</a>
+            
           </div>
           <div className="search-results">
             <SearchResultsList results={results}/>
