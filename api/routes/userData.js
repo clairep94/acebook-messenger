@@ -18,7 +18,7 @@ router.put("/:id/requests/send", UsersController.SendFriendRequest);
 router.put("/:id/requests/unsend", UsersController.UnsendFriendRequest);
 
 router.put("/friend_requests/:id/deny", UsersController.DenyFriendRequest);
-router.put("/friend_request/:id/accept", UsersController.AcceptFriendRequest);
+router.put("/friend_requests/:id/accept", UsersController.AcceptFriendRequest);
 
 router.put("/friends/:id/unfriend", UsersController.UnFriend);
 

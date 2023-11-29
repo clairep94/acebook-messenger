@@ -29,7 +29,8 @@ const SignedOutUserPage = ({navigate}) => {
 
   // FRIEND REQUEST / UNFRIEND / ACCEPT or DENY FRIENDS BUTTONS ================
   // If the profile owner and user are friends (they will be mutually friends): Unfriend Button & Message Button
-  const [areFriends, setAreFriends] = useState(false); //useState(user.friends.some(friend => friend._id === sessionUserID));
+  const areFriends = sessionUser && sessionUser.friends.some(user => user._id === userId);
+  // const [areFriends, setAreFriends] = useState(user.friends.some(friend => friend._id === sessionUserID));
   // Else if the profile owner HAS sent the user a friend request: 
   const requestRecieved = sessionUser && sessionUser.requests.some(user => user._id === userId);
   // Else neither user has sent a friend request: Friend Request / Cancel Friend Request Button
@@ -44,13 +45,14 @@ const SignedOutUserPage = ({navigate}) => {
 
   // ====== UNFRIEND BUTTON ========
   const handleUnfriend = () => {
-    if (areFriends) {
-      setAreFriends(false)
-      console.log(`Unfriended`)
-    } else {
-      setAreFriends(true)
-      console.log(`Reset unfriend button`)
-    }
+    console.log('unfriend!')
+    // if (areFriends) {
+    //   setAreFriends(false)
+    //   console.log(`Unfriended`)
+    // } else {
+    //   setAreFriends(true)
+    //   console.log(`Reset unfriend button`)
+    // }
   }
 
   // ========= COMPONENT MOUNT ===============
