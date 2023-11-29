@@ -14,8 +14,8 @@ import UploadImage from '../upload_image/UploadImage';
 import LoginPage from '../../pages/loginPage';
 import SignedOutUserPage from '../ProfilePage/SignedOutUserPage';
 import CustomFeed from '../feed/customFeed';
-// import YourFriendsList from '../friends-list/YourFriendsList';
 import YourFriendsListPage from '../../pages/yourFriendsListPage';
+import YourFriendRequestsPage from '../../pages/yourFriendRequestsPage';
 
 const App = () => {
   // Routes for each page of the website
@@ -37,6 +37,8 @@ const App = () => {
       <Route path='/updateprofile' element={<UpdatePage navigate={useNavigate()} />} />
       <Route path='/upload_image' element={<UploadImage navigate={useNavigate()} />} />
       <Route path='/your_friends' element={<YourFriendsListPage navigate={useNavigate()}/>}/>
+      <Route path='/your_friend_requests' element={<YourFriendRequestsPage navigate={useNavigate()}/>}/>
+
 
 
 

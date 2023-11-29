@@ -41,14 +41,13 @@
         justify-content: center; 
         align-items: center; 
       }
-      #welcome-to-acebook{
+      #welcome-to-acebook,
+      #your-friends-title,
+      #your-friend-requests-title{
         font-size: 30px;
       }
       #feed-title{
         font-size: 40px;
-      }
-      #your-friends-title{
-        font-size: 30px;
       }
       
 
