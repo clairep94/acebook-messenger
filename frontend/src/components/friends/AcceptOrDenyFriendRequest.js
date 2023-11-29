@@ -29,8 +29,8 @@ const FriendRequestAcceptOrDenyButtons = ({user}) => {
             fetch(denyRequestEnpoint, {
                 method: 'put',
                 headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${token}`
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({
                 })
@@ -39,13 +39,16 @@ const FriendRequestAcceptOrDenyButtons = ({user}) => {
                 let putData = await response.json();
                 if (response.status === 201){
                     console.log('Successful Friend Request Deny Put Request')
+                    
+                    window.localStorage.setItem('token', putData.token);
+                    setToken(window.localStorage.getItem('token'));
                     window.location.reload(); // Refresh the page after successful PUT request
+
                 } else {
                     console.log('Unsuccessful Friend Request Deny Put Request')
                 }
             })
         }
-
     }
 
     // ============ JSX UI ========================
