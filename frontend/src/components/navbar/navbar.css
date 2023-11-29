@@ -52,15 +52,18 @@
     width: 127px;
   }
 
-
-  .red-circle {
+/* FRIEND NOTIFICATION */
+  .friend-request-notification {
     width: 15px;
     height: 15px;
     background-color: rgb(234, 31, 31);
     border-radius: 50%;
-    display: inline-block; /* Initially hide the circle */
+    display: none; /* Initially hide the circle */
     margin-top: -5px; /* Adjust the position */
     margin-left: 5px; /* Adjust the position */
+  }
+  .condition-met {
+    display: inline-block; /* Initially hide the circle */
   }
   
 

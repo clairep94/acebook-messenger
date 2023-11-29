@@ -19,6 +19,7 @@ const Navbar = () => {
   // get the session user's name for Profile Link
   const sessionUserID = getSessionUserID(token);
   const FoundUser = useFetchUserDataByID(sessionUserID);
+  const friendRequests = FoundUser && FoundUser.requests.length ? true: false;
   const AuthorFirstName = FoundUser && FoundUser.firstName ? FoundUser.firstName : '';
   const AuthorLastName = FoundUser && FoundUser.lastName ? FoundUser.lastName : '';
   // const AuthorProfilePic = FoundUser && FoundUser.avatar ? FoundUser.avatar : '';
@@ -47,7 +48,12 @@ const Navbar = () => {
 
             <a href='/profile' className='navbarname'> {AuthorFirstName} {AuthorLastName}</a>
             <SearchBar setResults={setResults}/>
-            <a href='/friendrequests' className='navbar-friend-requests'>Friend Requests <span class='red-circle'></span> </a>
+
+            <a href='/friendrequests' className='navbar-friend-requests'>
+              Friend Requests 
+              <span className={`friend-request-notification ${friendRequests ? 'condition-met': ''}`}></span> 
+            </a>
+
             <a href='/friends' className='navbar-friends'>Friends</a>
 
             <a href='/' className='txt right' onClick={logout}>Log-Out</a>
