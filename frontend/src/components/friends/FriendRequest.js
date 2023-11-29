@@ -9,15 +9,6 @@ const FriendRequestButton = ({ user }) => {
   const [friendRequested, setFriendRequested] = useState(targetUser.requests.some(requester => requester._id === sessionUserID));
 
 
-    const forceUpdate = React.useReducer(() => ({}), {})[1];
-
-
-    useEffect(() => {
-        // This effect will run when friendRequested changes
-        console.log('friendRequested has changed:', friendRequested);
-        // You can add any logic here that you want to execute when friendRequested changes
-        forceUpdate(); // Force a re-render of the component
-      }, [friendRequested]);
 
     const handleFriendRequest = async (event) => {
 
@@ -63,9 +54,12 @@ const FriendRequestButton = ({ user }) => {
         })
         .then(getData => {
             // Update the likes and userLiked state using the updated post data
-            // targetUser.requests = getData.user.requests
             setTargetUser(getData.user)
-            setFriendRequested(targetUser.requests.some(requester => requester._id === sessionUserID));
+            // setFriendRequested(targetUser.requests.some(requester => requester._id === sessionUserID)); // --> this API call & update do not happen fast enough. Cannot get button to re-render ontime.
+            
+            // hardcode setting friendRequested to !friendRequested until user reloads the page.
+            // friendRequested status should match the database, since the component loads with db data, then manually updates as the button is pressed.
+            setFriendRequested(!friendRequested) 
         })
     }}
 
