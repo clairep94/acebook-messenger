@@ -14,11 +14,38 @@ const FriendRequestAcceptOrDenyButtons = ({user}) => {
     let sessionUserID = getSessionUserID(token);
 
     const handleAcceptRequest = async (event) => {
+        // if (token) {
+        //     event.preventDefault();
+        //     let acceptRequestEndpoint = `/userData/`
+        // }
         console.log('Accepted!')
     }
 
     const handleDenyRequest = async (event) => {
-        console.log('Denied!')
+        if (token) {
+            event.preventDefault();
+            let denyRequestEnpoint = `/userData/friend_requests/${user._id}/deny`
+
+            fetch(denyRequestEnpoint, {
+                method: 'put',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                })
+            })
+            .then(async response => {
+                let putData = await response.json();
+                if (response.status === 201){
+                    console.log('Successful Friend Request Deny Put Request')
+                    window.location.reload(); // Refresh the page after successful PUT request
+                } else {
+                    console.log('Unsuccessful Friend Request Deny Put Request')
+                }
+            })
+        }
+
     }
 
     // ============ JSX UI ========================
