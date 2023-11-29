@@ -54,7 +54,7 @@ const Navbar = () => {
               <span className={`friend-request-notification ${friendRequests ? 'condition-met': ''}`}></span> 
             </a>
 
-            <a href='/profile' className='navbar-friends'>Friends</a>
+            <a href='/your_friends' className='navbar-friends'>Friends</a>
 
             <a href='/' className='txt right' onClick={logout}>Log-Out</a>
             
