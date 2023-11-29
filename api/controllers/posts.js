@@ -124,10 +124,6 @@ const PostsController = {
         console.log('Successful linked comment from post controller');
         const token = TokenGenerator.jsonwebtoken(req.user_id);
         res.status(201).json({ message: 'Successful linked comment from post controller', token, updatedPost });
-
-  
-      
-
     } catch (err) {
       console.log('Error in Post Controllers:', err);
       res.status(500).json({ message: 'Internal Server Error' });

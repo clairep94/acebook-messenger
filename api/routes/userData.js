@@ -13,4 +13,16 @@ router.put("/", UsersController.UpdateProfile);
 router.get("/:id", UsersController.FindUser);
 router.get("/", UsersController.Index);
 
+
+router.put("/:id/requests/send", UsersController.SendFriendRequest);
+router.put("/:id/requests/unsend", UsersController.UnsendFriendRequest);
+
+router.put("/friend_requests/:id/deny", UsersController.DenyFriendRequest);
+router.put("/friend_requests/:id/accept", UsersController.AcceptFriendRequest);
+
+router.put("/friends/:id/unfriend", UsersController.UnFriend);
+
+// router.put("/:id/friends/new", UsersController.AddFriend);
+// router.put("/:id/friends/delete", UsersController.DeleteFriend);
+
 module.exports = router;

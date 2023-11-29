@@ -4,24 +4,38 @@ import Navbar from '../navbar/navbar';
 import styles from './ProfilePage.css'
 import defaultProfilePic from './profilePic/defaultProfilePic.png'
 import CustomFeed from '../feed/customFeed';
-import Feed from '../feed/Feed'
 import LoginPopup from "../auth/LoginPopup";
 import useTokenValidityCheck from '../loggedin/useTokenValidityCheck';
 import getSessionUserID from '../utility/getSessionUserID';
+import FriendRequestButton from '../friends/SendOrCancelFriendRequest';
+import useFetchUserDataByID from '../utility/getselectuserinfo';
+import FriendRequestAcceptOrDenyButtons from '../friends/AcceptOrDenyFriendRequest';
+import UnfriendButton from '../friends/UnfriendButton';
 
 import { TbFriends, TbFriendsOff } from "react-icons/tb";
 
 
 const SignedOutUserPage = ({navigate}) => {
-  const { userId } = useParams();
+
+  // =========== STATE VARIABLES ==========================
+  // PROFILE PAGE OWNER:
+  const { userId } = useParams(); //ID of the profile page owner
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [user, setUser] = useState(null); // State to hold user data
-
   const [profilePicture, setProfilePicture] = useState(null)
 
+  // SESSION USER:
   let sessionUserID = getSessionUserID(token);
-  const [friendRequested, setFriendRequested] = useState(false); //useState(user.requests.some(requester => requester._id === sessionUserID));
-  const [areFriends, setAreFriends] = useState(true); //useState(user.friends.some(friend => friend._id === sessionUserID));
+  const sessionUser = useFetchUserDataByID(sessionUserID);
+
+  // FRIEND REQUEST / UNFRIEND / ACCEPT or DENY FRIENDS BUTTONS ================
+  // not using useState as the page will just reload after accept/deny/unfriend
+  // If the profile owner and user are friends (they will be mutually friends): Unfriend Button & Message Button
+  const areFriends = sessionUser && sessionUser.friends.some(user => user._id === userId);
+  // Else if the profile owner HAS sent the user a friend request: 
+  const requestRecieved = sessionUser && sessionUser.requests.some(user => user._id === userId);
+  // Else neither user has sent a friend request: Friend Request / Cancel Friend Request Button
+
 
 
   // ===== LOGIN POPUP & TIMEOUT CHECKER: COPY TO EVERY AUTHENTICATED PAGE: ========== 
@@ -30,28 +44,6 @@ const SignedOutUserPage = ({navigate}) => {
     navigate('/');
   }
 
-
-  // ===== ADD FRIEND BUTTON ==============
-  const handleFriendRequest = () => {
-    if (!friendRequested) {
-      setFriendRequested(true)
-      console.log(`Friend Requested!`)
-    } else {
-      setFriendRequested(false)
-      console.log(`Friend Cancelled!`)
-    }
-  }
-
-  // ====== UNFRIEND BUTTON ========
-  const handleUnfriend = () => {
-    if (areFriends) {
-      setAreFriends(false)
-      console.log(`Unfriended`)
-    } else {
-      setAreFriends(true)
-      console.log(`Reset unfriend button`)
-    }
-  }
 
   // ========= COMPONENT MOUNT ===============
   useEffect(() => {
@@ -87,8 +79,6 @@ const SignedOutUserPage = ({navigate}) => {
   }, []); 
 
 
-
-
   // ============ JSX UI ========================
   return (
     <div>
@@ -120,18 +110,11 @@ const SignedOutUserPage = ({navigate}) => {
                 <p><span style={{color:'#5B7EC2'}}><b>Email:</b></span><br/><span className='bio'>{user.email}</span></p>
                 <p><span style={{color:'#5B7EC2'}}><b>Bio:</b></span><br/><span id="bio" className='bio'>{user.bio}</span></p>
                 
-                <div>
-                  <button className={friendRequested ? 'friend-request-button-cancel' : "friend-request-button-add"} onClick={handleFriendRequest}>
-                    {friendRequested ? "Cancel Request" : "Add Friend"}
-                  </button>
-                </div>
-
-                <div>
-                  <button className={areFriends ? 'unfriend-button' : ""} onClick={handleUnfriend}>
-                  {areFriends ? "Unfriend" : " "}
-                  </button>
-                </div>
-
+              
+              {/* FRIENDS BUTTONS */}
+                {(!areFriends && requestRecieved) && <FriendRequestAcceptOrDenyButtons user={user}/>}
+                {(!areFriends && !requestRecieved) && <FriendRequestButton user={user}/>}
+                {areFriends && <UnfriendButton user={user}/>}
               </div>
               <div style={{ clear: 'both' }}></div>
             
