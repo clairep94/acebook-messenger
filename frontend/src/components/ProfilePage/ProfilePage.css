@@ -94,9 +94,13 @@ a:hover {
   background-color: #ffffff; 
 }
 
+
+/* ============= FRIEND BUTTONS ================ */
 .UpdateButton,
 .friend-request-button-cancel,
 .friend-request-button-add,
+.friend-request-confirm-button,
+.friend-request-deny-button,
 .unfriend-button {
   float: left;
   width: 150px; /* Set your desired fixed width for the submit button */
@@ -111,21 +115,31 @@ a:hover {
   justify-content: center; 
 }
 
-
-
-
+/* POSITIVE BUTTONS */
 .UpdateButton,
-.friend-request-button-cancel,
 .friend-request-button-add,
-.unfriend-button {
+.friend-request-confirm-button {
   background-color: #4267B2;
 }
 
 .UpdateButton:hover,
-.friend-request-button-cancel:hover,
-.friend-request-button-add:hover,
-.unfriend-button:hover {
+.friend-request-confirm-button:hover {
   background-color: #5B7EC2;
+}
+
+
+/* NEGATIVE BUTTONS */
+.friend-request-deny-button,
+.friend-request-button-cancel,
+.unfriend-button {
+  background-color: #d6d6d8;
+  color: rgb(102, 102, 102);
+}
+
+.friend-request-deny-button:hover,
+.friend-request-button-cancel:hover,
+.unfriend-button:hover {
+  background-color: #b9b9bd;
 }
 
 .spacer {

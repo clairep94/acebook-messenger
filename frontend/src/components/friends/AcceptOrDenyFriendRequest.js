@@ -25,10 +25,10 @@ const FriendRequestAcceptOrDenyButtons = ({user}) => {
     return (
     <div>
     <button className='friend-request-confirm-button' onClick={handleAcceptRequest}>
-        Accept Friend Request
+        Confirm Request
     </button>
     <button className='friend-request-deny-button' onClick={handleDenyRequest}>
-        Deny Friend Request
+        Delete Request
     </button>
     </div>
     )
