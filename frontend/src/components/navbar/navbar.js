@@ -49,12 +49,12 @@ const Navbar = () => {
             <a href='/profile' className='navbarname'> {AuthorFirstName} {AuthorLastName}</a>
             <SearchBar setResults={setResults}/>
 
-            <a href='/friendrequests' className='navbar-friend-requests'>
+            <a href='/profile' className='navbar-friend-requests'>
               Friend Requests 
               <span className={`friend-request-notification ${friendRequests ? 'condition-met': ''}`}></span> 
             </a>
 
-            <a href='/friends' className='navbar-friends'>Friends</a>
+            <a href='/profile' className='navbar-friends'>Friends</a>
 
             <a href='/' className='txt right' onClick={logout}>Log-Out</a>
             

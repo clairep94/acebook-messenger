@@ -8,6 +8,8 @@ import LoginPopup from "../auth/LoginPopup";
 import useTokenValidityCheck from '../loggedin/useTokenValidityCheck';
 import getSessionUserID from '../utility/getSessionUserID';
 import FriendRequestButton from '../friends/SendOrCancelFriendRequest';
+import useFetchUserDataByID from '../utility/getselectuserinfo';
+import FriendRequestAcceptOrDenyButtons from '../friends/AcceptOrDenyFriendRequest';
 
 import { TbFriends, TbFriendsOff } from "react-icons/tb";
 
@@ -15,17 +17,23 @@ import { TbFriends, TbFriendsOff } from "react-icons/tb";
 const SignedOutUserPage = ({navigate}) => {
 
   // =========== STATE VARIABLES ==========================
+  // PROFILE PAGE OWNER:
   const { userId } = useParams(); //ID of the profile page owner
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [user, setUser] = useState(null); // State to hold user data
-
   const [profilePicture, setProfilePicture] = useState(null)
 
+  // SESSION USER:
   let sessionUserID = getSessionUserID(token);
+  const sessionUser = useFetchUserDataByID(sessionUserID);
 
-  // If profile owner and session user ARE friends, show unfriend & message buttons. 
-  // Otherwise, show the friend request button
-  const [areFriends, setAreFriends] = useState(true); //useState(user.friends.some(friend => friend._id === sessionUserID));
+  // FRIEND REQUEST / UNFRIEND / ACCEPT or DENY FRIENDS BUTTONS ================
+  // If the profile owner and user are friends (they will be mutually friends): Unfriend Button & Message Button
+  const [areFriends, setAreFriends] = useState(false); //useState(user.friends.some(friend => friend._id === sessionUserID));
+  // Else if the profile owner HAS sent the user a friend request: 
+  const requestRecieved = sessionUser && sessionUser.requests.some(user => user._id === userId);
+  // Else neither user has sent a friend request: Friend Request / Cancel Friend Request Button
+
 
 
   // ===== LOGIN POPUP & TIMEOUT CHECKER: COPY TO EVERY AUTHENTICATED PAGE: ========== 
@@ -110,8 +118,12 @@ const SignedOutUserPage = ({navigate}) => {
                 <p><span style={{color:'#5B7EC2'}}><b>Email:</b></span><br/><span className='bio'>{user.email}</span></p>
                 <p><span style={{color:'#5B7EC2'}}><b>Bio:</b></span><br/><span id="bio" className='bio'>{user.bio}</span></p>
                 
+              
+              {/* FRIENDS BUTTONS */}
+                {(!areFriends && requestRecieved) && <FriendRequestAcceptOrDenyButtons user={user}/>}
+                {(!areFriends && !requestRecieved) && <FriendRequestButton user={user}/>}
 
-                <FriendRequestButton user={user}/>
+
 
                 <div>
                   <button className={areFriends ? 'unfriend-button' : ""} onClick={handleUnfriend}>

@@ -2,11 +2,19 @@ import React, { useState, useEffect } from 'react';
 import getSessionUserID from '../utility/getSessionUserID';
 
 const FriendRequestButton = ({ user }) => {
-  // =========== STATE VARIABLES ==========================
-  const [targetUser, setTargetUser] = useState(user); // State to hold user data
-  const [token, setToken] = useState(window.localStorage.getItem('token'));
-  let sessionUserID = getSessionUserID(token);
-  const [friendRequested, setFriendRequested] = useState(targetUser.requests.some(requester => requester._id === sessionUserID));
+
+    // This button checks if the sessionUser has sent a friend request to the target.
+    // If yes, the session user can cancel their request
+    // If no, the session user can make a friend request
+    // This button takes targetUser data on first render for the friendRequested state, and manually updates friendRequested state (see line 68-70)
+        // friendRequested state should match the database in realtime. 
+        // The manual update is due to the component not able to re-render in realtime with the button.
+
+    // =========== STATE VARIABLES ==========================
+    const [targetUser, setTargetUser] = useState(user); // State to hold user data
+    const [token, setToken] = useState(window.localStorage.getItem('token'));
+    let sessionUserID = getSessionUserID(token);
+    const [friendRequested, setFriendRequested] = useState(targetUser.requests.some(requester => requester._id === sessionUserID));
 
 
 
@@ -15,12 +23,12 @@ const FriendRequestButton = ({ user }) => {
         if (token) {
         event.preventDefault();
 
-        // Step 1: PUT request for the session user to be added to this user's friend_requests
+        // Step 1: PUT request for the session user to be added to this user's requests
         let putEndpoint = `/userData/${targetUser._id}/requests/`
         if (friendRequested){
-            putEndpoint += 'delete' //UsersController.DeleteFriendRequest if session user has already sent a friend request to the profile owner
+            putEndpoint += 'unsend' //UsersController.UnsendFriendRequest if session user has already sent a friend request to the profile owner
         } else {
-            putEndpoint += 'new' //UsersController.SendFriendRequest if session user has not sent a request yet.
+            putEndpoint += 'send' //UsersController.SendFriendRequest if session user has not sent a request yet.
         }
 
         fetch(putEndpoint, {

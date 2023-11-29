@@ -88,7 +88,7 @@ const UsersController = {
         { new: true }
       );
       const token = TokenGenerator.jsonwebtoken(req.user_id);
-      res.status(201).json({ message: 'Successful Friend Request Added in User Controllers', token, updatedUser });
+      res.status(201).json({ message: 'Successful Friend Request Send in User Controllers', token, updatedUser });
   
     } catch (err) {
       console.log('Error in User Controllers - Friend Request:', err);
@@ -96,7 +96,7 @@ const UsersController = {
     }
   },
 
-  DeleteFriendRequest: async (req, res) => {
+  UnsendFriendRequest: async (req, res) => {
     try {
       const sessionUser = req.user_id;
       const targetUser = req.params.id;
@@ -106,7 +106,7 @@ const UsersController = {
         { new: true }
       );
       const token = TokenGenerator.jsonwebtoken(req.user_id);
-      res.status(201).json({ message: 'Successful Friend Request Deleted in User Controllers', token, updatedUser });
+      res.status(201).json({ message: 'Successful Friend Request Unsend in User Controllers', token, updatedUser });
   
     } catch (err) {
       console.log('Error in User Controllers - Friend Request:', err);
@@ -114,45 +114,94 @@ const UsersController = {
     }
   },
 
-  // ----------- ADD/DENY FRIEND REQUEST ---------------------
+  // ----------- CONFIRM/DENY FRIEND REQUEST & DELETE FRIEND ---------------------
   // checking if a friend is already added happens in the frontend.
-  // also CONFIRMING FRIEND REQUEST (aka addFriend for both users && deleteRequest); DENYING FRIEND REQUEST (aka deleteRequest);
-  // and UNFRIENDING (aka deleteFriend for both users) happen in the frontend.
 
-  AddFriend: async (req, res) => {
+  AcceptFriendRequest: async (req, res) => {
+    // add targetUser to sessionUser's friends list
+    // add sessionUser to targetUser's friends list
+    // delete targetUser from sessionUser's requests list.
     try {
       const sessionUser = req.user_id;
       const targetUser = req.params.id;
-      const updatedUser = await User.findOneAndUpdate(
-        {_id: targetUser},
-        { $push: { friends: sessionUser } },
+
+      // add targetUser to sessionUser's friends list & delete targetUser from sessionUser's requests list
+      const updatedSessionUser = await User.findOneAndUpdate(
+        {_id: sessionUser},
+        { $push: { friends: targetUser },
+          $pull: { requests: targetUser }
+        },
         { new: true }
       );
+      
+      // add sessionUser to targetUser's friends list
+      const updatedUser = await User.findOneAndUpdate(
+        {_id: targetUser},
+        { $push: { friends: sessionUser} },
+        { new: true }
+      )
+
       const token = TokenGenerator.jsonwebtoken(req.user_id);
       res.status(201).json({ message: 'Successful Friend Added in User Controllers', token, updatedUser });
+      res.status(201).json({ message: 'Successful Friend Added in User Controllers', token, updatedSessionUser });
   
     } catch (err) {
-      console.log('Error in User Controllers - Friend Add:', err);
+      console.log('Error in User Controllers - Friend Confirm:', err);
       res.status(500).json({ message: 'Internal Server Error' });
     }
   },
-  DeleteFriend: async (req, res) => {
+  DenyFriendRequest: async (req, res) => {
+    // delete targetUser from sessionUser's requests list.
     try {
       const sessionUser = req.user_id;
       const targetUser = req.params.id;
+      const updatedSessionUser = await User.findOneAndUpdate(
+        {_id: sessionUser},
+        { $pull: { requests: targetUser } },
+        { new: true }
+      );
+      const token = TokenGenerator.jsonwebtoken(req.user_id);
+      res.status(201).json({ message: 'Successful Friend Request Deleted in User Controllers', token, updatedSessionUser });
+
+    } catch (err) {
+      console.log('Error in User Controllers - Friend Deny:', err);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  },
+
+
+  UnFriend: async (req, res) => {
+    // delete targetUser from sessionUser's friends list
+    // delete sessionUser from targetUser's friends list
+    try {
+      const sessionUser = req.user_id;
+      const targetUser = req.params.id;
+
+      // delete sessionUser from targetUser's friends list
+      const updatedSessionUser = await User.findOneAndUpdate(
+        {_id: targetSessionUser},
+        { $pull: { friends: targetUser } },
+        { new: true }
+      );
+      
+      // delete sessionUser from targetUser's friends list
       const updatedUser = await User.findOneAndUpdate(
         {_id: targetUser},
         { $pull: { friends: sessionUser } },
         { new: true }
       );
+
       const token = TokenGenerator.jsonwebtoken(req.user_id);
-      res.status(201).json({ message: 'Successful Friend Added in User Controllers', token, updatedUser });
+      res.status(201).json({ message: 'Successful Friend Deleted in User Controllers', token, updatedUser });
+      res.status(201).json({ message: 'Successful Friend Deleted in User Controllers', token, updatedTarget });
+
   
     } catch (err) {
       console.log('Error in User Controllers - Friend Delete:', err);
       res.status(500).json({ message: 'Internal Server Error' });
     }
   },
+
 
 
 
