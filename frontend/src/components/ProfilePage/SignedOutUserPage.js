@@ -10,6 +10,7 @@ import getSessionUserID from '../utility/getSessionUserID';
 import FriendRequestButton from '../friends/SendOrCancelFriendRequest';
 import useFetchUserDataByID from '../utility/getselectuserinfo';
 import FriendRequestAcceptOrDenyButtons from '../friends/AcceptOrDenyFriendRequest';
+import UnfriendButton from '../friends/UnfriendButton';
 
 import { TbFriends, TbFriendsOff } from "react-icons/tb";
 
@@ -28,9 +29,9 @@ const SignedOutUserPage = ({navigate}) => {
   const sessionUser = useFetchUserDataByID(sessionUserID);
 
   // FRIEND REQUEST / UNFRIEND / ACCEPT or DENY FRIENDS BUTTONS ================
+  // not using useState as the page will just reload after accept/deny/unfriend
   // If the profile owner and user are friends (they will be mutually friends): Unfriend Button & Message Button
   const areFriends = sessionUser && sessionUser.friends.some(user => user._id === userId);
-  // const [areFriends, setAreFriends] = useState(user.friends.some(friend => friend._id === sessionUserID));
   // Else if the profile owner HAS sent the user a friend request: 
   const requestRecieved = sessionUser && sessionUser.requests.some(user => user._id === userId);
   // Else neither user has sent a friend request: Friend Request / Cancel Friend Request Button
@@ -43,17 +44,6 @@ const SignedOutUserPage = ({navigate}) => {
     navigate('/');
   }
 
-  // ====== UNFRIEND BUTTON ========
-  const handleUnfriend = () => {
-    console.log('unfriend!')
-    // if (areFriends) {
-    //   setAreFriends(false)
-    //   console.log(`Unfriended`)
-    // } else {
-    //   setAreFriends(true)
-    //   console.log(`Reset unfriend button`)
-    // }
-  }
 
   // ========= COMPONENT MOUNT ===============
   useEffect(() => {
@@ -124,15 +114,7 @@ const SignedOutUserPage = ({navigate}) => {
               {/* FRIENDS BUTTONS */}
                 {(!areFriends && requestRecieved) && <FriendRequestAcceptOrDenyButtons user={user}/>}
                 {(!areFriends && !requestRecieved) && <FriendRequestButton user={user}/>}
-
-
-
-                <div>
-                  <button className={areFriends ? 'unfriend-button' : ""} onClick={handleUnfriend}>
-                  {areFriends ? "Unfriend" : " "}
-                  </button>
-                </div>
-
+                {areFriends && <UnfriendButton user={user}/>}
               </div>
               <div style={{ clear: 'both' }}></div>
             

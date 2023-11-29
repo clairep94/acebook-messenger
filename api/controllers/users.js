@@ -178,7 +178,7 @@ const UsersController = {
 
       // delete sessionUser from targetUser's friends list
       const updatedSessionUser = await User.findOneAndUpdate(
-        {_id: targetSessionUser},
+        {_id: sessionUser},
         { $pull: { friends: targetUser } },
         { new: true }
       );
@@ -192,7 +192,6 @@ const UsersController = {
 
       const token = TokenGenerator.jsonwebtoken(req.user_id);
       res.status(201).json({ message: 'Successful Friend Deleted in User Controllers', token, updatedUser });
-      res.status(201).json({ message: 'Successful Friend Deleted in User Controllers', token, updatedTarget });
 
   
     } catch (err) {
