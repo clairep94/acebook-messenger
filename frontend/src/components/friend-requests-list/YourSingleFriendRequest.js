@@ -13,7 +13,7 @@ const YourSingleFriendRequest = ({request, id}) => {
             <a href={`/users/${request._id}`}>
                 <p className='single-friend-request-name-span'>{`${request.firstName} ${request.lastName}`}</p>
                 </a>
-            <span className="unfriend-button-span"><FriendRequestAcceptOrDenyButtons user={request}/></span>
+            <span className="accept-deny-request-button-span"><FriendRequestAcceptOrDenyButtons user={request}/></span>
         </div>    
     )
 }
