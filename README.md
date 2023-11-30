@@ -1,6 +1,6 @@
 # About Acebook
 
-Acebook is the first MERN stack project at Makers Academy. We were challenged to work in groups to work with a legacy codebase, **improve and extend** it. This project was completed within a two week period by [Claire Peng] (https://github.com/clairep94), [Sam Ford](https://github.com/Fordcois), [Ben Dixon](https://github.com/BenDixon96), [Megan Folsom]((https://github.com/mfolsom), and [Tej Chana](https://github.com/Mchana)
+Acebook is the first MERN stack project at Makers Academy. We were challenged to work in groups to work with a legacy codebase, **improve and extend** it. This project was completed within a two week period by [Claire Peng](https://github.com/clairep94), [Sam Ford](https://github.com/Fordcois), [Ben Dixon](https://github.com/BenDixon96), [Megan Folsom](https://github.com/mfolsom), and [Tej Chana](https://github.com/Mchana)
 
 - [Project Brief](./project-brief/README.md)
 - [Project Documentation](./project-brief/DOCUMENTATION.md)
