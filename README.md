@@ -49,6 +49,8 @@ https://github.com/clairep94/acebook-Griffins/assets/128436909/f6dfd789-a0ba-41c
 
 
 - Users can sort posts by New or sort by Trending
+- Users can see 🔥 next to trending posts -- newer posts with more recent engagement (comments, likes) are prioritised
+
 
 ## Searchbar
 
