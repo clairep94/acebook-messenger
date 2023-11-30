@@ -9,7 +9,10 @@ Acebook is the first MERN stack project at Makers Academy. We were challenged to
 
 ## Registration & Login
 
-https://github.com/clairep94/acebook-Griffins/assets/128436909/9c046638-77a1-4c24-8b6f-3e0033001bdb
+
+
+https://github.com/clairep94/acebook-Griffins/assets/128436909/bd56e989-74fe-441d-98ac-067aeeb99a32
+
 
 - Users can register and log in
 - Users can see an error message if their email is already registered with Acebook
@@ -17,14 +20,20 @@ https://github.com/clairep94/acebook-Griffins/assets/128436909/9c046638-77a1-4c2
 
 ## New Post
 
-https://github.com/clairep94/acebook-Griffins/assets/128436909/5c0aebca-dda7-4c41-8c1c-e127cd07012b
+
+https://github.com/clairep94/acebook-Griffins/assets/128436909/a18d95f6-6a49-4c87-bcc0-c31cb1ff4149
+
+
 
 - Users see their name in the new post text input box
 - Users can post both images and text
 
 ## Timeline & Posts
 
-https://github.com/clairep94/acebook-Griffins/assets/128436909/f2db9004-c0e1-4ed9-8e56-4369dd202f73
+
+https://github.com/clairep94/acebook-Griffins/assets/128436909/97a75f11-4742-4b75-912b-a834da9a83dc
+
+
 
 - Users can see a timeline of posts, sorted by Newest first
 - Users can see the post author, relative and absolute timestamps, and link to their profiles
@@ -34,26 +43,37 @@ https://github.com/clairep94/acebook-Griffins/assets/128436909/f2db9004-c0e1-4ed
   
 ## Sort by Trending
 
-https://github.com/clairep94/acebook-Griffins/assets/128436909/643708d8-d5b7-45f6-9c17-11cc3b55b270
+
+https://github.com/clairep94/acebook-Griffins/assets/128436909/f6dfd789-a0ba-41cf-95b5-4566dfbf4920
+
+
 
 - Users can sort posts by New or sort by Trending
 
 ## Searchbar
 
-https://github.com/clairep94/acebook-Griffins/assets/128436909/4111665b-aa95-4249-b8de-f3feb5ed50e6
+
+https://github.com/clairep94/acebook-Griffins/assets/128436909/d795443f-2289-4e03-8f8b-fb5f96098f03
+
+
 
 - Users can use live-search searchbar 
 
 ## Profile
 
-https://github.com/clairep94/acebook-Griffins/assets/128436909/e02febc9-9c7f-492d-ae49-89bf30f3e1cc
+
+https://github.com/clairep94/acebook-Griffins/assets/128436909/b38500e9-f0e0-4d7f-8559-caabc3dc091e
+
 
 - Users can see their profile, profile picture, bio, email, and past posts 
 - Users can update their bios
 
 ## Friends
 
-https://github.com/clairep94/acebook-Griffins/assets/128436909/20b1d49a-345b-4872-9823-fd0eeeee49db
+
+https://github.com/clairep94/acebook-Griffins/assets/128436909/40ae6a16-627a-41aa-9d53-e897e294134c
+
+
 
 - Users can send/unsend friend requests on other user's profiles
 - Users can confirm/deny friend requests in their friend requests page or on other users' pages 
@@ -62,7 +82,10 @@ https://github.com/clairep94/acebook-Griffins/assets/128436909/20b1d49a-345b-487
 
 ## Timeout
 
-https://github.com/clairep94/acebook-Griffins/assets/128436909/f5c98acc-c5de-47df-bf45-b8375abbf0de
+
+
+https://github.com/clairep94/acebook-Griffins/assets/128436909/ce384f55-9a04-40c8-b7f0-ad4423e0f4b4
+
 
 - If inactive for 20 minutes, users get timed out and a log-in prompt occurs
 
