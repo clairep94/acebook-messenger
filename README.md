@@ -67,3 +67,73 @@ https://github.com/clairep94/acebook-Griffins/assets/128436909/f5c98acc-c5de-47d
 - If inactive for 20 minutes, users get timed out and a log-in prompt occurs
 
 # Project Dependencies
+
+### Node.js
+1. Install Node Version Manager (NVM)
+   ```
+   brew install nvm
+   ```
+   Then follow the instructions to update your `~/.bash_profile`.
+2. Open a new terminal
+3. Install the latest version of [Node.js](https://nodejs.org/en/), currently `18.1.0`.
+   ```
+   nvm install 18
+   ```
+4. Install Node.js dependencies for both the `frontend` and `api` directories.
+   ```
+   ; cd api
+   ; npm install
+   ; cd ../frontend
+   ; npm install
+   ```
+
+### MongoDB
+1. Install MongoDB
+   ```
+   brew tap mongodb/brew
+   brew install mongodb-community@5.0
+   ```
+   *Note:* If you see a message that says `If you need to have mongodb-community@5.0 first in your PATH, run:`, follow the instruction. Restart your terminal after this.
+2. Start MongoDB
+   ```
+   brew services start mongodb-community@5.0
+   ```
+
+### Cloudinary
+1. Sign up for a [Cloudinary](https://cloudinary.com/ip/gr-sea-gg-brand-home-base?utm_source=google&utm_medium=search&utm_campaign=goog_selfserve_brand_wk22_replicate_core_branded_keyword&utm_term=1329&campaignid=17601148700&adgroupid=141182782954&keyword=cloudinary&device=c&matchtype=e&adid=606528222178&adposition=&gad_source=1&gclid=Cj0KCQiAgqGrBhDtARIsAM5s0_nWFgLJjSNJMHqAz1GvOh1nrCvndJM2cAk84-7MrtO3zW7zY96B9nMaAqpREALw_wcB) account.
+2. In `/api` install the following:
+  ```
+  ; cd api 
+  ; npm install cloudinary multer dotenv
+  ```
+3. In `/frontend` install the following:
+  ```
+  ; cd frontend
+  ; npm install --save-dev cypress-file-upload
+  ```
+4. Add a `.env` file to your root folder and add the following variables (replacing the values with your Cloudinary account API credentials)
+  ```
+  ; CLOUDINARY_CLOUD_NAME=your_cloud_name
+  ; CLOUDINARY_API_KEY=your_api_key
+  ; CLOUDINARY_API_SECRET=your_api_secret
+  ```
+
+# Running the Server and App
+1. Start the server application (in the `api` directory)
+
+  **Note the use of an environment variable for the JWT secret**
+
+   ```
+   ; cd api
+   ; JWT_SECRET=f6d278bb34e1d0e146a80b16ec254c05 npm start
+   ```
+2. Start the front end application (in the `frontend` directory)
+
+  In a new terminal session...
+
+  ```
+  ; cd frontend
+  ; npm start
+  ```
+
+You should now be able to open your browser and go to `http://localhost:3000/`
