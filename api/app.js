@@ -13,6 +13,10 @@ const authenticationRouter = require("./routes/authentication");
 const usersRouter = require("./routes/users");
 const uploadImageRoute = require('./routes/upload_image');
 const userDataRouter = require("./routes/userData");
+const chatsRouter = require("./routes/chats");
+const messagesRouter = require("./routes/messages");
+
+
 const app = express();
 
 // setup for receiving JSON
@@ -49,6 +53,13 @@ app.use("/tokens", authenticationRouter);
 app.use("/users", usersRouter);
 app.use('/upload_image', uploadImageRoute);
 app.use("/comments", tokenChecker, commentsRouter );
+
+// app.use("/chats", tokenChecker, chatsRouter);
+app.use("/chats", chatsRouter);
+
+// app.use("/messages", tokenChecker, messagesRouter);
+
+
 // I configured the route to check for tokens
 app.use("/userData", tokenChecker, userDataRouter);
 
