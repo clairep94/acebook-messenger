@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const ChatsController = require("../controllers/chat")
+const ChatsController = require("../controllers/chats")
 
 
 router.post("/", ChatsController.Create); // Create a new chat between two members

@@ -55,9 +55,9 @@ app.use('/upload_image', uploadImageRoute);
 app.use("/comments", tokenChecker, commentsRouter );
 
 // app.use("/chats", tokenChecker, chatsRouter); // TODO change back to Auth Only once all testing is done
+// app.use("/messages", tokenChecker, messagesRouter); // TODO change back to Auth Only once all testing is done
 app.use("/chats", chatsRouter);
-
-// app.use("/messages", tokenChecker, messagesRouter);
+app.use("/messages", messagesRouter);
 
 
 // I configured the route to check for tokens
