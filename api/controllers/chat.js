@@ -3,6 +3,11 @@
 const Chat = require("../models/chat");
 const TokenGenerator = require("../lib/token_generator");
 
+// TODO:
+// Add back authentication-only here and in app.js
+// Restrict Create -- cannot create if there is already a chat between users
+// Restrict Create -- cannot create if not friends? -- import users controller.
+
 const ChatsController = {
     // TODO compare this tutorial with old format, do async here or within FE?
     Create: async (req, res) => {
@@ -11,8 +16,8 @@ const ChatsController = {
         });
         try {
             const result = await newChat.save();
-            // const token = TokenGenerator.jsonwebtoken(req.user_id)
-            // res.status(201).json({ message: 'Successful New Chat in Chats Controller', token: token, chat: result });
+            // const token = TokenGenerator.jsonwebtoken(req.user_id) // TODO change back to Auth Only once all testing is done
+            // res.status(201).json({ message: 'Successful New Chat in Chats Controller', token: token, chat: result }); // TODO change back to Auth Only once all testing is done
             res.status(201).json({ message: 'Successful New Chat in Chats Controller', chat: result });
             
         } catch (error) {
@@ -27,8 +32,8 @@ const ChatsController = {
                 members: { $in: [userID] }
             })
             // .populate('members', '-password') // TODO add this? for now follow tutorial
-            // const token = TokenGenerator.jsonwebtoken(req.user_id);
-            // res.status(201).json({ message: 'Successful Inbox In Chats Controller', token, chats: chats });
+            // const token = TokenGenerator.jsonwebtoken(req.user_id); // TODO change back to Auth Only once all testing is done
+            // res.status(201).json({ message: 'Successful Inbox In Chats Controller', token, chats: chats }); // TODO change back to Auth Only once all testing is done
             res.status(201).json({ message: 'Successful Inbox In Chats Controller', chats: chats });
             
         } catch (error) {
@@ -42,14 +47,10 @@ const ChatsController = {
                 try {
             const chat = await Chat.findOne({
                 members: { $all: [firstUserID, secondUserID] } // TODO this was in the tutorial, but this requires match in order of array.
-                // $all: [ // changed to this to not be in order.
-                //     { $elemMatch: { $eq: firstUserID } },
-                //     { $elemMatch: { $eq: secondUserID } }
-                //     ]
             })
             // .populate('members', '-password') // TODO add this? for now follow tutorial
-            // const token = TokenGenerator.jsonwebtoken(req.user_id);
-            // res.status(201).json({ message: 'Successful Chat Found In Chats Controller', token, chat: chat });
+            // const token = TokenGenerator.jsonwebtoken(req.user_id); // TODO change back to Auth Only once all testing is done
+            // res.status(201).json({ message: 'Successful Chat Found In Chats Controller', token, chat: chat }); // TODO change back to Auth Only once all testing is done
             res.status(201).json({ message: 'Successful Chat Found In Chats Controller', chat: chat });
             
         } catch (error) {
@@ -58,7 +59,7 @@ const ChatsController = {
         }
     },
 
-s
+
 }
 
 module.exports = ChatsController;
