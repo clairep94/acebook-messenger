@@ -66,9 +66,7 @@ const Chats = () => {
             </div>
             {/* Right Side */}
             <div className="Right-side-chat">
-                <div style={{width: '20rem', alignSelf: 'flex-end'}}>
                     <ChatBox currentChat={currentChat} sessionUserID={sessionUserID}/>
-                </div>
             </div>
 
         </div>
