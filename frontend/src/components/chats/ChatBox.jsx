@@ -14,6 +14,9 @@ const ChatBox = (props) => {
 
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
+    const setSendMessage = props.setSendMessage; // Chats.jsx parent component
+    const receivedMessage = props.receivedMessage;
+
 
 
     // fetch data for messages
@@ -60,7 +63,8 @@ const ChatBox = (props) => {
 
         const receiverID = currentChat.members.find((member) => member._id !== sessionUserID);
         // send message to socket server
-        // setSendMessage({...messageToSend, receiverID})
+        setSendMessage({...messageToSend, receiverID}) // this is messageToSend[receiverID]: "someReceiverID"
+
         // send message to database
         try {
             if (token && conversationPartner && newMessage.trim()) {
@@ -84,6 +88,16 @@ const ChatBox = (props) => {
             console.error("Error:", error)
         }
     }
+
+
+    // // Get recievedMessage from the parent component:
+    // useEffect(() => {
+    //     console.log("Message Arrive: ", receivedMessage);
+    //     if (receivedMessage !== null && receivedMessage.chatID === currentChat._id) {
+    //         setMessages([...messages, receivedMessage]);
+    //     }
+    // },[receivedMessage])
+
 
   return (
       <>
