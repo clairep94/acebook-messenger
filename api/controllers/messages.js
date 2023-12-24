@@ -13,15 +13,16 @@ const MessagesController = {
     AddMessage: async (req, res) => {
         const newMessage = new Message({
             chat_id: req.body.chatID,
-            author_id: req.body.authorID,
+            author: req.body.authorID,
             body: req.body.body
         });
         try {
-            const result = await newMessage.save();
-            // const token = TokenGenerator.jsonwebtoken(req.user_id) // TODO change back to Auth Only once all testing is done
-            // res.status(201).json({ message: 'Successful New Chat in Chats Controller', token: token, chat: result }); // TODO change back to Auth Only once all testing is done
-            res.status(201).json({ message: 'Successful New Message in Messages Controller', newMessage: result });
-            
+            const result = await newMessage.save()
+            // .populate('author', '-password');
+            const token = TokenGenerator.jsonwebtoken(req.user_id) 
+            res.status(201).json({ message: 'Successful New Message in Messages Controller', token:token, newMessage: result });
+            // res.status(201).json({ message: 'Successful New Message in Messages Controller', newMessage: result });
+
         } catch (error) {
             console.log('Error in Message Controller - AddMessage:', error);
             res.status(500).json(error);
@@ -32,11 +33,10 @@ const MessagesController = {
         try {
             const messages = await Message.find(
                 { chat_id: chatID },
-            );
-            // const token = TokenGenerator.jsonwebtoken(req.user_id) // TODO change back to Auth Only once all testing is done
-            // res.status(201).json({ message: 'Successful New Chat in Chats Controller', token: token, chat: result }); // TODO change back to Auth Only once all testing is done
-            res.status(201).json({ message: 'Successful All Messages in Messages Controller', allMessages: messages });
-            
+            )
+            .populate('author', '-password')
+            const token = TokenGenerator.jsonwebtoken(req.user_id) 
+            res.status(201).json({ message: 'Successful All Messages in Messages Controller', allMessages: messages, token: token }); 
 
         } catch (error) {
             console.log('Error in Message Controller - GetMessages:', error);

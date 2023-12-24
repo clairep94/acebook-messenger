@@ -17,7 +17,7 @@ const ConversationCard = (props) => {
             <div>
                 <div className="online-dot"></div>
 
-                <img src={`https://picsum.photos/seed/${conversationPartner}/300`} 
+                <img src={`https://picsum.photos/seed/${conversationPartner?._id}/300`} 
                     className='followerImage'
                     style={{width:'50px', height:'50px'}}
                 />

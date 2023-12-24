@@ -48,18 +48,18 @@ const tokenChecker = (req, res, next) => {
 };
 
 // route setup
-app.use("/posts", tokenChecker, postsRouter);
+// No Auth
 app.use("/tokens", authenticationRouter);
-app.use("/users", usersRouter);
+app.use("/users", usersRouter); // creating a user
+// app.use("/messages", messagesRouter); 
+
+
+// Auth only
+app.use("/posts", tokenChecker, postsRouter);
 app.use('/upload_image', uploadImageRoute);
 app.use("/comments", tokenChecker, commentsRouter );
-
 app.use("/chats", tokenChecker, chatsRouter); 
-// app.use("/messages", tokenChecker, messagesRouter); // TODO change back to Auth Only once all testing is done
-app.use("/messages", messagesRouter);
-
-
-// I configured the route to check for tokens
+app.use("/messages", tokenChecker, messagesRouter); 
 app.use("/userData", tokenChecker, userDataRouter);
 
 // catch 404 and forward to error handler

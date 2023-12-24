@@ -43,7 +43,13 @@
 .own {
   align-self: flex-end;
   border-radius: 1rem 1rem 0 1rem;
-  background: linear-gradient(98.63deg, #24e4f0 0%, #358ff9 100%);
+  background: #358ff9;
+}
+
+.other {
+  align-self: flex-start;
+  border-radius: 1rem 1rem 1rem 0;
+  background:rgb(188, 185, 185);
 }
 
 

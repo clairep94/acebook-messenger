@@ -1,11 +1,57 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './ChatBox.css'
+import MessageCard from './MessageCard';
 
 const ChatBox = (props) => {
     const currentChat = props.currentChat;
     const sessionUserID = props.sessionUserID;
+    const token = props.token
+    const setToken = props.setToken;
 
     const conversationPartner = currentChat?.members?.find((user) => user._id !== sessionUserID); // fed chatData with .populate members
+
+    const [messages, setMessages] = useState([]);
+
+    // fetch data for messages
+    useEffect(() => {
+        // if (token && conversationPartner) {
+        //     fetch(`/messages/${currentChat._id}`, {
+        //         headers: {
+        //         'Authorization': `Bearer ${token}` 
+        //         }
+        //     })
+        //     .then(response => response.json())
+        //     .then(async data => {
+        //         window.localStorage.setItem("token", data.token)
+        //         setToken(window.localStorage.getItem("token"))
+
+        //         setMessages(data.allMessages);
+        //     })
+        // }
+        const fetchMessages = async () => {
+      try {
+        if (token && conversationPartner) {
+          const response = await fetch(`/messages/${currentChat._id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const data = await response.json();
+          
+          window.localStorage.setItem("token", data.token);
+          setToken(window.localStorage.getItem("token"));
+          setMessages(data.allMessages);
+        }
+      } catch (error) {
+        console.error("Error fetching messages:", error);
+      }
+    };
+
+    fetchMessages();
+    }, [currentChat])
+
+
+    // sending messages
 
   return (
       <>
@@ -15,7 +61,7 @@ const ChatBox = (props) => {
                 <div className="chat-header">
                 <div className="follower">
                     <div>
-                        <img src={`https://picsum.photos/seed/${conversationPartner}/300`} 
+                        <img src={`https://picsum.photos/seed/${conversationPartner._id}/300`} 
                             className='followerImage'
                             style={{width:'50px', height:'50px'}}
                         />
@@ -35,6 +81,24 @@ const ChatBox = (props) => {
                 />
                 </div>
                 <div className="chat-body">
+                    <>
+                    {messages?.map((message) => (
+                        <>
+                            <MessageCard key={message._id} message={message} sessionUserID={sessionUserID} />
+                        {message.author._id !== sessionUserID && 
+                            ( <img src={`https://picsum.photos/seed/${message.author._id}/300`} 
+                            className='followerImage'
+                            style={{width:'40px', height:'40px'}}
+                            />
+                            )
+                            }
+                        </>
+                        ))
+                    }                    
+              </>
+
+                    
+
                     TO DO: CHAT BODY - add auth back to routes<br/>
                     Change Chat.gap and height of chats list<br/>
                     Add socket.io<br/>

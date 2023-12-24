@@ -51,6 +51,9 @@ const Chats = () => {
             <div className="Left-side-chat">
                 <div className="Chat-container">
                 <h2>Chats</h2>
+                <p>TODO: Add searchbar to create a chat</p>
+                <p>TODO: Make this component to height of page</p>
+
                     {chats.map((chat) => (
                         <div onClick={() => {
                             setCurrentChat(chat);
@@ -66,7 +69,7 @@ const Chats = () => {
             </div>
             {/* Right Side */}
             <div className="Right-side-chat">
-                    <ChatBox currentChat={currentChat} sessionUserID={sessionUserID}/>
+                    <ChatBox currentChat={currentChat} sessionUserID={sessionUserID} token={token} setToken={setToken}/>
             </div>
 
         </div>
