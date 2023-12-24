@@ -16,9 +16,9 @@ const ChatsController = {
         });
         try {
             const result = await newChat.save();
-            // const token = TokenGenerator.jsonwebtoken(req.user_id) // TODO change back to Auth Only once all testing is done
-            // res.status(201).json({ message: 'Successful New Chat in Chats Controller', token: token, chat: result }); // TODO change back to Auth Only once all testing is done
-            res.status(201).json({ message: 'Successful New Chat in Chats Controller', chat: result });
+            const token = TokenGenerator.jsonwebtoken(req.user_id) // TODO change back to Auth Only once all testing is done
+            res.status(201).json({ message: 'Successful New Chat in Chats Controller', token: token, chat: result }); // TODO change back to Auth Only once all testing is done
+            // res.status(201).json({ message: 'Successful New Chat in Chats Controller', chat: result });
             
         } catch (error) {
             console.log('Error in Chat Controller - Create:', error);
@@ -31,10 +31,10 @@ const ChatsController = {
             const chats = await Chat.find({
                 members: { $in: [userID] }
             })
-            // .populate('members', '-password') // TODO add this? for now follow tutorial
-            // const token = TokenGenerator.jsonwebtoken(req.user_id); // TODO change back to Auth Only once all testing is done
-            // res.status(201).json({ message: 'Successful Inbox In Chats Controller', token, chats: chats }); // TODO change back to Auth Only once all testing is done
-            res.status(201).json({ message: 'Successful Inbox In Chats Controller', chats: chats });
+            .populate('members', '-password') // TODO add this? for now follow tutorial
+            const token = TokenGenerator.jsonwebtoken(req.user_id); // TODO change back to Auth Only once all testing is done
+            res.status(201).json({ message: 'Successful Inbox In Chats Controller', token, chats: chats }); // TODO change back to Auth Only once all testing is done
+            // res.status(201).json({ message: 'Successful Inbox In Chats Controller', chats: chats });
             
         } catch (error) {
             console.log('Error in Chat Controller - UserInbox:', error);
@@ -49,9 +49,9 @@ const ChatsController = {
                 members: { $all: [firstUserID, secondUserID] } // TODO this was in the tutorial, but this requires match in order of array.
             })
             // .populate('members', '-password') // TODO add this? for now follow tutorial
-            // const token = TokenGenerator.jsonwebtoken(req.user_id); // TODO change back to Auth Only once all testing is done
-            // res.status(201).json({ message: 'Successful Chat Found In Chats Controller', token, chat: chat }); // TODO change back to Auth Only once all testing is done
-            res.status(201).json({ message: 'Successful Chat Found In Chats Controller', chat: chat });
+            const token = TokenGenerator.jsonwebtoken(req.user_id); // TODO change back to Auth Only once all testing is done
+            res.status(201).json({ message: 'Successful Chat Found In Chats Controller', token, chat: chat }); // TODO change back to Auth Only once all testing is done
+            // res.status(201).json({ message: 'Successful Chat Found In Chats Controller', chat: chat });
             
         } catch (error) {
             console.log('Error in Chat Controller - FindChat:', error);

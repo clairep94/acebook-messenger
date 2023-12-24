@@ -4,7 +4,7 @@ import useTokenValidityCheck from '../components/loggedin/useTokenValidityCheck'
 
 import Navbar from "../components/navbar/navbar";
 import LoginPopup from "../components/auth/LoginPopup";
-import Chat from '../components/chats/Chat';
+import Chats from '../components/chats/Chats';
 
 //TODO lift states properly, must do on all pages.
 // TODO handle re-route based on authentication in the App.js
@@ -38,8 +38,7 @@ const ChatPage = ({ navigate }) => {
       {isLoggedIn === true ? (
         <div>
           <Navbar/>
-          
-          <Chat/>
+          <Chats/>
 
           {/* LOGIN POPUP -- COPY TO EVERY AUTHENTICATED PAGE */}
           {showLoginPopup && 
