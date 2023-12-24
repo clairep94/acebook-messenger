@@ -130,15 +130,6 @@ const ChatBox = (props) => {
                     }                    
               </>
 
-              THIS ONE WORKS BUT THE ONE BELOW DOESN"T
-              <InputEmoji 
-                                      value={newMessage? newMessage : ""}
-                        cleanOnEnter
-                        onChange={handleChange}
-                        onEnter={handleSend}
-                        placeholder='Type a message...'
-
-              />
                     TO DO: CHAT BODY - add auth back to routes<br/>
                     Change Chat.gap and height of chats list<br/>
                     Add real-time notifications<br/>
@@ -147,14 +138,14 @@ const ChatBox = (props) => {
                 </div>
                 <div className="chat-sender">
                     <div>+</div>
-                    <InputEmoji
-                        value={newMessage? newMessage : ""}
-                        cleanOnEnter
-                        onChange={handleChange}
-                        onEnter={handleSend}
-                        placeholder='Type a message...'
-                    />
-                    {/* <div className="send-button button" onClick = {handleSend}>Send</div> */}
+                <InputEmoji 
+                    value={newMessage? newMessage : ""}
+                    cleanOnEnter
+                    onChange={handleChange}
+                    onEnter={handleSend}
+                    placeholder='Type a message...'
+                />
+
                 </div>
                 
                 
