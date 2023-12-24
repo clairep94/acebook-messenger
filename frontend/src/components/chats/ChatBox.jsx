@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import './ChatBox.css'
 import MessageCard from './MessageCard';
+import InputEmoji from 'react-input-emoji';
+
 
 const ChatBox = (props) => {
     const currentChat = props.currentChat;
@@ -11,47 +13,77 @@ const ChatBox = (props) => {
     const conversationPartner = currentChat?.members?.find((user) => user._id !== sessionUserID); // fed chatData with .populate members
 
     const [messages, setMessages] = useState([]);
+    const [newMessage, setNewMessage] = useState("");
+
 
     // fetch data for messages
     useEffect(() => {
-        // if (token && conversationPartner) {
-        //     fetch(`/messages/${currentChat._id}`, {
-        //         headers: {
-        //         'Authorization': `Bearer ${token}` 
-        //         }
-        //     })
-        //     .then(response => response.json())
-        //     .then(async data => {
-        //         window.localStorage.setItem("token", data.token)
-        //         setToken(window.localStorage.getItem("token"))
 
-        //         setMessages(data.allMessages);
-        //     })
-        // }
         const fetchMessages = async () => {
-      try {
-        if (token && conversationPartner) {
-          const response = await fetch(`/messages/${currentChat._id}`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          const data = await response.json();
-          
-          window.localStorage.setItem("token", data.token);
-          setToken(window.localStorage.getItem("token"));
-          setMessages(data.allMessages);
-        }
-      } catch (error) {
-        console.error("Error fetching messages:", error);
-      }
-    };
+            try {
+                if (token && conversationPartner) {
+                const response = await fetch(`/messages/${currentChat._id}`, {
+                    headers: {
+                    Authorization: `Bearer ${token}`,
+                    },
+                });
+                const data = await response.json();
+                
+                window.localStorage.setItem("token", data.token);
+                setToken(window.localStorage.getItem("token"));
+                setMessages(data.allMessages);
+                }
+            } catch (error) {
+                console.error("Error fetching messages:", error);
+            }
+            };
 
-    fetchMessages();
-    }, [currentChat])
+        fetchMessages();
+
+    }, [currentChat]);
 
 
     // sending messages
+    const handleChange=(newMessage)=>{
+        setNewMessage(newMessage);
+    }
+
+    const handleSend = async (event) => {
+
+    // event.preventDefault(); // --> TOOK THIS OUT OTHERWISE THIS WONT WORK. IT STILL WRITES.
+
+        const messageToSend = {
+            chatID: currentChat._id,
+            authorID: sessionUserID,
+            body: newMessage
+        }
+
+        const receiverID = currentChat.members.find((member) => member._id !== sessionUserID);
+        // send message to socket server
+        // setSendMessage({...messageToSend, receiverID})
+        // send message to database
+        try {
+            if (token && conversationPartner && newMessage.trim()) {
+                
+                const response = await fetch(`/messages/`, {
+                    method: 'post',
+                    headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`,
+                        },
+                        body: JSON.stringify(messageToSend)
+                });
+                const data = await response.json();
+
+                window.localStorage.setItem("token", data.token);
+                setToken(window.localStorage.getItem("token"));
+                setMessages([...messages, data.newMessage]);
+                setNewMessage("");
+            }
+        } catch (error) {
+            console.error("Error:", error)
+        }
+    }
 
   return (
       <>
@@ -81,6 +113,7 @@ const ChatBox = (props) => {
                 />
                 </div>
                 <div className="chat-body">
+
                     <>
                     {messages?.map((message) => (
                         <>
@@ -97,26 +130,34 @@ const ChatBox = (props) => {
                     }                    
               </>
 
-                    
+              THIS ONE WORKS BUT THE ONE BELOW DOESN"T
+              <InputEmoji 
+                                      value={newMessage? newMessage : ""}
+                        cleanOnEnter
+                        onChange={handleChange}
+                        onEnter={handleSend}
+                        placeholder='Type a message...'
 
+              />
                     TO DO: CHAT BODY - add auth back to routes<br/>
                     Change Chat.gap and height of chats list<br/>
-                    Add socket.io<br/>
                     Add real-time notifications<br/>
                     Re-organise codebase<br/>
 
                 </div>
                 <div className="chat-sender">
-                    TO DO: CHAT SENDER
-                    <input
-                    type="file"
-                    name=""
-                    id=""
-                    style={{ display: "none" }}
-                    // ref={imageRef}
+                    <div>+</div>
+                    <InputEmoji
+                        value={newMessage? newMessage : ""}
+                        cleanOnEnter
+                        onChange={handleChange}
+                        onEnter={handleSend}
+                        placeholder='Type a message...'
                     />
+                    {/* <div className="send-button button" onClick = {handleSend}>Send</div> */}
                 </div>
-
+                
+                
             </>)
             
             

@@ -18,9 +18,14 @@ const MessagesController = {
         });
         try {
             const result = await newMessage.save()
-            // .populate('author', '-password');
+
+            // Populate the 'author' field with user data
+            const populatedMessage = await Message.populate(result, {
+                path: 'author',
+                select: '-password', // Exclude password field from populated user
+            });
             const token = TokenGenerator.jsonwebtoken(req.user_id) 
-            res.status(201).json({ message: 'Successful New Message in Messages Controller', token:token, newMessage: result });
+            res.status(201).json({ message: 'Successful New Message in Messages Controller', token:token, newMessage: populatedMessage, });
             // res.status(201).json({ message: 'Successful New Message in Messages Controller', newMessage: result });
 
         } catch (error) {
