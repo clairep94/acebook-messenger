@@ -40,7 +40,8 @@ io.on("connection", (socket) => {
         console.log("Data: ", data)
 
         if (user) {
-            io.to(user.socketID).emit("recieve-message", data);
+            io.to(user.socketID).emit("receive-message", data);
+            console.log("Receiving data from socket to:", receiverID);
         }
     })
 

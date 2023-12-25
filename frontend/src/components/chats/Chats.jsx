@@ -25,21 +25,40 @@ const Chats = (session) => {
     // SOCKET STUFF:
     const socket = useRef()
     const [onlineUsers, setOnlineUsers] = useState([]);
-    const [sendMessage, setSendMessage] = useState("");
+    const [sendMessage, setSendMessage] = useState(null);
+    const [receivedMessage, setReceivedMessage] = useState(null);
 
+    // connect to socket.io
     useEffect(()=> {
         socket.current = io('http://localhost:8800'); // this is the socket port
         socket.current.emit("new-user-add", sessionUserID); // send the sessionUserID to the socket server
-        socket.current.on('get-users', (users)=>{setOnlineUsers(users)}) // get the onlineUsers, which should now include the sessionUserID
+        socket.current.on('get-users', (users)=>{
+            setOnlineUsers(users)}) // get the onlineUsers, which should now include the sessionUserID
     }, [sessionUserID])
 
+    // send message to the socket server;
     useEffect(() => {
         if(sendMessage!==null){
             socket.current.emit("send-message", sendMessage);
 
         }
-    })
+    },[sendMessage])
 
+    // get message from the socket server;
+    useEffect(() => {
+        socket.current.on("receive-message", (data) => {
+            console.log(data);
+            setReceivedMessage(data);
+        })
+
+    }, [])
+
+    // checks if a certain user in a chat is online (connected to socket.io)
+    const checkOnlineStatus = (chat) => {
+        const chatMember = chat.members.find((member) => member._id !== sessionUserID);
+        const online = onlineUsers.find((user) => user.userID === chatMember);
+        return online ? true : false;
+    };
     
 
 
@@ -88,7 +107,7 @@ const Chats = (session) => {
             </div>
             {/* Right Side */}
             <div className="Right-side-chat">
-                    <ChatBox currentChat={currentChat} sessionUserID={sessionUserID} token={token} setToken={setToken} setSendMessage={setSendMessage}/>
+                    <ChatBox currentChat={currentChat} sessionUserID={sessionUserID} token={token} setToken={setToken} setSendMessage={setSendMessage} receivedMessage={receivedMessage}/>
             </div>
 
         </div>

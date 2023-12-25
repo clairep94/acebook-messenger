@@ -61,7 +61,8 @@ const ChatBox = (props) => {
             body: newMessage
         }
 
-        const receiverID = currentChat.members.find((member) => member._id !== sessionUserID);
+        const receiver = currentChat.members.find((member) => member._id !== sessionUserID);
+        const receiverID = receiver._id
         // send message to socket server
         setSendMessage({...messageToSend, receiverID}) // this is messageToSend[receiverID]: "someReceiverID"
 
@@ -90,7 +91,15 @@ const ChatBox = (props) => {
     }
 
 
-    // // Get recievedMessage from the parent component:
+    // Get recievedMessage from the parent component:
+    useEffect(() =>{
+        console.log(`Message Arrived: ${receivedMessage}`);
+        if (receivedMessage?.chatID === currentChat?._id) {
+            setMessages([...messages, receivedMessage]);
+        }
+
+    },[receivedMessage]);
+
     // useEffect(() => {
     //     console.log("Message Arrive: ", receivedMessage);
     //     if (receivedMessage !== null && receivedMessage.chatID === currentChat._id) {
