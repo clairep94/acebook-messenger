@@ -83,7 +83,7 @@ const ChatBox = (props) => {
     // This component is fed receivedMessage from the parent Chat.jsx.
     // The useEffect hook will listen for changes to receivedMessage and add it to the messages array for re-rendering.
     useEffect(() => {
-        if(receivedMessage){
+        if(receivedMessage){ // should add && receivedMessage._id === currentChat._id
             console.log("Message Arrived: ", receivedMessage);
 
             const newMessage = { // needed to create new object in order to push successfully to messages.
