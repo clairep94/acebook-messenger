@@ -6,66 +6,34 @@ import ConversationCard from "./ConversationCard";
 import ChatBox from "./ChatBox";
 
 import {io} from 'socket.io-client';
-import { fetchChats } from "../../api_calls/chatsAPI";
+import { fetchChats, createChat } from "../../api_calls/chatsAPI";
 
 import './Chats.css'
 
-const Chats = (session) => {
+const Chats = () => {
 
-    //TUTORIAL:
-    // const {user} = useSelector((state)=>state.authReducer.authData);
+    // ======= STATES & PROPS =========================================
+    // Session info:
+    // const {user} = useSelector((state)=>state.authReducer.authData); //TUTORIAL
+    const [token, setToken] = useState(window.localStorage.getItem("token")); //TODO lift this to app/page?
+    let sessionUserID = getSessionUserID(token); //TODO lift this to app/page?
 
-    const [token, setToken] = useState(window.localStorage.getItem("token")); 
+    // Loading the component:
     const [chats, setChats] = useState([]);
     const [currentChat, setCurrentChat] = useState(null);
-    // SESSION USER:
-    let sessionUserID = getSessionUserID(token);
 
-
-    // SOCKET STUFF:
+    // Socket setup: // TODO lift this to app?
     const socket = useRef()
     const [onlineUsers, setOnlineUsers] = useState([]);
     const [sendMessage, setSendMessage] = useState(null);
     const [receivedMessage, setReceivedMessage] = useState(null);
 
-    // connect to socket.io
-    useEffect(()=> {
-        socket.current = io('http://localhost:8800'); // this is the socket port
-        socket.current.emit("new-user-add", sessionUserID); // send the sessionUserID to the socket server
-        socket.current.on('get-users', (users)=>{
-            setOnlineUsers(users)}) // get the onlineUsers, which should now include the sessionUserID
-    }, [sessionUserID])
 
-    // send message to the socket server;
-    useEffect(() => {
-        if(sendMessage!==null){
-            socket.current.emit("send-message", sendMessage);
+    // ============= FUNCTIONS ===========================================
 
-        }
-    },[sendMessage])
-
-    // get message from the socket server;
-    useEffect(() => {
-        socket.current.on("receive-message", (data) => {
-            console.log(data);
-            setReceivedMessage(data);
-        })
-
-    }, [])
-
-    // checks if a certain user in a chat is online (connected to socket.io)
-    const checkOnlineStatus = (chat) => {
-        const chatMember = chat.members.find((member) => member._id !== sessionUserID);
-        const online = onlineUsers.find((user) => user.userID === chatMember);
-        return online ? true : false;
-    };
-    
-
-
-    // ===== GET ALL CHATS WHEN THE COMPONENT MOUNTS ======
+    // ------------ GET ALL CHATS WHEN THE COMPONENT MOUNTS --------------------
     useEffect( () => {
         if (token) {
-
             fetchChats(token, sessionUserID) // async function that returns all chatData
 
             .then(chatData => {
@@ -79,7 +47,50 @@ const Chats = (session) => {
         }
     }, [])
 
+    // ----------- SOCKET ---------------------------------
+    // Connect to socket.io when users visit the messages page //TODO lift this to app after login?
+    useEffect(()=> {
+        socket.current = io('http://localhost:8800'); // this is the socket port
+        socket.current.emit("new-user-add", sessionUserID); // send the sessionUserID to the socket server
+        socket.current.on('get-users', (users)=>{
+            setOnlineUsers(users)}) // get the onlineUsers, which should now include the sessionUserID
+    }, [sessionUserID])
 
+    // Send messages to the socket server;
+    // Listens to ChatBox to see if it setSendMessage something new
+    useEffect(() => {
+        if(sendMessage!==null){
+            socket.current.emit("send-message", sendMessage);
+        }
+    },[sendMessage])
+
+    // Get new messages from the socket server;
+    // Listens to the socket server to see if there are "receive-message" signals
+    useEffect(() => {
+        // const handleReceiveMessage = async (data) => {
+        //     console.log("Received data in chats.jsx:", data);
+        //     await setReceivedMessage(data);
+        //     console.log("Current received message: ", receivedMessage);
+        // }
+        // socket.current.on("receive-message", handleReceiveMessage)
+        socket.current.on("receive-message", (data) => {
+            console.log("recieved data in chats.jsx:", data);
+            
+            setReceivedMessage(data);
+            console.log("current received message: ", receivedMessage);
+        })
+    }, [])
+
+    // Checks if a certain user in a chat is online (connected to socket.io)
+    // const checkOnlineStatus = (chat) => {
+    //     const chatMember = chat.members.find((member) => member._id !== sessionUserID);
+    //     const online = onlineUsers.find((user) => user.userID === chatMember);
+    //     return online ? true : false;
+    // };
+    
+
+
+    // =============== UI FOR THE COMPONENT ========================
     return (
         <div className="Chat">
             {/* Left Side */}
@@ -99,7 +110,7 @@ const Chats = (session) => {
                     )
                         
                     )}
-
+                    <p>Visibility test: {receivedMessage?.body}{receivedMessage?.author.firstName}</p>
                 </div>
             </div>
             {/* Right Side */}
