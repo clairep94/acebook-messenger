@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import getSessionUserID from "../utility/getSessionUserID";
 import useFetchUserDataByID from "../utility/getselectuserinfo";
-// import styles from './Chat.module.css'
 // import {useSelector} from "react-redux";
 import ConversationCard from "./ConversationCard";
 import ChatBox from "./ChatBox";
 
 import {io} from 'socket.io-client';
+import { fetchChats } from "../../api_calls/chatsAPI";
 
 import './Chats.css'
 
@@ -65,18 +65,15 @@ const Chats = (session) => {
     // ===== GET ALL CHATS WHEN THE COMPONENT MOUNTS ======
     useEffect( () => {
         if (token) {
-            fetch(`/chats/${sessionUserID}`, {
-                headers: {
-                'Authorization': `Bearer ${token}` 
-                }
-            })
-            .then(response => response.json())
-            .then(async data => {
-                window.localStorage.setItem("token", data.token)
+
+            fetchChats(token, sessionUserID) // async function that returns all chatData
+
+            .then(chatData => {
+                window.localStorage.setItem("token", chatData.token)
                 setToken(window.localStorage.getItem("token"))
 
-                setChats(data.chats);
-                console.log(data.chats);
+                setChats(chatData.chats);
+                console.log(chatData.chats);
 
             })
         }

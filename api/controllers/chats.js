@@ -48,7 +48,7 @@ const ChatsController = {
             const chat = await Chat.findOne({
                 members: { $all: [firstUserID, secondUserID] } // TODO this was in the tutorial, but this requires match in order of array.
             })
-            // .populate('members', '-password') // TODO add this? for now follow tutorial
+            .populate('members', '-password') // TODO add this? for now follow tutorial
             const token = TokenGenerator.jsonwebtoken(req.user_id); // TODO change back to Auth Only once all testing is done
             res.status(201).json({ message: 'Successful Chat Found In Chats Controller', token, chat: chat }); // TODO change back to Auth Only once all testing is done
             // res.status(201).json({ message: 'Successful Chat Found In Chats Controller', chat: chat });

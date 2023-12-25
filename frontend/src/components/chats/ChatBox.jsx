@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './ChatBox.css'
 import MessageCard from './MessageCard';
 import InputEmoji from 'react-input-emoji';
+import { fetchMessages,sendMessage } from '../../api_calls/messagesAPI';
 
 
 const ChatBox = (props) => {
@@ -21,27 +22,17 @@ const ChatBox = (props) => {
 
     // fetch data for messages
     useEffect(() => {
+        if (token && conversationPartner && currentChat) {
 
-        const fetchMessages = async () => {
-            try {
-                if (token && conversationPartner) {
-                const response = await fetch(`/messages/${currentChat._id}`, {
-                    headers: {
-                    Authorization: `Bearer ${token}`,
-                    },
-                });
-                const data = await response.json();
-                
-                window.localStorage.setItem("token", data.token);
-                setToken(window.localStorage.getItem("token"));
-                setMessages(data.allMessages);
-                }
-            } catch (error) {
-                console.error("Error fetching messages:", error);
-            }
-            };
+            fetchMessages(token, currentChat)
+            .then(messagesData => {
+                window.localStorage.setItem("token", messagesData.token)
+                setToken(window.localStorage.getItem("token"))
 
-        fetchMessages();
+                setMessages(messagesData.allMessages);
+                console.log(messagesData.allMessages);
+            })
+        }
 
     }, [currentChat]);
 
@@ -136,21 +127,23 @@ const ChatBox = (props) => {
                 />
                 </div>
                 <div className="chat-body">
+                    <p>{messages.length}</p>
 
                     <>
-                    {messages?.map((message) => (
+                    {messages.map((message) =>( message && <MessageCard key={message._id} message={message} sessionUserID={sessionUserID}/>))}
+                    {/* {messages?.map((message) => ( */}
                         <>
-                            <MessageCard key={message._id} message={message} sessionUserID={sessionUserID} />
-                        {message.author._id !== sessionUserID && 
-                            ( <img src={`https://picsum.photos/seed/${message.author._id}/300`} 
-                            className='followerImage'
-                            style={{width:'40px', height:'40px'}}
-                            />
-                            )
-                            }
+                            {/* <MessageCard key={message._id} message={message} sessionUserID={sessionUserID} /> */}
+                                {/* {message.author._id !== sessionUserID &&  */}
+                                {/* ( <img src={`https://picsum.photos/seed/${message.author._id}/300`}  */}
+                                {/* className='followerImage' */}
+                                {/* style={{width:'40px', height:'40px'}} */}
+                                {/* /> */}
+                                {/* ) */}
+                            {/* } */}
                         </>
-                        ))
-                    }                    
+                        {/* )) */}
+                    {/* }                     */}
               </>
 
                     TO DO: CHAT BODY - add auth back to routes<br/>
