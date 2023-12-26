@@ -12,6 +12,7 @@ export const ChatSearchResult = ({result, id}) => {
     // If chat does not already exist, create Chat, then setCurrentChat to chat_id
     // Feed in all chats by member, from parent component.
     // Feed in token & sessionUserID
+    // Add that new chat to parent component.
 
 
     return (

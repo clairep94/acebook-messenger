@@ -6,6 +6,7 @@ import convertRelativeDateTimeString from '../utility/getRelativeTimestamp';
 const MessageCard = (props) => {
     const message = props.message;
     const sessionUserID = props.sessionUserID;
+    const div = props.div;
     
     // ------- FORMATTING TIME -------------
     const createdDateTime = new Date(message.createdAt);
@@ -18,7 +19,7 @@ const MessageCard = (props) => {
 
     return(
         <>
-            <div className={message.author._id === sessionUserID ? "message own" : "message other"}>
+            <div className={message.author._id === sessionUserID ? "message own" : "message other"} ref={div}>
                 <span>{message.body}</span>
                 <span>{relativeDateTimeString}</span>
             </div>

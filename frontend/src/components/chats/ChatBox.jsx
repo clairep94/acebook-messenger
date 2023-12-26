@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import './ChatBox.css'
 import MessageCard from './MessageCard';
 import InputEmoji from 'react-input-emoji';
@@ -104,6 +104,15 @@ const ChatBox = (props) => {
     //     };
     // }, [receivedMessage])
 
+
+
+    // Always scroll to last Message
+    const div = useRef(null)
+    useEffect(()=> {
+        div.current?.scrollIntoView({ behavior: "smooth", block:"end" });
+    },[messages])
+
+
     // =============== UI FOR THE COMPONENT ========================
     return (
         <>
@@ -133,16 +142,17 @@ const ChatBox = (props) => {
                         }}
                     />
                     </div>
-                    <div className="chat-body">
+                    <div className="chat-body" ref={div}>
                         <>
                         {/* Message card per message and profile picture if not sessionUser */}
                         {messages.map((message) =>( message && 
                             <>
-                            <MessageCard key={message?._id} message={message} sessionUserID={sessionUserID}/>
+                            <MessageCard key={message?._id} message={message} sessionUserID={sessionUserID} div={div}/>
                                 <>
                                 {message.author._id !== sessionUserID && ( <img src={`https://picsum.photos/seed/${message.author._id}/300`} alt={`${message.author.firstName}`} className='followerImage' style={{width:'40px', height:'40px'}} />)}
                                 </>
                             </>))}
+
                         </>
 
                     </div>
