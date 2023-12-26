@@ -2,9 +2,20 @@
     background: rgb(255, 255, 255);
     border-radius: 1rem;
     display: grid;
-    grid-template-rows: 14vh 60vh 13vh;
+    grid-template-rows: 14vh 62vh 10vh;
     padding: 1rem;
     margin: 10px;
+}
+
+.online-dot-chatbox {
+  background-color: greenyellow;
+  border-radius: 50%;
+  position: relative;
+  left: 2rem;
+  top: -3.5rem;
+  width: 1rem;
+  height: 1rem;
+z-index: 9999;
 }
 
 .chat-header {

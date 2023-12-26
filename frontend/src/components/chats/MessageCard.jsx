@@ -19,10 +19,15 @@ const MessageCard = (props) => {
 
     return(
         <>
+
             <div className={message.author._id === sessionUserID ? "message own" : "message other"} ref={div}>
                 <span>{message.body}</span>
                 <span>{relativeDateTimeString}</span>
+                
             </div>
+            
+                                            
+
         </>
     )
 }

@@ -13,6 +13,7 @@ const ChatBox = (props) => {
     const token = props.token
     const setToken = props.setToken;
     const conversationPartner = currentChat?.members?.find((user) => user._id !== sessionUserID); // fed chatData with .populate members
+    // const online = props.online;
 
     // Loading messages, sending messages, receiving messages:
     const [messages, setMessages] = useState([]);
@@ -97,20 +98,15 @@ const ChatBox = (props) => {
             setMessages([...messages, newMessage]);
         }
     }, [receivedMessage])
-    // useEffect(() => {
-    //     if (receivedMessage && receivedMessage._id === currentChat._id) {
-    //         console.log("Message Arrive: ", receivedMessage);
-    //         setMessages([...messages, receivedMessage]);
-    //     };
-    // }, [receivedMessage])
 
 
 
-    // Always scroll to last Message
+
+    // ----------- SCROLL TO THE LAST MESSAGE --------------
     const div = useRef(null)
     useEffect(()=> {
         div.current?.scrollIntoView({ behavior: "smooth", block:"end" });
-    },[messages])
+    },[messages, receivedMessage])
 
 
     // =============== UI FOR THE COMPONENT ========================
@@ -122,11 +118,13 @@ const ChatBox = (props) => {
                     <div className="chat-header">
                     <div className="follower">
                         <div>
+                            
                             <img src={`https://picsum.photos/seed/${conversationPartner._id}/300`} 
                                 className='followerImage'
                                 style={{width:'50px', height:'50px'}}
                                 alt={`${conversationPartner.firstName} ${conversationPartner.lastName}`}
                             />
+                            {/* {online && <div className="online-dot-chatbox"></div>} */}
                             <div className="name" style={{ fontSize: "0.9rem" }}>
                                 <span>
                                 {conversationPartner?.firstName} {conversationPartner?.lastName}
@@ -143,17 +141,25 @@ const ChatBox = (props) => {
                     />
                     </div>
                     <div className="chat-body" ref={div}>
-                        <>
+
+
+                        {/* {(messages?.length == 0) ?                         <> */}
                         {/* Message card per message and profile picture if not sessionUser */}
+                        {/* div={div} must be paced within the individual message card component.*/}
                         {messages.map((message) =>( message && 
                             <>
                             <MessageCard key={message?._id} message={message} sessionUserID={sessionUserID} div={div}/>
-                                <>
-                                {message.author._id !== sessionUserID && ( <img src={`https://picsum.photos/seed/${message.author._id}/300`} alt={`${message.author.firstName}`} className='followerImage' style={{width:'40px', height:'40px'}} />)}
-                                </>
+                            <>
+                                {message.author._id !== sessionUserID && ( <img src={`https://picsum.photos/seed/${message.author._id}/300`} alt={`${message.author.firstName}`} className='followerImage' style={{width:'40px', height:'40px'}} div={div}/>)}
+                            </>
                             </>))}
 
-                        </>
+                        {/* </> */}
+                            {/* :
+                            <span className='chatbox-empty-message' style={{color: "grey"}}>Write a message to start a conversation...</span>
+                        
+                    
+                        } */}
 
                     </div>
                     <div className="chat-sender">

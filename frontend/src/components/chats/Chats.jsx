@@ -81,11 +81,14 @@ const Chats = () => {
     }, [])
 
     // Checks if a certain user in a chat is online (connected to socket.io)
-    // const checkOnlineStatus = (chat) => {
-    //     const chatMember = chat.members.find((member) => member._id !== sessionUserID);
-    //     const online = onlineUsers.find((user) => user.userID === chatMember);
-    //     return online ? true : false;
-    // };
+    const checkOnlineStatus = (chat) => {
+        if (chat) {
+            const chatMember = chat.members.find((member) => member._id !== sessionUserID);
+            const online = onlineUsers.find((user) => user.userID === chatMember._id);
+            return online ? true : false;
+
+        }
+    };
     
 
 
@@ -109,7 +112,7 @@ const Chats = () => {
                             setCurrentChat(chat);
                             console.log(`Choosing chat: ${chat._id}`)
                         }}>
-                            <ConversationCard chatData={chat} sessionUserID={sessionUserID}/>
+                            <ConversationCard chatData={chat} sessionUserID={sessionUserID} online={checkOnlineStatus(chat)}/>
                         </div>
                     )
                         
@@ -119,7 +122,7 @@ const Chats = () => {
             </div>
             {/* Right Side */}
             <div className="Right-side-chat">
-                    <ChatBox currentChat={currentChat} sessionUserID={sessionUserID} token={token} setToken={setToken} setSendMessage={setSendMessage} receivedMessage={receivedMessage}/>
+                    <ChatBox currentChat={currentChat} online={checkOnlineStatus(currentChat)} sessionUserID={sessionUserID} token={token} setToken={setToken} setSendMessage={setSendMessage} receivedMessage={receivedMessage}/>
             </div>
 
         </div>

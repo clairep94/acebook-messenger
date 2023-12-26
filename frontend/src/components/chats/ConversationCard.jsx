@@ -5,17 +5,15 @@ import useFetchUserDataByID from "../utility/getselectuserinfo";
 
 const ConversationCard = (props) => {
     const chatData = props.chatData;
-    const sessionUserID = props.sessionUserID;
-    
-    // const conversationPartner = chatData.members.find((id) => id !== sessionUserID);
+    const sessionUserID = props.sessionUserID;    
     const conversationPartner = chatData.members.find((user) => user._id !== sessionUserID); // fed chatData with .populate members
-
+    const online = props.online;
     
   return (
     <>
         <div className="conversation" >
             <div>
-                <div className="online-dot"></div>
+                {online && <div className="online-dot"></div>}
 
                 <img src={`https://picsum.photos/seed/${conversationPartner?._id}/300`} 
                     className='followerImage'
@@ -23,7 +21,7 @@ const ConversationCard = (props) => {
                 />
                 <div className='name' style={{fontSize: "0.8rem", fontFamily: "'Arial', sans-serif"}}>
                     <span>{`${conversationPartner.firstName} ${conversationPartner.lastName}`}</span>
-                    <span style={{color: "grey"}}>Online</span>
+                    <span style={{color: "grey"}}>{online? "Online" : "Offline"}</span>
                 </div>
             
             </div>
