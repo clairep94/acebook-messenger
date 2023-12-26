@@ -96,7 +96,6 @@ const ChatBox = (props) => {
             }
             setMessages([...messages, newMessage]);
         }
-
     }, [receivedMessage])
     // useEffect(() => {
     //     if (receivedMessage && receivedMessage._id === currentChat._id) {
@@ -145,8 +144,6 @@ const ChatBox = (props) => {
                                 </>
                             </>))}
                         </>
-                                            <p>Visibility test: {receivedMessage?.body}{receivedMessage?.author.firstName}</p>
-
 
                     </div>
                     <div className="chat-sender">

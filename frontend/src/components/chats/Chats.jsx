@@ -4,6 +4,8 @@ import useFetchUserDataByID from "../utility/getselectuserinfo";
 // import {useSelector} from "react-redux";
 import ConversationCard from "./ConversationCard";
 import ChatBox from "./ChatBox";
+import ChatSearchBar from "./ChatSearchBar/ChatSearchBar";
+import ChatSearchResultsList from "./ChatSearchBar/ChatSearchResultsList";
 
 import {io} from 'socket.io-client';
 import { fetchChats, createChat } from "../../api_calls/chatsAPI";
@@ -27,6 +29,9 @@ const Chats = () => {
     const [onlineUsers, setOnlineUsers] = useState([]);
     const [sendMessage, setSendMessage] = useState(null);
     const [receivedMessage, setReceivedMessage] = useState(null);
+
+    // Chatsearch Results
+    const [chatSearchResults, setChatSearchResults] = useState([]);
 
 
     // ============= FUNCTIONS ===========================================
@@ -67,12 +72,6 @@ const Chats = () => {
     // Get new messages from the socket server;
     // Listens to the socket server to see if there are "receive-message" signals
     useEffect(() => {
-        // const handleReceiveMessage = async (data) => {
-        //     console.log("Received data in chats.jsx:", data);
-        //     await setReceivedMessage(data);
-        //     console.log("Current received message: ", receivedMessage);
-        // }
-        // socket.current.on("receive-message", handleReceiveMessage)
         socket.current.on("receive-message", (data) => {
             console.log("recieved data in chats.jsx:", data);
             
@@ -95,11 +94,16 @@ const Chats = () => {
         <div className="Chat">
             {/* Left Side */}
             <div className="Left-side-chat">
+                <div className="Chat-search">
+                    <ChatSearchBar setChatSearchResults={setChatSearchResults} token={token} setToken={setToken}/>
+                
+                </div>
+                <div className="Chat-search-results">
+                    <ChatSearchResultsList chatSearchResults={chatSearchResults}/>
+                </div>
+
                 <div className="Chat-container">
                 <h2>Chats</h2>
-                <p>TODO: Add searchbar to create a chat</p>
-                <p>TODO: Make this component to height of page</p>
-
                     {chats.map((chat) => (
                         <div onClick={() => {
                             setCurrentChat(chat);
@@ -110,7 +114,7 @@ const Chats = () => {
                     )
                         
                     )}
-                    <p>Visibility test: {receivedMessage?.body}{receivedMessage?.author.firstName}</p>
+                    {/* <p>Visibility test: {receivedMessage?.body}{receivedMessage?.author.firstName}</p> */}
                 </div>
             </div>
             {/* Right Side */}
