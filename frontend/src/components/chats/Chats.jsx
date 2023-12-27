@@ -29,6 +29,7 @@ const Chats = () => {
     const [onlineUsers, setOnlineUsers] = useState([]);
     const [sendMessage, setSendMessage] = useState(null);
     const [receivedMessage, setReceivedMessage] = useState(null);
+    const [sendNewConversation, setSendNewConversation] = useState(null);
 
     // Chatsearch Results
     const [chatSearchResults, setChatSearchResults] = useState([]);
@@ -68,9 +69,15 @@ const Chats = () => {
             socket.current.emit("send-message", sendMessage);
         }
     },[sendMessage])
+    useEffect(() => { //TODO UNTESTED
+        if(sendNewConversation !== null) {
+            console.log("newConversationSet")
+            socket.current.emit("send-new-conversation", sendNewConversation);
+        }
+    },[sendNewConversation])
 
-    // Get new messages from the socket server;
-    // Listens to the socket server to see if there are "receive-message" signals
+    // Get new messages & conversations from the socket server;
+    // Listens to the socket server to see if there are "receive-message" or "recieve-new-conversation" signals
     useEffect(() => {
         socket.current.on("receive-message", (data) => {
             console.log("recieved data in chats.jsx:", data);
@@ -80,13 +87,27 @@ const Chats = () => {
         })
     }, [])
 
+    useEffect(() => {
+        socket.current.on("receive-new-conversation", (data) => {
+            console.log("received new conversation in chats.jsx", data);
+
+            const newConvo = {
+                _id: data._id,
+                members: data.members,
+                createdAt: data.createdAt,
+                updatedAt: data.updatedAt
+            }
+            setChats([...chats, newConvo]);
+        })
+    })
+
+
     // Checks if a certain user in a chat is online (connected to socket.io)
     const checkOnlineStatus = (chat) => {
         if (chat) {
-            const chatMember = chat.members.find((member) => member._id !== sessionUserID);
-            const online = onlineUsers.find((user) => user.userID === chatMember._id);
+            const chatMember = chat.members.find((member) => member._id !== sessionUserID); // find the chatMember
+            const online = onlineUsers.find((user) => user.userID === chatMember._id); // check if the chatMember is in the onlineUsers array
             return online ? true : false;
-
         }
     };
     
@@ -102,7 +123,11 @@ const Chats = () => {
                 
                 </div>
                 <div className="Chat-search-results">
-                    <ChatSearchResultsList chatSearchResults={chatSearchResults}/>
+                    <ChatSearchResultsList chatSearchResults={chatSearchResults}
+                    token = {token} setToken = {setToken} sessionUserID={sessionUserID}
+                    chats = {chats} setChats={setChats} setCurrentChat={setCurrentChat}
+                    setSendNewConversation={setSendNewConversation}
+                    />
                 </div>
 
                 <div className="Chat-container">

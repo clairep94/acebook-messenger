@@ -9,6 +9,9 @@ let activeUsers = [];
 
 // when users connect to socket server:
 io.on("connection", (socket) => {
+
+    // ========== SOCKET METHODS:==============
+
     // add new User
     socket.on("new-user-add", (newUserID)=> { //in param
         //if user is not added previously
@@ -36,14 +39,30 @@ io.on("connection", (socket) => {
     socket.on("send-message", (data) => {
         const {receiverID} = data;
         const user = activeUsers.find((user) => user.userID === receiverID);
-        console.log("Sending from socket to :", receiverID)
-        console.log("Data: ", data)
+        console.log("Sending newMessage from socket to :", receiverID)
+        console.log("New Message Data: ", data)
 
         if (user) {
             io.to(user.socketID).emit("receive-message", data);
             console.log("Receiving data from socket to:", receiverID);
             console.log("Recieved Data: ", data.body)
         }
+    })
+
+    // when user A starts a chat with userB, socket finds user B and sends a signal to userB.socket
+    socket.on("send-new-conversation", (data) => {
+        const { receiverID } = data;
+        const user = activeUsers.find((user) => user.userID === receiverID);
+        console.log("Sending new conversation from socket to :", receiverID)
+        console.log("New Conversation Data: ", data)
+
+        if (user) {
+            io.to(user.socketID).emit("receive-new-conversation", data);
+            console.log("Receiving new conversation data from socket to:", receiverID);
+            console.log("Recieved newConversation Data: ", data.members)
+        }
+
+
     })
 
 })

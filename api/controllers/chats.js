@@ -17,6 +17,7 @@ const ChatsController = {
         try {
             const result = await newChat.save();
             const token = TokenGenerator.jsonwebtoken(req.user_id) // TODO change back to Auth Only once all testing is done
+            await result.populate('members', '-password').execPopulate();
             res.status(201).json({ message: 'Successful New Chat in Chats Controller', token: token, chat: result }); // TODO change back to Auth Only once all testing is done
             // res.status(201).json({ message: 'Successful New Chat in Chats Controller', chat: result });
             
