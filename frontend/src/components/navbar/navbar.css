@@ -21,6 +21,7 @@
 
   .navbarname,
   .navbar-friend-requests,
+  .navbar-messages,
   .navbar-friends {
     font-family: 'Staatliches', sans-serif;
     float: left;
@@ -35,21 +36,26 @@
   /* Change the color of links on hover */
   .navbarname:hover,
   .navbar-friend-requests:hover,
-  .navbar-friends:hover {
+  .navbar-friends:hover,
+  .navbar-messages:hover {
     float: right;
     background-color: #4267B2;
     color: white;
   }
   
-  .navbar-friend-requests{
+  .navbar-friend-requests,
+  .navbar-messages{
     margin-left: auto;
   }
 
   .navbar-friends{
     width: 50px;
   }
-  .navbar-friend-requests{
+  .navbar-friend-requests {
     width: 127px;
+  }
+  .navbar-messages {
+    width: 80px;
   }
 
 /* FRIEND NOTIFICATION */

@@ -49,6 +49,12 @@ const Navbar = () => {
             <a href='/profile' className='navbarname'> {AuthorFirstName} {AuthorLastName}</a>
             <SearchBar setResults={setResults}/>
 
+            <a href='/messages' className='navbar-messages'>
+              Messages 
+              {/* <span className={`friend-request-notification ${friendRequests ? 'condition-met': ''}`}></span>  */}
+            </a>
+
+
             <a href='/your_friend_requests' className='navbar-friend-requests'>
               Friend Requests 
               <span className={`friend-request-notification ${friendRequests ? 'condition-met': ''}`}></span> 

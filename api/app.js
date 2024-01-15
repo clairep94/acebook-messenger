@@ -13,6 +13,10 @@ const authenticationRouter = require("./routes/authentication");
 const usersRouter = require("./routes/users");
 const uploadImageRoute = require('./routes/upload_image');
 const userDataRouter = require("./routes/userData");
+const chatsRouter = require("./routes/chats");
+const messagesRouter = require("./routes/messages");
+
+
 const app = express();
 
 // setup for receiving JSON
@@ -44,12 +48,18 @@ const tokenChecker = (req, res, next) => {
 };
 
 // route setup
-app.use("/posts", tokenChecker, postsRouter);
+// No Auth
 app.use("/tokens", authenticationRouter);
-app.use("/users", usersRouter);
+app.use("/users", usersRouter); // creating a user
+// app.use("/messages", messagesRouter); 
+
+
+// Auth only
+app.use("/posts", tokenChecker, postsRouter);
 app.use('/upload_image', uploadImageRoute);
 app.use("/comments", tokenChecker, commentsRouter );
-// I configured the route to check for tokens
+app.use("/chats", tokenChecker, chatsRouter); 
+app.use("/messages", tokenChecker, messagesRouter); 
 app.use("/userData", tokenChecker, userDataRouter);
 
 // catch 404 and forward to error handler

@@ -16,9 +16,11 @@ import SignedOutUserPage from '../ProfilePage/SignedOutUserPage';
 import CustomFeed from '../feed/customFeed';
 import YourFriendsListPage from '../../pages/yourFriendsListPage';
 import YourFriendRequestsPage from '../../pages/yourFriendRequestsPage';
+import ChatPage from '../../pages/ChatPage';
 
 const App = () => {
   // Routes for each page of the website
+  // TODO handle re-routing if not logged in!
   return (
 
     <Routes>
@@ -38,6 +40,8 @@ const App = () => {
       <Route path='/upload_image' element={<UploadImage navigate={useNavigate()} />} />
       <Route path='/your_friends' element={<YourFriendsListPage navigate={useNavigate()}/>}/>
       <Route path='/your_friend_requests' element={<YourFriendRequestsPage navigate={useNavigate()}/>}/>
+
+      <Route path='/messages' element={<ChatPage navigate={useNavigate()}/>}/>
 
 
 
