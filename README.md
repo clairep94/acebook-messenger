@@ -1,11 +1,22 @@
-# About Acebook
+# About Acebook Messenger
 
-Acebook is the first MERN stack project at Makers Academy. We were challenged to work in groups to work with a legacy codebase, **improve and extend** it. This project was completed within a two week period by [Claire Peng](https://github.com/clairep94), [Sam Ford](https://github.com/Fordcois), [Ben Dixon](https://github.com/BenDixon96), [Megan Folsom](https://github.com/mfolsom), and [Tej Chana](https://github.com/Mchana)
+Acebook Messenger is a personal extension of the [Acebook Group Project at Makers Academy](https://github.com/clairep94/acebook-team-griffins). It uses socket.io to add real-time messaging.
 
 - [Project Brief](./project-brief/README.md)
 - [Project Documentation](./project-brief/DOCUMENTATION.md)
 
 # Project Features
+
+## New: Messaging:
+
+
+
+https://github.com/clairep94/acebook-messenger/assets/128436909/adb7ad43-5f59-489e-a777-af6c8abbbfb2
+
+
+- Users can create chats with other users and see them in realtime
+- Users can send each other messages, with emojis, and see them in realtime
+
 
 ## Registration & Login
 
@@ -91,10 +102,10 @@ https://github.com/clairep94/acebook-Griffins/assets/128436909/ce384f55-9a04-40c
 
 - If inactive for 20 minutes, users get timed out and a log-in prompt occurs
 
-# Project Dependencies
+# Installing Project Dependencies:
 
 ### Node.js
-1. Install Node Version Manager (NVM)
+1. Install Node Version Manager (nvm)
    ```
    brew install nvm
    ```
@@ -103,13 +114,6 @@ https://github.com/clairep94/acebook-Griffins/assets/128436909/ce384f55-9a04-40c
 3. Install the latest version of [Node.js](https://nodejs.org/en/), currently `18.1.0`.
    ```
    nvm install 18
-   ```
-4. Install Node.js dependencies for both the `frontend` and `api` directories.
-   ```
-   ; cd api
-   ; npm install
-   ; cd ../frontend
-   ; npm install
    ```
 
 ### MongoDB
@@ -124,41 +128,107 @@ https://github.com/clairep94/acebook-Griffins/assets/128436909/ce384f55-9a04-40c
    brew services start mongodb-community@5.0
    ```
 
-### Cloudinary
-1. Sign up for a [Cloudinary](https://cloudinary.com/ip/gr-sea-gg-brand-home-base?utm_source=google&utm_medium=search&utm_campaign=goog_selfserve_brand_wk22_replicate_core_branded_keyword&utm_term=1329&campaignid=17601148700&adgroupid=141182782954&keyword=cloudinary&device=c&matchtype=e&adid=606528222178&adposition=&gad_source=1&gclid=Cj0KCQiAgqGrBhDtARIsAM5s0_nWFgLJjSNJMHqAz1GvOh1nrCvndJM2cAk84-7MrtO3zW7zY96B9nMaAqpREALw_wcB) account.
-2. In `/api` install the following:
-  ```
-  ; cd api 
-  ; npm install cloudinary multer dotenv
-  ```
-3. In `/frontend` install the following:
-  ```
-  ; cd frontend
-  ; npm install --save-dev cypress-file-upload
-  ```
-4. Add a `.env` file to your root folder and add the following variables (replacing the values with your Cloudinary account API credentials)
-  ```
+### Project Dependencies
+
+1. npm install in the three main folders:
+
+   ``` shell
+   ; cd api
+   ; npm install
+   ; cd ../frontend
+   ; npm install
+   ; cd ../socket
+   ; npm install
+   ```
+
+2. Add Cloudinary account API credentials
+
+This project uses Cloudinary for media storage. 
+Add a `.env` file to your root folder and add the following variables (replacing the values with your Cloudinary account API credentials)
+  
+  ``` shell
   ; CLOUDINARY_CLOUD_NAME=your_cloud_name
   ; CLOUDINARY_API_KEY=your_api_key
   ; CLOUDINARY_API_SECRET=your_api_secret
   ```
 
-# Running the Server and App
+
+
+# Running the App:
+
 1. Start the server application (in the `api` directory)
 
-  **Note the use of an environment variable for the JWT secret**
-
-   ```
+   ```shell
    ; cd api
    ; JWT_SECRET=f6d278bb34e1d0e146a80b16ec254c05 npm start
    ```
+
 2. Start the front end application (in the `frontend` directory)
 
   In a new terminal session...
 
-  ```
+  ```shell
   ; cd frontend
   ; npm start
   ```
 
 You should now be able to open your browser and go to `http://localhost:3000/`
+
+3. Start the socket (in the `socket` directory)
+
+   In a new terminal session...
+
+```shell
+; cd socket
+; npm start
+```
+
+
+
+# How to run automated tests
+
+The automated tests run by sending actual HTTP requests to the API. Therefore, before anything, you'll need to start the backend server in test mode (so that it connects to the test DB).
+
+**Note the use of an environment variable for the JWT secret**
+
+```bash
+# Make sure you're in the api directory
+; cd api
+
+; JWT_SECRET=f6d278bb34e1d0e146a80b16ec254c05 npm run start:test
+```
+
+You should leave this running in a terminal.
+
+Then, you can either run tests for the backend or the frontend following the steps below. 
+
+#### Running tests for the backend
+
+Run the tests in a new terminal session:
+
+```bash
+# Make sure you're in the api directory
+; cd api
+
+; JWT_SECRET=f6d278bb34e1d0e146a80b16ec254c05 npm run test
+```
+
+####  Running tests for the frontend
+
+Start the front end in a new terminal session
+
+```bash
+# Make sure you're in the frontend directory
+; cd frontend
+
+; JWT_SECRET=f6d278bb34e1d0e146a80b16ec254c05 npm start
+```
+
+Then run the tests in a new terminal session
+
+```bash
+# Make sure you're in the frontend directory
+; cd frontend
+
+; JWT_SECRET=f6d278bb34e1d0e146a80b16ec254c05 npm run test
+```
