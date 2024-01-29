@@ -1,15 +1,15 @@
 # About Acebook Messenger
 
-Acebook Messenger is a personal extension of the [Acebook Group Project at Makers Academy](https://github.com/clairep94/acebook-team-griffins). It uses socket.io to add real-time messaging.
+Acebook Messenger is a small personal extension of the [Acebook Group Project at Makers Academy](https://github.com/clairep94/acebook-team-griffins), which uses socket.io to add real-time messaging.
 
 - [Project Brief](./project-brief/README.md)
 - [Project Documentation](./project-brief/DOCUMENTATION.md)
 
+#### NOTE: I am working on a new version of the project to demonstrate cleaner code organization, and the ability to create modern, responsive frontend styling with Tailwind CSS. Please see the repo [here](https://github.com/clairep94/acebook)
+
 # Project Features
 
 ## New: Messaging:
-
-
 
 https://github.com/clairep94/acebook-messenger/assets/128436909/adb7ad43-5f59-489e-a777-af6c8abbbfb2
 
