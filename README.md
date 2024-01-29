@@ -184,7 +184,7 @@ You should now be able to open your browser and go to `http://localhost:3000/`
 ```
 
 
-
+<!---
 # How to run automated tests
 
 The automated tests run by sending actual HTTP requests to the API. Therefore, before anything, you'll need to start the backend server in test mode (so that it connects to the test DB).
@@ -232,3 +232,4 @@ Then run the tests in a new terminal session
 
 ; JWT_SECRET=f6d278bb34e1d0e146a80b16ec254c05 npm run test
 ```
+--->
