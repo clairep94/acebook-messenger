@@ -5,7 +5,7 @@ Acebook Messenger is a small personal extension of the [Acebook Group Project at
 - [Project Brief](./project-brief/README.md)
 - [Project Documentation](./project-brief/DOCUMENTATION.md)
 
-#### NOTE: I am working on a new version of the project to demonstrate cleaner code organization, and the ability to create modern, responsive frontend styling with Tailwind CSS. Please see the repo [here](https://github.com/clairep94/acebook)
+#### [NOTE: I am working on a new version of the project to demonstrate cleaner code organization, and the ability to create modern, responsive frontend styling with Tailwind CSS. Please see the repo here](https://github.com/clairep94/acebook)
 
 # Project Features
 
