@@ -1,10 +1,14 @@
 var mongoose = require("mongoose");
 
 beforeAll(function (done) {
-  mongoose.connect("mongodb://0.0.0.0/acebook_test", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  mongoose.connect(
+    `mongodb+srv://clairepeng94:${password}@acebook.0mddezk.mongodb.net/test?retryWrites=true&w=majority&appName=Acebook
+  `,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  );
 
   var db = mongoose.connection;
   db.on("error", console.error.bind(console, "MongoDB connection error:"));
