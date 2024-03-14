@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // CORS middleware
 app.use(
   cors({
-    origin: ["https://acebook-mo3r.onrender.com", "http://localhost:3000"],
+    origin: ["https://acebook-1.onrender.com", "http://localhost:3000"],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   })
