@@ -6,6 +6,7 @@ const express = require("express");
 const path = require("path");
 const logger = require("morgan");
 const JWT = require("jsonwebtoken");
+const cors = require("cors");
 
 const postsRouter = require("./routes/posts");
 const commentsRouter = require("./routes/comments");
