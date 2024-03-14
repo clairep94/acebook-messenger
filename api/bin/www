@@ -8,6 +8,16 @@ if (!process.env.JWT_SECRET) {
   process.exit();
 }
 
+let password;
+try {
+  // Try to use local config
+  const localConfig = require("../config");
+  password = localConfig.password;
+} catch (error) {
+  // If local config is not available, use environment variable
+  password = process.env.DB_PASSWORD;
+}
+
 /**
  * Module dependencies.
  */
