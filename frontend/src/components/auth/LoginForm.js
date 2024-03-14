@@ -14,6 +14,7 @@ const LogInForm = ({ navigate }) => {
   // ============ FORM SUBMISSION FOR LOGIN ====================
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log("doing something");
     // Send POST request to '/tokens' endpoint <== not sure where this is in our project
     let response = await fetch(`${baseUrl}/tokens`, {
       method: "post",
