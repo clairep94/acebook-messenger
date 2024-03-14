@@ -43,7 +43,7 @@ app.set("port", port);
 //   `mongodb+srv://clairepeng94:${password}@acebook.0mddezk.mongodb.net/acebook?retryWrites=true&w=majority`;
 mongoose
   .connect(
-    `mongodb+srv://clairepeng94:${password}@acebook.0mddezk.mongodb.net/acebook?retryWrites=true&w=majority&appName=Acebook
+    `mongodb+srv://clairepeng94:${password}@acebook.0mddezk.mongodb.net/?retryWrites=true&w=majority&appName=Acebook
     `,
     {
       useNewUrlParser: true,
